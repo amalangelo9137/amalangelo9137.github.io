@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-a20.css">
 </head>
 <body>
 
@@ -20,6 +20,13 @@
             <img src="images/logo.png" alt="Logo" width="100" height="85" onerror="this.style.display='none'; document.getElementById('logo-text').style.display='block';">
             <span id="logo-text" style="display: none;">🌿 MySpace</span>
         </div>
+
+        <button class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
         <nav>
             <ul class="nav-links">
                 <li><button onclick="location.href='index.html?view=home'">Home</button></li>
@@ -312,6 +319,10 @@
 
         // Screen state changer
         function switchView(viewId) {
+
+        document.querySelector('.nav-links').classList.remove('nav-active');
+        document.querySelector('.hamburger').classList.remove('toggle');
+
         // Prevent restarting animation if clicking on the view we are already looking at
         if (currentViewId === viewId) return;
 
@@ -425,6 +436,15 @@
         }
         }
         });
+
+        // Function to toggle the mobile hamburger menu
+function toggleMenu() {
+    const nav = document.querySelector('.nav-links');
+    const hamburger = document.querySelector('.hamburger');
+    
+    nav.classList.toggle('nav-active');
+    hamburger.classList.toggle('toggle');
+}
     </script>
 
 </body>

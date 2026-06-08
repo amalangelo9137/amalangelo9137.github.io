@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WinOS-Editor</title>
 
-    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="icon" type="image/png" href="../common/logo.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../../style-twp.css">
 
     <style>
         .showcase-container {
@@ -124,15 +124,22 @@
 <body>
 
     <header class="toolbar">
-        <div class="logo" onclick="location.href='../../index.html'">
-            <img src="images/logo.png" alt="Logo" width="85" height="85" onerror="this.style.display='none'; document.getElementById('logo-text').style.display='block';">
+        <div class="logo" onclick="location.href='../../../index.html'">
+            <img src="../common/logo.png" alt="Logo" width="85" height="85" onerror="this.style.display='none'; document.getElementById('logo-text').style.display='block';">
             <span id="logo-text" style="display: none;">🌿 MySpace</span>
         </div>
+
+        <button class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
         <nav>
             <ul class="nav-links">
                 <li><button onclick="location.href='../../../index.html'">Home</button></li>
                 <li><button onclick="location.href='../../../index.html?view=projects'">Projects</button></li>
-                <li><button onclick="location.href='../../../ndex.html?view=about'">About</button></li>
+                <li><button onclick="location.href='../../../index.html?view=about'">About</button></li>
             </ul>
         </nav>
     </header>
@@ -169,5 +176,14 @@
         </div>
     </main>
 
+    <script>
+        // Function to toggle the mobile hamburger menu
+        function toggleMenu() {
+        const nav = document.querySelector('.nav-links');
+        const hamburger = document.querySelector('.hamburger');
+        nav.classList.toggle('nav-active');
+        hamburger.classList.toggle('toggle');
+        }
+    </script>
 </body>
 </html>
