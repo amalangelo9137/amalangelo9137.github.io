@@ -728,3 +728,127 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* ====================================
+   MOBILE RESPONSIVENESS & REPAIRS
+   ==================================== */
+
+/* Global protection against random horizontal scrolling sizing leaks */
+html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* Adjust the main views to have less aggressive paddings on small screens */
+@media (max-width: 768px) {
+    .toolbar {
+        padding: 10px 20px; /* Bring bar margins inward */
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    /* Wrap the menu buttons elegantly if screen space disappears */
+    .nav-links {
+        gap: 12px;
+    }
+
+        .nav-links button {
+            font-size: 18px; /* Slightly scale down font to prevent dropping to 2 lines */
+        }
+
+    .view {
+        padding: 20px 15px; /* Stop padding from forcing text to overflow screen edges */
+    }
+
+    /* Shrink the giant homepage fallback text so it doesn't break boundaries */
+    .home-fallback-h1 {
+        font-size: 3.2rem;
+    }
+
+    .home-content p {
+        font-size: 1.1rem;
+        padding: 15px;
+    }
+
+    .glass-panel {
+        padding: 20px; /* Reduce massive desktop inner padding container margins */
+        border-radius: 16px;
+    }
+
+        .glass-panel h2 {
+            font-size: 2.5rem; /* Stop massive titles from splitting awkwardly */
+        }
+
+    /* Adjust About section layout for mobile stacked layout */
+    .about-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .about-text {
+        text-align: center;
+    }
+
+    /* Adjust Contact links layout for mobile */
+    .contact-grid {
+        grid-template-columns: 1fr !important; /* Stack them up straight */
+        gap: 15px;
+    }
+}
+
+/* Specific Overlay Panel System Repair Suite */
+@media (max-width: 600px) {
+    .overlay-panel {
+        padding: 20px; /* Free up space inside the modal view window */
+        width: 100%;
+        max-height: 85vh; /* Keep it bounded inside viewable territory */
+        border-radius: 16px;
+    }
+
+    .overlay-close-btn {
+        top: 15px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .overlay-header {
+        margin-right: 40px; /* Ensure title text doesn't flow underneath the X button */
+        margin-bottom: 15px;
+    }
+
+        .overlay-header h2 {
+            font-size: 2.2rem; /* Reduce enormous headers */
+            word-wrap: break-word;
+        }
+
+    .overlay-subtitle {
+        font-size: 1rem;
+    }
+
+    .overlay-body {
+        font-size: 0.95rem;
+    }
+
+    #overlay-desc {
+        padding: 12px;
+        margin-bottom: 20px;
+    }
+
+    .overlay-subprojects-section h3 {
+        font-size: 1.6rem;
+    }
+
+    .overlay-grid {
+        grid-template-columns: 1fr !important; /* Forces modules into 1 clean vertical column layout */
+        gap: 10px;
+    }
+
+    .overlay-sub-card {
+        padding: 12px;
+    }
+}
