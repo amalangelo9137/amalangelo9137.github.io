@@ -3,31 +3,455 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>amalangelo9137</title>
+
+    <!-- Tab Icon (Favicon) -->
     <link rel="icon" type="image/png" href="images/favicon.png">
 
+    <!-- Import Bangers Font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Reset default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Live Color-Shifting Gradient Background */
+        body {
+            background: linear-gradient(135deg, #2ed573, #ff7f50, #2ed573, #ff4757, #1e90ff);
+            background-size: 400% 400%;
+            animation: gradientBG 18s ease infinite;
+            /* Fix the background so it doesn't move when scrolling */
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Smooth background shift animation */
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Toolbar / Navigation Bar */
+        .toolbar {
+            background-color: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s ease;
+        }
+
+            .logo:hover {
+                transform: scale(1.05);
+            }
+
+            .logo img {
+                display: block;
+                object-fit: contain;
+            }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+            .nav-links button {
+                background: none;
+                border: none;
+                font-family: 'Bangers', cursive;
+                color: #ffffff;
+                font-size: 22px;
+                letter-spacing: 1.5px;
+                cursor: pointer;
+                transition: color 0.2s ease, transform 0.2s ease;
+            }
+
+                .nav-links button:hover {
+                    color: #ffeaa7;
+                    transform: translateY(-2px);
+                }
+
+        /* View Management (Hides sections not currently active) */
+        .view {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+            .view.active {
+                display: flex;
+            }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Home Content */
+        .home-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+        }
+
+            .home-content h1 {
+                font-family: 'Bangers', cursive;
+                font-size: 5.5rem;
+                letter-spacing: 4px;
+                margin-bottom: 20px;
+                text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+                line-height: 1;
+            }
+
+            .home-content p {
+                font-size: 1.4rem;
+                opacity: 0.95;
+                line-height: 1.7;
+                background: rgba(0, 0, 0, 0.2);
+                padding: 25px;
+                border-radius: 16px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+        /* Glassmorphism Containers for the Blurred effect */
+        .glass-panel {
+            width: 100%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .blur-light {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .blur-heavy {
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .glass-panel h2 {
+            font-family: 'Bangers', cursive;
+            font-size: 3.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
+            border-bottom: 2px dashed rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+        }
+
+        /* Grid Layout Group Type Beat */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        /* Project Cards */
+        .card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+            .card:hover {
+                background: rgba(0, 0, 0, 0.5);
+                transform: translateY(-8px);
+                border-color: rgba(255, 255, 255, 0.35);
+                box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            }
+
+        /* Thumbnail Container */
+        .card-thumbnail {
+            width: 100%;
+            height: 160px;
+            position: relative;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+            .card-thumbnail img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+            }
+
+        .card:hover .card-thumbnail img {
+            transform: scale(1.08);
+        }
+
+        /* Embedded Dynamic SVG Styling for missing images */
+        .card-thumbnail svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Card Text Padding */
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card h3 {
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            color: #ffeaa7; /* Yellow highlight for card titles */
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        .card p {
+            font-size: 1rem;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        /* Back Button */
+        .back-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-bottom: 25px;
+            transition: all 0.2s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            align-self: flex-start;
+        }
+
+            .back-btn:hover {
+                background: rgba(255, 255, 255, 0.3);
+                border-color: rgba(255, 255, 255, 0.6);
+                transform: translateX(-3px);
+            }
+    </style>
 </head>
 <body>
+
+    <!-- Toolbar -->
     <header class="toolbar">
-        <div class="logo"><img src="images/logo.png" type="image/png" alt="Logo" width="100" height="85"></div>
+        <div class="logo" onclick="switchView('home-view')">
+            <img src="images/logo.png" alt="Logo" width="100" height="85" onerror="this.style.display='none'; document.getElementById('logo-text').style.display='block';">
+            <span id="logo-text" style="display: none; font-family: 'Bangers', cursive; font-size: 28px; letter-spacing: 2px;">🌿 MySpace</span>
+        </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Socials</a></li>
-                <li><a href="#">About</a></li>
+                <li><button onclick="alert('About page coming soon!')">About</button></li>
+                <!-- Projects Button triggers the JavaScript -->
+                <li><button onclick="switchView('projects-view')">Projects</button></li>
+                <li><button onclick="alert('Contact section coming soon!')">Contact</button></li>
             </ul>
         </nav>
     </header>
 
-    <main class="main-content">
-        <h1>Hello, World!</h1>
-        <p>Ayo wassup gng how is it goin? Here, we have a basic website so anyone can see my projects and stuff! To start, click Projects on the top right corner! If you wanna ask anything, feel free to ask me by clicking Socials there!</p>
+    <!-- 1. HOME PAGE VIEW -->
+    <main id="home-view" class="view active">
+        <div class="home-content">
+            <!-- WebM Transparent Video Player (Starts automatically, plays once, and stops) -->
+            <div class="home-video-wrapper">
+                <video id="synfig-animation" class="home-video" autoplay muted playsinline onerror="showHomeFallback()">
+                    <source src="vids/amal9137.webm" type="video/webm">
+                    <!-- If the browser doesn't support WebM, we run the fallback -->
+                    Your browser does not support the video tag.
+                </video>
+                <!-- This fallback heading is hidden by default and only shows if the webm isn't found/loaded -->
+                <h1 id="fallback-h1" class="home-fallback-h1" style="display: none;">Hello, World!</h1>
+            </div>
+
+            <p>Ayo wassup gng how is it goin? Here, we have a basic website so anyone can see my projects and stuff! To start, click Projects on the top right corner! If you wanna ask anything, feel free to ask me by clicking Socials there!</p>
+        </div>
     </main>
+
+    <!-- 2. PROJECTS PAGE VIEW (Light Blur) -->
+    <main id="projects-view" class="view">
+        <div class="glass-panel blur-light">
+            <h2>My Projects</h2>
+            <div class="grid-layout">
+
+                <!-- The Windroid Project -->
+                <div class="card" onclick="switchView('windroid-view')">
+                    <div class="card-thumbnail">
+                        <img src="images/twp.png" alt="The Windroid Project">
+                    </div>
+                    <div class="card-body">
+                        <h3>The Windroid Project</h3>
+                        <p>A project containing many open-source (not all rn) games, programs and more!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 3. WINDROID SUBPROJECTS VIEW (Heavy Blur) -->
+    <main id="windroid-view" class="view">
+        <div class="glass-panel blur-heavy">
+            <button class="back-btn" onclick="switchView('projects-view')">⬅ Back to Projects</button>
+            <h2>The Windroid Project</h2>
+            <p style="margin-bottom: 30px; font-size: 1.1rem;">Welcome to the core of Windroid. Select a sub-module below.</p>
+
+            <div class="grid-layout">
+
+                <div class="card">
+                    <div class="card-thumbnail">
+                        <img src="images/wdsim.png" alt="Windroid Simulator" onerror="this.style.display='none'; document.getElementById('svg-alpha').style.display='block';">
+                        <svg id="svg-alpha" style="display: none;" viewBox="0 0 400 200">
+                            <rect width="100%" height="100%" fill="#333333" opacity="0.3" />
+                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Bangers', cursive" font-size="55" fill="#2ed573" letter-spacing="2">No Artwork</text>
+                        </svg>
+                    </div>
+                    <div class="card-body">
+                        <h3>Windroid Simulator</h3>
+                        <p>An enjoyable and experimentable game (divided to 2 bcoz of unity limits) that tries to 1:1 our lives lol</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-thumbnail">
+                        <img src="images/winos-dev.png" alt="WinOS-Dev" onerror="this.style.display='none'; document.getElementById('svg-ui').style.display='block';">
+                        <svg id="svg-ui" style="display: none;" viewBox="0 0 400 200">
+                            <rect width="100%" height="100%" fill="#555555" opacity="0.3" />
+                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Bangers', cursive" font-size="55" fill="#ff7f50" letter-spacing="2">No Artwork</text>
+                        </svg>
+                    </div>
+                    <div class="card-body">
+                        <h3>WinOS-Dev</h3>
+                        <p>A project focused on developing a modern, secure operating system, trying to combine the best of Windows and Android (Linux).</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-thumbnail">
+                        <img src="images/waroms.png" alt="Windroidify Android Custom ROMs" onerror="this.style.display='none'; document.getElementById('svg-server').style.display='block';">
+                        <svg id="svg-server" style="display: none;" viewBox="0 0 400 200">
+                            <rect width="100%" height="100%" fill="#777777" opacity="0.3" />
+                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Bangers', cursive" font-size="55" fill="#1e90ff" letter-spacing="2">No Artwork</text>
+                        </svg>
+                    </div>
+                    <div class="card-body">
+                        <h3>Windroidify Android Custom ROMs</h3>
+                        <p>An AOSP project meant for performance, customization and compatibility for older devices.<b> Not Started.</b></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-thumbnail">
+                        <img src="images/mobile.png" alt="Windroid Piano" onerror="this.style.display='none'; document.getElementById('svg-mobile').style.display='block';">
+                        <svg id="svg-mobile" style="display: none;" viewBox="0 0 400 200">
+                            <rect width="100%" height="100%" fill="#999999" opacity="0.3" />
+                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Bangers', cursive" font-size="55" fill="#ff4757" letter-spacing="2">No Artwork</text>
+                        </svg>
+                    </div>
+                    <div class="card-body">
+                        <h3>Windroid Piano</h3>
+                        <p>A modular synth device with a built-in DAW for easier and open-source music production.<b> Not Started.</b></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript to handle switching between pages -->
+    <script>
+        function switchView(viewId) {
+        // 1. Find all elements with the class 'view' and hide them by removing 'active'
+        const views = document.querySelectorAll('.view');
+        views.forEach(view => {
+        view.classList.remove('active');
+        });
+
+        // 2. Find the specific view we want and show it by adding 'active'
+        const targetView = document.getElementById(viewId);
+        if(targetView) {
+        targetView.classList.add('active');
+        }
+
+        // 3. Scroll smoothly back to the top of the page when changing views
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
 </body>
 </html>
