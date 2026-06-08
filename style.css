@@ -1,0 +1,80 @@
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Green to Orange Gradient Background */
+body {
+    background: linear-gradient(135deg, #2ed573, #ff7f50);
+    min-height: 100vh;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    /* Standard font for normal text so it stays easy to read */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Toolbar / Navigation Bar */
+.toolbar {
+    background-color: rgba(0, 0, 0, 0.2); /* Slightly darker for contrast */
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-family: 'Bangers', cursive;
+    font-size: 28px;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+    .nav-links a {
+        font-family: 'Bangers', cursive;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 20px;
+        letter-spacing: 1px;
+        transition: color 0.2s ease;
+    }
+
+        /* Hover effect for toolbar links */
+        .nav-links a:hover {
+            color: #ffeaa7;
+        }
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+    .main-content h1 {
+        font-family: 'Bangers', cursive;
+        font-size: 5rem;
+        letter-spacing: 3px;
+        margin-bottom: 15px;
+        text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .main-content p {
+        font-size: 1.3rem;
+        max-width: 600px;
+        opacity: 0.95;
+        line-height: 1.6;
+    }
