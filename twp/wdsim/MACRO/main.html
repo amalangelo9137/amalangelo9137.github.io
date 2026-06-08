@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windroid Sim MACRO</title>
+
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .showcase-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .showcase-container {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+        }
+
+        /* Media Left Side */
+        .showcase-media {
+            flex: 1.2;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+            .showcase-media img,
+            .showcase-media video {
+                width: 100%;
+                height: auto;
+                display: block;
+                object-fit: cover;
+            }
+
+        /* Text Right Side */
+        .showcase-text {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+            .showcase-text p {
+                font-size: 1.15rem;
+                line-height: 1.6;
+                opacity: 0.95;
+            }
+
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 1.05rem;
+        }
+
+        .feature-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #2ed573;
+            box-shadow: 0 0 8px #2ed573;
+        }
+
+        .action-button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #ffeaa7;
+            border: none;
+            color: #111;
+            font-family: 'Bangers', cursive;
+            font-size: 1.3rem;
+            padding: 12px 28px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(255, 234, 167, 0.4);
+                background: #fff;
+            }
+    </style>
+</head>
+<body>
+
+    <header class="toolbar">
+        <div class="logo" onclick="location.href='../../../index.html'">
+            <img src="images/logo.png" alt="Logo" width="100" height="85" onerror="this.style.display='none'; document.getElementById('logo-text').style.display='block';">
+            <span id="logo-text" style="display: none;">🌿 MySpace</span>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><button onclick="location.href='../../../index.html'">Home</button></li>
+                <li><button onclick="location.href='../../../index.html?view=projects'">Projects</button></li>
+                <li><button onclick="location.href='../../../index.html?view=about'">About</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="view active">
+        <div class="glass-panel blur-light">
+            <button class="back-btn" onclick="location.href='../../../index.html?view=windroid'">⬅ Back to Core Module</button>
+
+            <h2>Windroid Virtual Life Simulator 3D</h2>
+            <p class="subtitle-text">The gamer friendly real life like experience</p>
+
+            <div class="showcase-container">
+
+                <div class="showcase-media">
+                    <img src="images/sample.png" alt="Showcase Preview" onerror="this.style.display='none'; document.getElementById('svg-showcase-fallback').style.display='block';">
+
+                    <svg id="svg-showcase-fallback" style="display: none;" viewBox="0 0 600 350">
+                        <rect width="100%" height="100%" fill="#222" opacity="0.4" />
+                        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="'Bangers', cursive" font-size="40" fill="#ff7f50" letter-spacing="2">Gameplay or UI Media Content</text>
+                    </svg>
+                </div>
+
+                <div class="showcase-text">
+                    <p><b>Windroid Virtual Life Simulator</b> aims to be a gamer friendly version of <b>Windroid Sim</b>. In this game, we get to explore a barren land and sustain our lives with the help of the <b><i>Pseudo Biological Framework</i></b> (nice name lol). Our mission is to find the <b><i>Vision UI Module</i></b> first, so we can access our health stats and enable alerts.</p>
+
+                    <p><b>This game is NOT allowed to contain anything from fantasies or our imagination (other than the Pseudo Biological Framework, because we are not literally in the sim. without it, how are we supposed to move with wasd or our mouse?), to help maintain the 1:1 ratio.</b></p>
+
+                    <div class="action-button-group">
+                        <a href="download.html" class="btn-primary">See ways to download and play ></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

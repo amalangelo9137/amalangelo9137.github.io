@@ -5,375 +5,175 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>amalangelo9137</title>
 
-    <!-- Tab Icon (Favicon) -->
     <link rel="icon" type="image/png" href="images/favicon.png">
 
-    <!-- Import Bangers Font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 
-    <style>
-        /* Reset default browser styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Live Color-Shifting Gradient Background */
-        body {
-            background: linear-gradient(135deg, #2ed573, #ff7f50, #2ed573, #ff4757, #1e90ff);
-            background-size: 400% 400%;
-            animation: gradientBG 18s ease infinite;
-            /* Fix the background so it doesn't move when scrolling */
-            background-attachment: fixed;
-            min-height: 100vh;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Smooth background shift animation */
-        @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        /* Toolbar / Navigation Bar */
-        .toolbar {
-            background-color: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 40px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            transition: transform 0.2s ease;
-        }
-
-            .logo:hover {
-                transform: scale(1.05);
-            }
-
-            .logo img {
-                display: block;
-                object-fit: contain;
-            }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-
-            .nav-links button {
-                background: none;
-                border: none;
-                font-family: 'Bangers', cursive;
-                color: #ffffff;
-                font-size: 22px;
-                letter-spacing: 1.5px;
-                cursor: pointer;
-                transition: color 0.2s ease, transform 0.2s ease;
-            }
-
-                .nav-links button:hover {
-                    color: #ffeaa7;
-                    transform: translateY(-2px);
-                }
-
-        /* View Management (Hides sections not currently active) */
-        .view {
-            display: none;
-            flex: 1;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-            .view.active {
-                display: flex;
-            }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Home Content */
-        .home-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            padding: 20px;
-        }
-
-            .home-content h1 {
-                font-family: 'Bangers', cursive;
-                font-size: 5.5rem;
-                letter-spacing: 4px;
-                margin-bottom: 20px;
-                text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
-                line-height: 1;
-            }
-
-            .home-content p {
-                font-size: 1.4rem;
-                opacity: 0.95;
-                line-height: 1.7;
-                background: rgba(0, 0, 0, 0.2);
-                padding: 25px;
-                border-radius: 16px;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                backdrop-filter: blur(10px);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            }
-
-        /* Glassmorphism Containers for the Blurred effect */
-        .glass-panel {
-            width: 100%;
-            max-width: 1000px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-            margin-bottom: 40px;
-        }
-
-        .blur-light {
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-
-        .blur-heavy {
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            background: rgba(0, 0, 0, 0.35);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .glass-panel h2 {
-            font-family: 'Bangers', cursive;
-            font-size: 3.8rem;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
-            border-bottom: 2px dashed rgba(255, 255, 255, 0.2);
-            padding-bottom: 10px;
-        }
-
-        /* Grid Layout Group Type Beat */
-        .grid-layout {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            width: 100%;
-        }
-
-        /* Project Cards */
-        .card {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        }
-
-            .card:hover {
-                background: rgba(0, 0, 0, 0.5);
-                transform: translateY(-8px);
-                border-color: rgba(255, 255, 255, 0.35);
-                box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-            }
-
-        /* Thumbnail Container */
-        .card-thumbnail {
-            width: 100%;
-            height: 160px;
-            position: relative;
-            background: rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-            .card-thumbnail img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                transition: transform 0.3s ease;
-            }
-
-        .card:hover .card-thumbnail img {
-            transform: scale(1.08);
-        }
-
-        /* Embedded Dynamic SVG Styling for missing images */
-        .card-thumbnail svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        /* Card Text Padding */
-        .card-body {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card h3 {
-            font-family: 'Bangers', cursive;
-            font-size: 2rem;
-            color: #ffeaa7; /* Yellow highlight for card titles */
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-        }
-
-        .card p {
-            font-size: 1rem;
-            line-height: 1.5;
-            opacity: 0.9;
-        }
-
-        /* Back Button */
-        .back-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 0.95rem;
-            cursor: pointer;
-            margin-bottom: 25px;
-            transition: all 0.2s ease;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            align-self: flex-start;
-        }
-
-            .back-btn:hover {
-                background: rgba(255, 255, 255, 0.3);
-                border-color: rgba(255, 255, 255, 0.6);
-                transform: translateX(-3px);
-            }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Toolbar -->
     <header class="toolbar">
-        <div class="logo" onclick="switchView('home-view')">
+        <div class="logo" onclick="location.href='index.html?view=home'">
             <img src="images/logo.png" alt="Logo" width="100" height="85" onerror="this.style.display='none'; document.getElementById('logo-text').style.display='block';">
-            <span id="logo-text" style="display: none; font-family: 'Bangers', cursive; font-size: 28px; letter-spacing: 2px;">🌿 MySpace</span>
+            <span id="logo-text" style="display: none;">🌿 MySpace</span>
         </div>
         <nav>
             <ul class="nav-links">
-                <li><button onclick="alert('About page coming soon!')">About</button></li>
-                <!-- Projects Button triggers the JavaScript -->
-                <li><button onclick="switchView('projects-view')">Projects</button></li>
-                <li><button onclick="alert('Contact section coming soon!')">Contact</button></li>
+                <li><button onclick="location.href='index.html?view=home'">Home</button></li>
+                <li><button onclick="location.href='index.html?view=projects'">Projects</button></li>
+                <li><button onclick="location.href='index.html?view=about'">About</button></li>
             </ul>
         </nav>
     </header>
 
-    <!-- 1. HOME PAGE VIEW -->
     <main id="home-view" class="view active">
         <div class="home-content">
-            <!-- WebM Transparent Video Player (Starts automatically, plays once, and stops) -->
             <div class="home-video-wrapper">
-                <video id="synfig-animation" class="home-video" autoplay muted playsinline onerror="showHomeFallback()">
-                    <source src="vids/amal9137.webm" type="video/webm">
-                    <!-- If the browser doesn't support WebM, we run the fallback -->
-                    Your browser does not support the video tag.
-                </video>
-                <!-- This fallback heading is hidden by default and only shows if the webm isn't found/loaded -->
+                <img id="synfig-animation" class="home-video" src="images/amal9137.webp" alt="Logo Animation" onerror="showHomeFallback()">
                 <h1 id="fallback-h1" class="home-fallback-h1" style="display: none;">Hello, World!</h1>
             </div>
 
-            <p>Ayo wassup gng how is it goin? Here, we have a basic website so anyone can see my projects and stuff! To start, click Projects on the top right corner! If you wanna ask anything, feel free to ask me by clicking Socials there!</p>
+            <p>Ayo wassup gng how is it goin? Here, we have a basic website so anyone can see my projects and stuff! To start, click Projects on the top right corner! If you wanna ask anything, feel free to ask me by clicking About there!</p>
         </div>
     </main>
 
-    <!-- 2. PROJECTS PAGE VIEW (Light Blur) -->
-    <main id="projects-view" class="view">
+    <main id="about-view" class="view">
         <div class="glass-panel blur-light">
-            <h2>My Projects</h2>
-            <div class="grid-layout">
+            <div class="about-container">
+                <div class="profile-img-wrapper">
+                    <img src="images/pfp.jpg" alt="Profile Thumbnail" class="profile-img" onerror="this.style.display='none'; document.getElementById('svg-profile-fallback').style.display='block';">
+                    <svg id="svg-profile-fallback" style="display: none;" viewBox="0 0 200 200">
+                        <rect width="100%" height="100%" fill="#2ed573" opacity="0.15" />
+                        <circle cx="100" cy="80" r="40" fill="#ffeaa7" />
+                        <path d="M40,160 C40,120 70,110 100,110 C130,110 160,120 160,160 Z" fill="#ff7f50" />
+                    </svg>
+                </div>
+                <div class="about-text">
+                    <p class="lead-bio">Wassup! I am <strong>amalangelo9137</strong>, a random developer who likes to build random b******t. I like making games and songs, just for.... I don't even know anymore XD</p>
+                    <p>I started <i>The Windroid Project</i> because I don't even have the money to afford GEOMETRY DASH. So, I made my own game, OS etc. How is it? ...</p>
+                </div>
+            </div>
 
-                <!-- The Windroid Project -->
-                <div class="card" onclick="switchView('windroid-view')">
-                    <div class="card-thumbnail">
-                        <img src="images/twp.png" alt="The Windroid Project">
-                    </div>
-                    <div class="card-body">
-                        <h3>The Windroid Project</h3>
-                        <p>A project containing many open-source (not all rn) games, programs and more!</p>
-                    </div>
+            <div class="contact-section">
+                <h3>I am socially active though (not really)</h3>
+                <p class="contact-subtitle">Just look at these abominations;</p>
+                <div class="contact-grid">
+
+                    <a href="https://github.com/amalangelo9137" target="_blank" class="contact-card">
+                        <div class="contact-icon-wrapper">
+                            <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h4>GitHub</h4>
+                            <p>Contribute to my work :)</p>
+                        </div>
+                    </a>
+
+                    <a href="https://discord.gg/GzhdfRa2BJ" target="_blank" class="contact-card">
+                        <div class="contact-icon-wrapper">
+                            <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
+                                <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 004.11 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.094 13.094 0 01-1.873-.894.077.077 0 01-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 01.077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 01.078.009c.12.099.246.195.373.289a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.894.077.077 0 01-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03a.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z" />
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h4>Discord</h4>
+                            <p>Join my 'community' for development progress. Also fun and games!!111!11!11!!11</p>
+                        </div>
+                    </a>
+
+                    <a href="https://youtube.com/@amalangelo9137" target="_blank" class="contact-card">
+                        <div class="contact-icon-wrapper">
+                            <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h4>YouTube</h4>
+                            <p>Watch my random unfunny videos.</p>
+                        </div>
+                    </a>
+
+                    <a href="https://gamejolt.com/@Amal9137" target="_blank" class="contact-card">
+                        <div class="contact-icon-wrapper">
+                            <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2 2V5c0-1.1-.9-2-2-2zm-2 10h-3v6h-4v-6H7l5-7 5 7z" />
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h4>Game Jolt</h4>
+                            <p>Go to the main game pages (pretend this is steam XD)</p>
+                        </div>
+                    </a>
+
+                    <a href="https://instagram.com/amalangelo9137" target="_blank" class="contact-card">
+                        <div class="contact-icon-wrapper">
+                            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h4>Instagram</h4>
+                            <p>Follow my stupid ig account🥀</p>
+                        </div>
+                    </a>
+
+                    <a href="mailto:amalangelo9137@outlook.com" class="contact-card">
+                        <div class="contact-icon-wrapper">
+                            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                        </div>
+                        <div class="contact-info">
+                            <h4>Email</h4>
+                            <p>Reach out directly for development queries and more!</p>
+                        </div>
+                    </a>
+
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- 3. WINDROID SUBPROJECTS VIEW (Heavy Blur) -->
+    <main id="projects-view" class="view">
+        <div class="glass-panel blur-light">
+            <h2>My Projects</h2>
+            <div class="grid-layout">
+
+                <div class="card" onclick="location.href='index.html?view=windroid'">
+                    <div class="card-thumbnail">
+                        <img src="images/twp.png" alt="The Windroid Project" onerror="this.style.display='none'; document.getElementById('svg-twp').style.display='block';">
+                        <svg id="svg-twp" style="display: none;" viewBox="0 0 400 200">
+                            <rect width="100%" height="100%" fill="#111" opacity="0.3" />
+                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Bangers', cursive" font-size="55" fill="#2ed573" letter-spacing="2">TWP</text>
+                        </svg>
+                    </div>
+                    <div class="card-body">
+                        <h3>The Windroid Project</h3>
+                        <p>A project containing many open-source games, programs, and more!</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
     <main id="windroid-view" class="view">
         <div class="glass-panel blur-heavy">
-            <button class="back-btn" onclick="switchView('projects-view')">⬅ Back to Projects</button>
+            <button class="back-btn" onclick="location.href='index.html?view=projects'">⬅ Back to Projects</button>
             <h2>The Windroid Project</h2>
-            <p style="margin-bottom: 30px; font-size: 1.1rem;">Welcome to the core of Windroid. Select a sub-module below.</p>
+            <p class="subtitle-text">Welcome to the Windroid eXPerience! Select a sub-project here.</p>
 
             <div class="grid-layout">
 
-                <div class="card">
+                <div class="card" onclick="openOverlay('wdsim')">
                     <div class="card-thumbnail">
                         <img src="images/wdsim.png" alt="Windroid Simulator" onerror="this.style.display='none'; document.getElementById('svg-alpha').style.display='block';">
                         <svg id="svg-alpha" style="display: none;" viewBox="0 0 400 200">
@@ -383,11 +183,11 @@
                     </div>
                     <div class="card-body">
                         <h3>Windroid Simulator</h3>
-                        <p>An enjoyable and experimentable game (divided to 2 bcoz of unity limits) that tries to 1:1 our lives lol</p>
+                        <p>An enjoyable and experimentable game that tries to 1:1 our lives lol. Click for details!</p>
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card" onclick="openOverlay('winos-dev')">
                     <div class="card-thumbnail">
                         <img src="images/winos-dev.png" alt="WinOS-Dev" onerror="this.style.display='none'; document.getElementById('svg-ui').style.display='block';">
                         <svg id="svg-ui" style="display: none;" viewBox="0 0 400 200">
@@ -397,11 +197,11 @@
                     </div>
                     <div class="card-body">
                         <h3>WinOS-Dev</h3>
-                        <p>A project focused on developing a modern, secure operating system, trying to combine the best of Windows and Android (Linux).</p>
+                        <p>A project focused on developing a modern, secure operating system combining Windows and Android. Click for details!</p>
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card" onclick="openOverlay('waroms')">
                     <div class="card-thumbnail">
                         <img src="images/waroms.png" alt="Windroidify Android Custom ROMs" onerror="this.style.display='none'; document.getElementById('svg-server').style.display='block';">
                         <svg id="svg-server" style="display: none;" viewBox="0 0 400 200">
@@ -411,11 +211,11 @@
                     </div>
                     <div class="card-body">
                         <h3>Windroidify Android Custom ROMs</h3>
-                        <p>An AOSP project meant for performance, customization and compatibility for older devices.<b> Not Started.</b></p>
+                        <p>An AOSP project meant for performance, customization, and compatibility for older devices. <b>Not Started.</b></p>
                     </div>
                 </div>
 
-                <div class="card">
+                <div class="card" onclick="openOverlay('wdpianochord')">
                     <div class="card-thumbnail">
                         <img src="images/mobile.png" alt="Windroid Piano" onerror="this.style.display='none'; document.getElementById('svg-mobile').style.display='block';">
                         <svg id="svg-mobile" style="display: none;" viewBox="0 0 400 200">
@@ -425,7 +225,7 @@
                     </div>
                     <div class="card-body">
                         <h3>Windroid Piano</h3>
-                        <p>A modular synth device with a built-in DAW for easier and open-source music production.<b> Not Started.</b></p>
+                        <p>A modular synth device with a built-in DAW for easier, open-source music production. <b>Not Started.</b></p>
                     </div>
                 </div>
 
@@ -433,24 +233,198 @@
         </div>
     </main>
 
-    <!-- JavaScript to handle switching between pages -->
+    <div id="project-overlay" class="overlay-modal" onclick="closeOverlayOnOutsideClick(event)">
+        <div class="overlay-panel blur-heavy">
+            <button class="overlay-close-btn" onclick="closeOverlay()">✕</button>
+            <div class="overlay-header">
+                <h2 id="overlay-title">Project Name</h2>
+                <p id="overlay-subtitle">Project Subtitle</p>
+            </div>
+            <div class="overlay-body">
+                <p id="overlay-desc">Project description goes here...</p>
+                <div class="overlay-subprojects-section">
+                    <h3>Subprojects / Modules</h3>
+                    <div id="overlay-subprojects-grid" class="overlay-grid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Track the currently active view to manage transitions
+        let currentViewId = 'home-view';
+
+        // Extensible Subproject Overlay Data Configuration Group System
+        const overlayData = {
+        'wdsim': {
+        title: "Windroid Simulator",
+        subtitle: "Fun or not fun depending on your skill level and preferences.",
+        description: "An enjoyable (maybe), simulation-driven sandbox game trying to capture life 1:1 as a game. Due to Unity floating-point limitations, this project is divided into two builds.",
+        subprojects: [
+        {
+        name: "Windroid Sim. MICRO",
+        desc: "A lightweight simulation environment for learning and experimenting about fundamental forces.",
+        link: "twp/wdsim/MICRO/main.html"
+        },
+        {
+        name: "Windroid Sim. MACRO",
+        desc: "A Real Life like (macro scale) simulation which aims to replicate complex real-world scenarios.",
+        link: "twp/wdsim/MACRO/main.html"
+        }
+        ]
+        },
+        'winos-dev': {
+        title: "WinOS-Dev",
+        subtitle: "Making the Operating System world easier and more accessible.",
+        description: "A secure, desktop-oriented (but not limited to) OS project with standard containerized structures, focusing on porting fluid Linux kernel concepts and Windows compatibility into clean, keyboard-and-mouse workspaces.",
+        subprojects: [
+        {
+        name: "WinOS-EFI",
+        desc: "An EFI application acting as the startup for the WinOS system and Editor API.",
+        link: "twp/wosdev/efi-kernel/main.html"
+        },
+        {
+        name: "WinOS-Kernel",
+        desc: "A custom kernel designed for the WinOS operating system which further runs the WinOS API.",
+        link: "twp/wosdev/efi-kernel/main.html"
+        },
+        {
+        name: "WinOS-Editor",
+        desc: "An application designed to provide a seamless UI/UX development experience for the WinOS ecosystem.",
+        link: "twp/wosdev/editor/main.html"
+        }
+        ]
+        },
+        'waroms': {
+        title: "Windroidify Android Custom ROMs",
+        subtitle: "Breathing New Life Into Old Legacy Devices",
+        description: "A lightweight, heavily optimized build group based directly on Android Open Source Project (AOSP) sources, engineered to maximize legacy phone lifespans and customization options.",
+        subprojects: []
+        },
+        'wdpianochord': {
+        title: "Windroid Piano",
+        subtitle: "Open-source Synthesizers and Physical instrument modules.",
+        description: "A basic Raspberry Pi based software synthesizers with customizable physical piano keys, violin strings, and more!",
+        subprojects: []
+        }
+        };
+
+        // Screen state changer
         function switchView(viewId) {
-        // 1. Find all elements with the class 'view' and hide them by removing 'active'
+        // Prevent restarting animation if clicking on the view we are already looking at
+        if (currentViewId === viewId) return;
+
         const views = document.querySelectorAll('.view');
         views.forEach(view => {
         view.classList.remove('active');
         });
 
-        // 2. Find the specific view we want and show it by adding 'active'
         const targetView = document.getElementById(viewId);
         if(targetView) {
         targetView.classList.add('active');
+
+        // Replay WebP ONLY when exiting another view and entering back into Home
+        if (viewId === 'home-view' && currentViewId !== 'home-view') {
+        const animImg = document.getElementById('synfig-animation');
+        if (animImg && animImg.style.display !== 'none') {
+        animImg.src = "images/amal9137.webp?t=" + new Date().getTime();
+        }
         }
 
-        // 3. Scroll smoothly back to the top of the page when changing views
+        // Track current active state
+        currentViewId = viewId;
+        }
+
         window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // Overlay System functions
+        function openOverlay(projectId) {
+        const project = overlayData[projectId];
+        if (!project) return;
+
+        document.getElementById('overlay-title').innerText = project.title;
+        document.getElementById('overlay-subtitle').innerText = project.subtitle;
+        document.getElementById('overlay-desc').innerHTML = project.description;
+
+        const gridContainer = document.getElementById('overlay-subprojects-grid');
+        gridContainer.innerHTML = ''; // Reset items
+
+        if (project.subprojects.length === 0) {
+        gridContainer.innerHTML = '<p class="empty-overlay-msg">ITS NOT STARTED</p>';
+        } else {
+        project.subprojects.forEach(sub => {
+        const subCard = document.createElement('div');
+        subCard.className = 'overlay-sub-card';
+
+        // Check if subproject has a configured link assigned
+        if (sub.link) {
+        subCard.style.cursor = 'pointer';
+        subCard.onclick = () => { window.location.href = sub.link; };
+
+        subCard.innerHTML = `
+        <h4>${sub.name}</h4>
+        <p>${sub.desc}</p>
+        <span style="display: inline-block; margin-top: 10px; font-size: 0.85rem; color: #ffeaa7; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Explore Module ➜</span>
+        `;
+        } else {
+        subCard.innerHTML = `
+        <h4>${sub.name}</h4>
+        <p>${sub.desc}</p>
+        `;
+        }
+
+        gridContainer.appendChild(subCard);
+        });
+        }
+
+        const modal = document.getElementById('project-overlay');
+        modal.classList.add('active');
+        document.body.classList.add('modal-open'); // Prevent background scrolling
+        }
+
+        function closeOverlay() {
+        const modal = document.getElementById('project-overlay');
+        modal.classList.remove('active');
+        document.body.classList.remove('modal-open');
+        }
+
+        function closeOverlayOnOutsideClick(event) {
+        const modalPanel = document.querySelector('.overlay-panel');
+        if (modalPanel && !modalPanel.contains(event.target)) {
+        closeOverlay();
+        }
+        }
+
+        // WebP Failure Fallback function
+        function showHomeFallback() {
+        const img = document.getElementById('synfig-animation');
+        const fallback = document.getElementById('fallback-h1');
+        if (img) img.style.display = 'none';
+        if (fallback) fallback.style.display = 'block';
+        }
+
+        // ROUTER: Automatically switch views based on URL parameters when the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const viewParam = urlParams.get('view');
+
+        if (viewParam) {
+        // Map short URL parameter tokens to actual document section element view IDs
+        const viewMapping = {
+        'projects': 'projects-view',
+        'about': 'about-view',
+        'home': 'home-view',
+        'windroid': 'windroid-view'
+        };
+
+        const targetId = viewMapping[viewParam];
+        if (targetId && document.getElementById(targetId)) {
+        switchView(targetId);
+        }
+        }
+        });
     </script>
 
 </body>
