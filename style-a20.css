@@ -647,7 +647,7 @@ body {
     z-index: 101;
     padding: 5px;
     position: fixed;
-    top: 20px;
+    top: 36px;
     right: 20px;
     transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
