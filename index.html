@@ -32,12 +32,7 @@
                 <li><button onclick="switchView('home-view')">Home</button></li>
                 <li><button onclick="switchView('projects-view')">Projects</button></li>
                 <li><button onclick="switchView('media-view')">Media</button></li>
-                <li class="contact-menu"><details><summary>Contact</summary><div class="contact-menu-panel"><a class="contact-menu-link" href="https://github.com/amalangelo9137" target="_blank" rel="noopener noreferrer">GitHub<span aria-hidden="true">↗</span></a>
-<a class="contact-menu-link" href="https://discord.gg/GzhdfRa2BJ" target="_blank" rel="noopener noreferrer">Discord<span aria-hidden="true">↗</span></a>
-<a class="contact-menu-link" href="https://youtube.com/@amalangelo9137" target="_blank" rel="noopener noreferrer">YouTube<span aria-hidden="true">↗</span></a>
-<a class="contact-menu-link" href="https://gamejolt.com/@Amal9137" target="_blank" rel="noopener noreferrer">Game Jolt<span aria-hidden="true">↗</span></a>
-<a class="contact-menu-link" href="https://instagram.com/amalangelo9137" target="_blank" rel="noopener noreferrer">Instagram<span aria-hidden="true">↗</span></a>
-                            <a class="contact-menu-link" href="https://open.spotify.com/artist/64CsCiwgSoYf1HO6fRBJeM" target="_blank" rel="noopener noreferrer">Spotify<span aria-hidden="true">↗</span></a></div></details></li>
+                <li><button onclick="switchView('contact-view')">Contact</button></li>
             </ul>
         </nav>    </header>
 
@@ -132,6 +127,39 @@
                 </div>
             </section>
         </div>
+    </main>
+
+    <main id="contact-view" class="view">
+        <section class="contact-page glass-panel blur-light">
+            <header class="contact-page-header">
+                <span class="home-eyebrow">LET'S CONNECT</span>
+                <h1>Get in touch<span>.</span></h1>
+                <p>Got a question about a project, want to collaborate, or just want to say hi? These are the places you can find me.</p>
+            </header>
+            <div class="contact-page-grid">
+                <a class="contact-page-card contact-primary" href="https://instagram.com/amalangelo9137" target="_blank" rel="noopener noreferrer">
+                    <span class="contact-card-kicker">DIRECT MESSAGES</span><span class="contact-page-icon">◎</span>
+                    <h2>Instagram</h2><p>Probably the simplest place to send me a DM.</p><span class="contact-card-action">Message on Instagram ↗</span>
+                </a>
+                <a class="contact-page-card" href="https://discord.gg/GzhdfRa2BJ" target="_blank" rel="noopener noreferrer">
+                    <span class="contact-card-kicker">COMMUNITY</span><span class="contact-page-icon">◈</span>
+                    <h2>Discord</h2><p>Join the community server and reach out there.</p><span class="contact-card-action">Join Discord ↗</span>
+                </a>
+                <a class="contact-page-card" href="https://github.com/amalangelo9137" target="_blank" rel="noopener noreferrer">
+                    <span class="contact-card-kicker">PROJECTS & FEEDBACK</span><span class="contact-page-icon">⌘</span>
+                    <h2>GitHub</h2><p>Check out the code or leave project feedback through a public issue or discussion where available.</p><span class="contact-card-action">Visit GitHub ↗</span>
+                </a>
+                <a class="contact-page-card" href="https://gamejolt.com/@Amal9137" target="_blank" rel="noopener noreferrer">
+                    <span class="contact-card-kicker">GAMES & COMMUNITY</span><span class="contact-page-icon">✦</span>
+                    <h2>Game Jolt</h2><p>Follow my game projects and interact with their community pages.</p><span class="contact-card-action">Find me on Game Jolt ↗</span>
+                </a>
+                <a class="contact-page-card" href="https://youtube.com/@amalangelo9137" target="_blank" rel="noopener noreferrer">
+                    <span class="contact-card-kicker">VIDEO & MUSIC</span><span class="contact-page-icon">▶</span>
+                    <h2>YouTube</h2><p>Watch my uploads and leave a comment on a video.</p><span class="contact-card-action">Visit YouTube ↗</span>
+                </a>
+            </div>
+            <p class="contact-page-note">Email isn't listed here yet. I haven't added a public contact address.</p>
+        </section>
     </main>
 
     <main id="windroid-view" class="view">
@@ -388,6 +416,7 @@
         const viewMapping = {
         'projects': 'projects-view',
         'media': 'media-view',
+        'contact': 'contact-view',
         'home': 'home-view',
         'windroid': 'windroid-view'
         };
