@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style-a20.css">
+    <link id="main-theme" rel="stylesheet" href="style-a20.css">\n    <link id="twp-theme" rel="stylesheet" href="style-twp.css" disabled>
 </head>
 <body>
 
@@ -89,28 +89,10 @@
             <section class="projects-section" aria-label="Featured projects">
                 <div class="projects-section-heading">
                     <div><span class="media-kicker">FEATURED</span><h2>Big ideas, in progress</h2></div>
-                    <span class="projects-count">01 project</span>
+                    <span id="projects-count" class="projects-count">0 projects</span>
                 </div>
 
-                <div class="grid-layout projects-grid">
-                    <article class="card project-featured-card" role="button" tabindex="0" aria-label="Explore The Windroid Project" onclick="switchView('windroid-view')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();switchView('windroid-view')}">
-                        <div class="card-thumbnail project-featured-thumbnail">
-                            <img src="images/twp.png" alt="The Windroid Project artwork" onerror="this.style.display='none'; document.getElementById('svg-twp').style.display='block';">
-                            <svg id="svg-twp" style="display: none;" viewBox="0 0 400 200" aria-hidden="true">
-                                <rect width="100%" height="100%" fill="#111" opacity="0.3" />
-                                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Bangers', cursive" font-size="55" fill="#2ed573" letter-spacing="2">TWP</text>
-                            </svg>
-                            <span class="project-image-label">OPEN-SOURCE ECOSYSTEM</span>
-                        </div>
-                        <div class="card-body project-featured-body">
-                            <div class="project-meta"><span class="project-type">GAMES · SOFTWARE · EXPERIMENTS</span><span class="project-status">Ongoing</span></div>
-                            <h3>The Windroid Project</h3>
-                            <p>A growing ecosystem of open-source games, software, simulations, and experiments — built around curiosity and the freedom to create.</p>
-                            <span class="project-card-action">Explore the project <b aria-hidden="true">↗</b></span>
-                        </div>
-                    </article>
-                </div>
-            </section>
+                <div id="projects-grid" class="grid-layout projects-grid" aria-live="polite"></div>\n            </section>
         </div>
     </main>
 
@@ -171,274 +153,174 @@
             <button class="back-btn" onclick="switchView('projects-view')">⬅ Back to Projects</button>
             <h2>The Windroid Project</h2>
             <p class="subtitle-text">Welcome to the Windroid eXPerience! Select a sub-project here.</p>
-
-            <div class="grid-layout">
-
-                <div class="card" onclick="openOverlay('wdsim')">
-                    <div class="card-thumbnail">
-                        <img src="images/wdsim.png" alt="Windroid Simulator" onerror="this.style.display='none'; document.getElementById('svg-alpha').style.display='block';">
-                        <svg id="svg-alpha" style="display: none;" viewBox="0 0 400 200">
-                            <rect width="100%" height="100%" fill="#333333" opacity="0.3" />
-                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Bangers', cursive" font-size="55" fill="#2ed573" letter-spacing="2">No Artwork</text>
-                        </svg>
-                    </div>
-                    <div class="card-body">
-                        <h3>Windroid Simulator</h3>
-                        <p>An enjoyable and experimentable game that tries to 1:1 our lives lol. <b>Click for details!</b></p>
+            <div id="windroid-subprojects-grid" class="grid-layout" aria-live="polite"></div>
+        </div>
+        <div id="project-overlay" class="overlay-modal" onclick="closeOverlayOnOutsideClick(event)">
+            <div class="overlay-panel blur-heavy">
+                <button class="overlay-close-btn" onclick="closeOverlay()">✕</button>
+                <div class="overlay-header">
+                    <h2 id="overlay-title">Project Name</h2>
+                    <p id="overlay-subtitle" class="overlay-subtitle"></p>
+                </div>
+                <div class="overlay-body">
+                    <p id="overlay-desc"></p>
+                    <div class="overlay-subprojects-section">
+                        <h3 id="overlay-items-heading">Parts</h3>
+                        <div id="overlay-parts-grid" class="overlay-grid"></div>
                     </div>
                 </div>
-
-                <div class="card" onclick="openOverlay('winos-dev')">
-                    <div class="card-thumbnail">
-                        <img src="images/winos-dev.png" alt="WinOS-Dev" onerror="this.style.display='none'; document.getElementById('svg-ui').style.display='block';">
-                        <svg id="svg-ui" style="display: none;" viewBox="0 0 400 200">
-                            <rect width="100%" height="100%" fill="#555555" opacity="0.3" />
-                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Bangers', cursive" font-size="55" fill="#ff7f50" letter-spacing="2">No Artwork</text>
-                        </svg>
-                    </div>
-                    <div class="card-body">
-                        <h3>WinOS-Dev</h3>
-                        <p>A project focused on developing a modern, secure operating system combining Windows and Android. <b>Click for details!</b></p>
-                    </div>
-                </div>
-
-                <div class="card" onclick="openOverlay('waroms')">
-                    <div class="card-thumbnail">
-                        <img src="images/waroms.png" alt="Windroidify Android Custom ROMs" onerror="this.style.display='none'; document.getElementById('svg-server').style.display='block';">
-                        <svg id="svg-server" style="display: none;" viewBox="0 0 400 200">
-                            <rect width="100%" height="100%" fill="#777777" opacity="0.3" />
-                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Bangers', cursive" font-size="55" fill="#1e90ff" letter-spacing="2">No Artwork</text>
-                        </svg>
-                    </div>
-                    <div class="card-body">
-                        <h3>Windroidify Android Custom ROMs</h3>
-                        <p>An AOSP project meant for performance, customization, and compatibility for older devices. <b>Not Started.</b></p>
-                    </div>
-                </div>
-
-                <div class="card" onclick="openOverlay('wdpianochord')">
-                    <div class="card-thumbnail">
-                        <img src="images/mobile.png" alt="Windroid Piano" onerror="this.style.display='none'; document.getElementById('svg-mobile').style.display='block';">
-                        <svg id="svg-mobile" style="display: none;" viewBox="0 0 400 200">
-                            <rect width="100%" height="100%" fill="#999999" opacity="0.3" />
-                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Bangers', cursive" font-size="55" fill="#ff4757" letter-spacing="2">No Artwork</text>
-                        </svg>
-                    </div>
-                    <div class="card-body">
-                        <h3>Windroid Piano</h3>
-                        <p>A modular synth device hardware collection with built-in synthesizers for easier, customizable music production. <b>Not Started.</b></p>
-                    </div>
-                </div>
-
             </div>
         </div>
     </main>
 
-    <div id="project-overlay" class="overlay-modal" onclick="closeOverlayOnOutsideClick(event)">
-        <div class="overlay-panel blur-heavy">
-            <button class="overlay-close-btn" onclick="closeOverlay()">✕</button>
-            <div class="overlay-header">
-                <h2 id="overlay-title">Project Name</h2>
-                <p id="overlay-subtitle">Project Subtitle</p>
-            </div>
-            <div class="overlay-body">
-                <p id="overlay-desc">Project description goes here...</p>
-                <div class="overlay-subprojects-section">
-                    <h3>Subprojects / Modules</h3>
-                    <div id="overlay-subprojects-grid" class="overlay-grid">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <script src="data.js"></script>
     <script>
-        // Track the currently active view to manage transitions
         let currentViewId = 'home-view';
+        const portfolioProjects = Array.isArray(window.PORTFOLIO_DATA?.projects) ? window.PORTFOLIO_DATA.projects : [];
 
-        // Extensible Subproject Overlay Data Configuration Group System
-        const overlayData = {
-        'wdsim': {
-        title: "Windroid Simulator",
-        subtitle: "Fun or not fun depending on your skill level and preferences.",
-        description: "An enjoyable (maybe), simulation-driven sandbox game trying to capture life 1:1 as a game. Due to Unity floating-point limitations, this project is divided into two builds.",
-        subprojects: [
-        {
-        name: "Windroid Sim. MICRO",
-        desc: "A lightweight simulation environment for learning and experimenting about fundamental forces.",
-        link: "twp/wdsim/MICRO/main.html"
-        },
-        {
-        name: "Windroid Sim. MACRO",
-        desc: "A Real Life like (macro scale) simulation which aims to replicate complex real-world scenarios.",
-        link: "twp/wdsim/MACRO/main.html"
-        }
-        ]
-        },
-        'winos-dev': {
-        title: "WinOS-Dev",
-        subtitle: "Making the Operating System world easier and more accessible.",
-        description: "A secure, desktop plus mobile OS project with standard containerized structures, focusing on porting Linux kernel concepts and Windows compatibility into clean, DWM like workspaces.",
-        subprojects: [
-        {
-        name: "WinOS-EFI",
-        desc: "An EFI application acting as the startup for the WinOS system and Editor API.",
-        link: "twp/wosdev/efi-kernel/main.html"
-        },
-        {
-        name: "WinOS-Kernel",
-        desc: "A custom kernel designed for the WinOS operating system which further runs the WinOS API.",
-        link: "twp/wosdev/efi-kernel/main.html"
-        },
-        {
-        name: "WinOS-Editor",
-        desc: "An application designed to provide a seamless UI/UX development experience for the WinOS ecosystem, for the Kernel.",
-        link: "twp/wosdev/editor/main.html"
-        }
-        ]
-        },
-        'waroms': {
-        title: "Windroidify Android Custom ROMs",
-        subtitle: "Breathing New Life Into Old Legacy Devices",
-        description: "A lightweight, heavily optimized Android Open Source Project (AOSP) builds, engineered to maximize legacy phone lifespans (like the @$$ M01 Core) and customization.",
-        subprojects: []
-        },
-        'wdpianochord': {
-        title: "Windroid Piano",
-        subtitle: "Open-source Synthesizers and Physical instrument modules.",
-        description: "A basic Raspberry Pi based software synthesizer, based on WinOS, with customizable collections of hardware, such as physical piano keys, violin strings, and more!",
-        subprojects: []
-        }
-        };
-
-        // Screen state changer
         function switchView(viewId) {
-
-        document.querySelector('.nav-links').classList.remove('nav-active');
-        document.querySelector('.hamburger').classList.remove('toggle');
-
-        // Prevent restarting animation if clicking on the view we are already looking at
-        if (currentViewId === viewId) return;
-
-        const views = document.querySelectorAll('.view');
-        views.forEach(view => {
-        view.classList.remove('active');
-        });
-
-        const targetView = document.getElementById(viewId);
-        if(targetView) {
-        targetView.classList.add('active');
-
-        // Replay WebP ONLY when exiting another view and entering back into Home
-        if (viewId === 'home-view' && currentViewId !== 'home-view') {
-        const animImg = document.getElementById('synfig-animation');
-        if (animImg && animImg.style.display !== 'none') {
-        animImg.src = "images/amal9137.webp?t=" + new Date().getTime();
-        }
+            document.querySelector('.nav-links')?.classList.remove('nav-active');
+            document.querySelector('.hamburger')?.classList.remove('toggle');
+            if (currentViewId === viewId) return;
+            document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
+            const target = document.getElementById(viewId);
+            if (!target) return;
+            target.classList.add('active');
+            currentViewId = viewId;
+            const isWindroid = viewId === 'windroid-view';
+            document.getElementById('main-theme').disabled = isWindroid;
+            document.getElementById('twp-theme').disabled = !isWindroid;
+            if (viewId === 'home-view') {
+                const animImg = document.getElementById('synfig-animation');
+                if (animImg && animImg.style.display !== 'none') animImg.src = 'images/amal9137.webp?t=' + Date.now();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Track current active state
-        currentViewId = viewId;
+        function createImage(src, title, className) {
+            const wrapper = document.createElement('div');
+            wrapper.className = className;
+            if (src) {
+                const image = document.createElement('img');
+                image.src = src; image.alt = (title || 'Project') + ' artwork'; image.loading = 'lazy';
+                image.onerror = () => image.remove();
+                wrapper.appendChild(image);
+            }
+            return wrapper;
         }
 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        function renderProjects() {
+            const grid = document.getElementById('projects-grid');
+            const count = document.getElementById('projects-count');
+            if (!grid) return;
+            grid.replaceChildren();
+            if (count) count.textContent = portfolioProjects.length + (portfolioProjects.length === 1 ? ' project' : ' projects');
+            portfolioProjects.forEach(project => {
+                const card = document.createElement('article');
+                card.className = 'card project-featured-card'; card.tabIndex = 0;
+                card.setAttribute('role', 'button'); card.setAttribute('aria-label', 'Explore ' + project.title);
+                const open = () => openProject(project);
+                card.addEventListener('click', open);
+                card.addEventListener('keydown', event => {
+                    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+                });
+                const thumb = createImage(project.image, project.title, 'card-thumbnail project-featured-thumbnail');
+                const label = document.createElement('span'); label.className = 'project-image-label';
+                label.textContent = project.category || 'PROJECT'; thumb.appendChild(label);
+                const body = document.createElement('div'); body.className = 'card-body project-featured-body';
+                const meta = document.createElement('div'); meta.className = 'project-meta';
+                const type = document.createElement('span'); type.className = 'project-type';
+                type.textContent = (project.tags || []).join(' · ') || project.category || 'PROJECT'; meta.appendChild(type);
+                if (project.status) { const status = document.createElement('span'); status.className = 'project-status'; status.textContent = project.status; meta.appendChild(status); }
+                const title = document.createElement('h3'); title.textContent = project.title || 'Untitled project';
+                const desc = document.createElement('p'); desc.textContent = project.description || '';
+                const action = document.createElement('span'); action.className = 'project-card-action'; action.textContent = 'Explore the project ↗';
+                body.append(meta, title, desc, action); card.append(thumb, body); grid.appendChild(card);
+            });
         }
 
-        // Overlay System functions
-        function openOverlay(projectId) {
-        const project = overlayData[projectId];
-        if (!project) return;
-
-        document.getElementById('overlay-title').innerText = project.title;
-        document.getElementById('overlay-subtitle').innerText = project.subtitle;
-        document.getElementById('overlay-desc').innerHTML = project.description;
-
-        const gridContainer = document.getElementById('overlay-subprojects-grid');
-        gridContainer.innerHTML = ''; // Reset items
-
-        if (project.subprojects.length === 0) {
-        gridContainer.innerHTML = '<p class="empty-overlay-msg">ITS NOT STARTED</p>';
-        } else {
-        project.subprojects.forEach(sub => {
-        const subCard = document.createElement('div');
-        subCard.className = 'overlay-sub-card';
-
-        // Check if subproject has a configured link assigned
-        if (sub.link) {
-        subCard.style.cursor = 'pointer';
-        subCard.onclick = () => { window.location.href = sub.link; };
-
-        subCard.innerHTML = `
-        <h4>${sub.name}</h4>
-        <p>${sub.desc}</p>
-        <span style="display: inline-block; margin-top: 10px; font-size: 0.85rem; color: #ffeaa7; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Explore Module ➜</span>
-        `;
-        } else {
-        subCard.innerHTML = `
-        <h4>${sub.name}</h4>
-        <p>${sub.desc}</p>
-        `;
+        function renderWindroidSubprojects() {
+            const grid = document.getElementById('windroid-subprojects-grid');
+            const root = portfolioProjects.find(project => project.theme === 'twp' || project.id === 'the-windroid-project');
+            if (!grid) return;
+            grid.replaceChildren();
+            (root?.subprojects || []).forEach(sub => {
+                const card = document.createElement('article'); card.className = 'card'; card.tabIndex = 0;
+                card.setAttribute('role', 'button');
+                const open = () => openNode(sub, 'parts', 'Parts');
+                card.addEventListener('click', open);
+                card.addEventListener('keydown', event => {
+                    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+                });
+                const thumb = createImage(sub.image, sub.title, 'card-thumbnail');
+                const body = document.createElement('div'); body.className = 'card-body';
+                const title = document.createElement('h3'); title.textContent = sub.title || 'Untitled sub-project';
+                const desc = document.createElement('p'); desc.textContent = sub.description || '';
+                body.append(title, desc);
+                if (sub.status) { const status = document.createElement('span'); status.className = 'project-status'; status.textContent = sub.status; body.appendChild(status); }
+                card.append(thumb, body); grid.appendChild(card);
+            });
         }
 
-        gridContainer.appendChild(subCard);
-        });
+        function openProject(project) {
+            if (project.theme === 'twp' || project.id === 'the-windroid-project') switchView('windroid-view');
+            else openNode(project, 'subprojects', 'Sub-projects');
         }
 
-        const modal = document.getElementById('project-overlay');
-        modal.classList.add('active');
-        document.body.classList.add('modal-open'); // Prevent background scrolling
+        function openNode(node, childKey, heading) {
+            document.getElementById('overlay-title').textContent = node.title || 'Project';
+            document.getElementById('overlay-subtitle').textContent = node.status || '';
+            document.getElementById('overlay-desc').textContent = node.description || '';
+            document.getElementById('overlay-items-heading').textContent = heading;
+            const grid = document.getElementById('overlay-parts-grid'); grid.replaceChildren();
+            const children = Array.isArray(node[childKey]) ? node[childKey] : [];
+            if (!children.length) {
+                const empty = document.createElement('p'); empty.className = 'empty-overlay-msg';
+                empty.textContent = node.emptyMessage || 'Nothing has been added here yet.'; grid.appendChild(empty);
+            } else children.forEach(child => {
+                const card = document.createElement('article'); card.className = 'overlay-sub-card';
+                const title = document.createElement('h4'); title.textContent = child.title || 'Untitled item';
+                const desc = document.createElement('p'); desc.textContent = child.description || '';
+                card.append(title, desc);
+                if (childKey === 'subprojects' && Array.isArray(child.parts)) {
+                    card.tabIndex = 0; card.setAttribute('role', 'button');
+                    const action = document.createElement('span'); action.className = 'project-card-action'; action.textContent = 'View parts ↗'; card.appendChild(action);
+                    const open = () => openNode(child, 'parts', 'Parts');
+                    card.addEventListener('click', open);
+                    card.addEventListener('keydown', event => {
+                        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+                    });
+                } else if (child.link) {
+                    const link = document.createElement('a'); link.href = child.link; link.textContent = 'Explore part ↗'; card.appendChild(link);
+                }
+                grid.appendChild(card);
+            });
+            document.getElementById('project-overlay').classList.add('active');
+            document.body.classList.add('modal-open');
         }
 
         function closeOverlay() {
-        const modal = document.getElementById('project-overlay');
-        modal.classList.remove('active');
-        document.body.classList.remove('modal-open');
+            document.getElementById('project-overlay').classList.remove('active');
+            document.body.classList.remove('modal-open');
         }
-
         function closeOverlayOnOutsideClick(event) {
-        const modalPanel = document.querySelector('.overlay-panel');
-        if (modalPanel && !modalPanel.contains(event.target)) {
-        closeOverlay();
+            if (event.target === document.getElementById('project-overlay')) closeOverlay();
         }
-        }
-
-        // WebP Failure Fallback function
         function showHomeFallback() {
-        const img = document.getElementById('synfig-animation');
-        const fallback = document.getElementById('fallback-h1');
-        if (img) img.style.display = 'none';
-        if (fallback) fallback.style.display = 'block';
+            const img = document.getElementById('synfig-animation'), fallback = document.getElementById('fallback-h1');
+            if (img) img.style.display = 'none'; if (fallback) fallback.style.display = 'block';
         }
-
-        // ROUTER: Automatically switch views based on URL parameters when the page loads
-        window.addEventListener('DOMContentLoaded', () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const viewParam = urlParams.get('view');
-
-        if (viewParam) {
-        // Map short URL parameter tokens to actual document section element view IDs
-        const viewMapping = {
-        'projects': 'projects-view',
-        'media': 'media-view',
-        'contact': 'contact-view',
-        'home': 'home-view',
-        'windroid': 'windroid-view'
-        };
-
-        const targetId = viewMapping[viewParam];
-        if (targetId && document.getElementById(targetId)) {
-        switchView(targetId);
-        }
-        }
-        });
-
-        // Function to toggle the mobile hamburger menu
         function toggleMenu() {
-        const nav = document.querySelector('.nav-links');
-        const hamburger = document.querySelector('.hamburger');
-        nav.classList.toggle('nav-active');
-        hamburger.classList.toggle('toggle');
+            document.querySelector('.nav-links')?.classList.toggle('nav-active');
+            document.querySelector('.hamburger')?.classList.toggle('toggle');
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProjects(); renderWindroidSubprojects();
+            const params = new URLSearchParams(window.location.search);
+            const map = { projects: 'projects-view', media: 'media-view', contact: 'contact-view', home: 'home-view', windroid: 'windroid-view' };
+            if (map[params.get('view')]) switchView(map[params.get('view')]);
+        });
     </script>
 
 </body>
