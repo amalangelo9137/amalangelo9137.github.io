@@ -1336,23 +1336,25 @@ html, body {
     border-bottom: 0 !important;
 }
 
-/* Compact one-shot logo animation; dark video matte blends into the toolbar. */
+/* One-shot transparent logo animation, sized to read clearly in the toolbar. */
 .toolbar .logo {
-    width: 62px !important;
-    height: 42px !important;
-    min-width: 62px !important;
-    min-height: 42px !important;
-    max-width: 62px !important;
-    max-height: 42px !important;
-    flex: 0 0 62px !important;
+    width: 84px !important;
+    height: 56px !important;
+    min-width: 84px !important;
+    min-height: 56px !important;
+    max-width: 84px !important;
+    max-height: 56px !important;
+    flex: 0 0 84px !important;
     overflow: hidden;
+    background: transparent !important;
 }
 .toolbar .logo-animation {
-    width: 62px !important;
-    height: 42px !important;
-    max-width: 62px !important;
-    max-height: 42px !important;
+    display: block;
+    width: 84px !important;
+    height: 56px !important;
+    max-width: 84px !important;
+    max-height: 56px !important;
     object-fit: contain;
-    mix-blend-mode: screen;
     background: transparent !important;
+    mix-blend-mode: normal;
 }
