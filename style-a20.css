@@ -1320,3 +1320,39 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
     .toolbar .logo-animation { animation: none; }
 }
+
+
+/* Definitive aspect-card link reset (keep the card typography untouched). */
+.creator-aspects .aspect-grid a.aspect-link,
+.creator-aspects .aspect-grid a.aspect-link:link,
+.creator-aspects .aspect-grid a.aspect-link:visited,
+.creator-aspects .aspect-grid a.aspect-link:hover,
+.creator-aspects .aspect-grid a.aspect-link:focus,
+.creator-aspects .aspect-grid a.aspect-link:active,
+.creator-aspects .aspect-grid a.aspect-link * {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    text-decoration-color: transparent !important;
+    border-bottom: 0 !important;
+}
+
+/* Compact one-shot logo animation; dark video matte blends into the toolbar. */
+.toolbar .logo {
+    width: 62px !important;
+    height: 42px !important;
+    min-width: 62px !important;
+    min-height: 42px !important;
+    max-width: 62px !important;
+    max-height: 42px !important;
+    flex: 0 0 62px !important;
+    overflow: hidden;
+}
+.toolbar .logo-animation {
+    width: 62px !important;
+    height: 42px !important;
+    max-width: 62px !important;
+    max-height: 42px !important;
+    object-fit: contain;
+    mix-blend-mode: screen;
+    background: transparent !important;
+}
