@@ -31,6 +31,7 @@
             <ul class="nav-links">
                 <li><button onclick="switchView('home-view')">Home</button></li>
                 <li><button onclick="switchView('projects-view')">Projects</button></li>
+                <li><button onclick="switchView('media-view')">Media</button></li>
                 <li><button onclick="switchView('about-view')">About</button></li>
             </ul>
         </nav>
@@ -64,6 +65,17 @@
                     <p>I started <i>The Windroid Project</i> because I don't even have the money to afford <b>GEOMETRY DASH</b>. So, I made my own game, OS etc. <i>How is it? ...</i></p>
                 </div>
             </div>
+
+            <section class="creator-aspects" aria-label="Things I create">
+                <h3>More than one kind of project</h3>
+                <p class="contact-subtitle">A few different directions my curiosity takes me.</p>
+                <div class="aspect-grid">
+                    <article class="aspect-card"><span class="aspect-symbol">⌘</span><h4>Software & operating systems</h4><p>Exploring system software, interfaces, kernels, and ideas behind WinOS.</p></article>
+                    <article class="aspect-card"><span class="aspect-symbol">▣</span><h4>Games & simulations</h4><p>Building interactive worlds, experiments, and simulation-driven projects.</p></article>
+                    <article class="aspect-card"><span class="aspect-symbol">♫</span><h4>Music & audio</h4><p>Making original tracks and sharing music through streaming and video.</p></article>
+                    <article class="aspect-card"><span class="aspect-symbol">✳</span><h4>Experiments & ideas</h4><p>Trying things across software, creative tools, and hardware concepts.</p></article>
+                </div>
+            </section>
 
             <div class="contact-section">
                 <h3>I am socially active though (not really)</h3>
@@ -132,16 +144,11 @@
                         </div>
                     </a>
 
-                    <a href="mailto:amalangelo9137@outlook.com" class="contact-card">
-                        <div class="contact-icon-wrapper">
-                            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                                <polyline points="22,6 12,13 2,6" />
-                            </svg>
-                        </div>
+                    <a href="https://open.spotify.com/artist/64CsCiwgSoYf1HO6fRBJeM" target="_blank" rel="noopener noreferrer" class="contact-card">
+                        <div class="contact-icon-wrapper"><span style="font-size:30px;">♫</span></div>
                         <div class="contact-info">
-                            <h4>Email</h4>
-                            <p>Reach out directly for development queries and more!</p>
+                            <h4>Spotify</h4>
+                            <p>Listen to my original music.</p>
                         </div>
                     </a>
 
@@ -170,6 +177,34 @@
                 </div>
 
             </div>
+        </div>
+    </main>
+
+    <main id="media-view" class="view">
+        <div class="glass-panel blur-light">
+            <h2>Music, videos & other media</h2>
+            <p class="subtitle-text">The creative side of what I make — original music, visualizers, and videos.</p>
+            <section class="media-feature">
+                <div class="media-heading"><span class="media-kicker">ON YOUTUBE</span><h3>Videos & visualizers</h3></div>
+                <div class="media-grid">
+                    <article class="media-card">
+                        <div class="media-frame"><iframe src="https://www.youtube-nocookie.com/embed/-HWjx5LjlWY" title="Bionic Beaver III — official visualizer" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                        <h4>Bionic Beaver III</h4><p>Official visualizer</p>
+                    </article>
+                    <article class="media-card">
+                        <div class="media-frame"><iframe src="https://www.youtube-nocookie.com/embed/IQdWEEYdnag" title="Castor canadensis — official music video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                        <h4>Castor canadensis</h4><p>Official music video</p>
+                    </article>
+                </div>
+                <p class="media-more"><a href="https://www.youtube.com/@amalangelo9137" target="_blank" rel="noopener noreferrer">Explore the YouTube channel ↗</a></p>
+            </section>
+            <section class="media-feature">
+                <div class="media-heading"><span class="media-kicker">ON SPOTIFY</span><h3>Listen to my music</h3></div>
+                <div class="spotify-feature">
+                    <iframe title="Castor canadensis on Spotify" src="https://open.spotify.com/embed/track/7jRztkNqmz4hzNQbn302cY?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <div class="spotify-copy"><h4>Amal9137</h4><p>Original tracks and releases. Find more on the artist profile.</p><a href="https://open.spotify.com/artist/64CsCiwgSoYf1HO6fRBJeM" target="_blank" rel="noopener noreferrer">Open Spotify profile ↗</a></div>
+                </div>
+            </section>
         </div>
     </main>
 
@@ -427,6 +462,7 @@
         const viewMapping = {
         'projects': 'projects-view',
         'about': 'about-view',
+        'media': 'media-view',
         'home': 'home-view',
         'windroid': 'windroid-view'
         };
