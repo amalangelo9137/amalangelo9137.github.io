@@ -1269,3 +1269,54 @@ html, body {
     outline: 3px solid #ffeaa7;
     outline-offset: 4px;
 }
+
+
+/* Hard override: aspect cards are whole-card links, never underlined. */
+.aspect-grid a.aspect-card.aspect-link,
+.aspect-grid a.aspect-card.aspect-link:link,
+.aspect-grid a.aspect-card.aspect-link:visited,
+.aspect-grid a.aspect-card.aspect-link:hover,
+.aspect-grid a.aspect-card.aspect-link:focus,
+.aspect-grid a.aspect-card.aspect-link:focus-visible,
+.aspect-grid a.aspect-card.aspect-link:active {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+}
+.aspect-grid a.aspect-card.aspect-link *,
+.aspect-grid a.aspect-card.aspect-link:hover *,
+.aspect-grid a.aspect-card.aspect-link:focus *,
+.aspect-grid a.aspect-card.aspect-link:active * {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+}
+.aspect-grid a.aspect-card.aspect-link .aspect-link-action {
+    text-decoration: none !important;
+    border-bottom: 0 !important;
+}
+
+/* Animated brand mark in the main toolbar. */
+.toolbar .logo {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+}
+.toolbar .logo-animation {
+    display: block;
+    width: 112px;
+    height: 62px;
+    object-fit: contain;
+    pointer-events: none;
+}
+.toolbar .logo:focus-visible {
+    outline: 2px solid #ffeaa7;
+    outline-offset: 5px;
+    border-radius: 8px;
+}
+@media (prefers-reduced-motion: reduce) {
+    .toolbar .logo-animation { animation: none; }
+}
