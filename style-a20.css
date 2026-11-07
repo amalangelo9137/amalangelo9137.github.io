@@ -1358,3 +1358,34 @@ html, body {
     background: transparent !important;
     mix-blend-mode: normal;
 }
+
+
+/* Final logo sizing: remove the previous 84x56 cap and let the mark breathe. */
+.toolbar .logo {
+    width: 156px !important;
+    height: 92px !important;
+    min-width: 156px !important;
+    min-height: 92px !important;
+    max-width: 156px !important;
+    max-height: 92px !important;
+    flex: 0 0 156px !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+.toolbar .logo-animation {
+    display: block;
+    width: 156px !important;
+    height: 92px !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: contain;
+    object-position: center;
+    background: transparent !important;
+    opacity: 1 !important;
+    filter: none !important;
+    mix-blend-mode: normal !important;
+    pointer-events: none;
+}
