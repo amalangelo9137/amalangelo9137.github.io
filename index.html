@@ -63,7 +63,7 @@
                 <p class="contact-subtitle">A few different directions my curiosity takes me.</p>
                 <div class="aspect-grid">
                     <a class="aspect-card aspect-link" href="https://github.com/amalangelo9137" target="_blank" rel="noopener noreferrer"><span class="aspect-symbol">⌘</span><h4>Software & OS development</h4><p>Exploring system software, interfaces, kernels, and ideas behind WinOS.</p><span class="aspect-link-action">Explore on GitHub ↗</span></a>
-                    <a class="aspect-card aspect-link" href="https://gamejolt.com/@Amal9137" target="_blank" rel="noopener noreferrer"><span class="aspect-symbol">▣</span><h4>Game development</h4><p>Building interactive worlds, experiments, and simulation-driven projects.</p><span class="aspect-link-action">Find my games on Game Jolt ↗</span></a>
+                    <a class="aspect-card aspect-link" href="https://gamejolt.com/@amalangelo9137" target="_blank" rel="noopener noreferrer"><span class="aspect-symbol">▣</span><h4>Game development</h4><p>Building interactive worlds, experiments, and simulation-driven projects.</p><span class="aspect-link-action">Find my games on Game Jolt ↗</span></a>
                     <a class="aspect-card aspect-link" href="https://open.spotify.com/artist/64CsCiwgSoYf1HO6fRBJeM" target="_blank" rel="noopener noreferrer"><span class="aspect-symbol">♫</span><h4>Music & audio</h4><p>Making original tracks and sharing music through streaming and video.</p><span class="aspect-link-action">Listen on Spotify ↗</span></a>
                     <article class="aspect-card"><span class="aspect-symbol">✳</span><h4>Experiments & ideas</h4><p>Trying things across software, creative tools, and hardware concepts.</p></article>
                 </div>
@@ -79,25 +79,38 @@
     </main>
 
     <main id="projects-view" class="view">
-        <div class="glass-panel blur-light">
-            <h2>My Projects</h2>
-            <div class="grid-layout">
+        <div class="glass-panel blur-light projects-shell">
+            <header class="projects-header">
+                <span class="home-eyebrow">THE THINGS I'M BUILDING</span>
+                <h1>My <span>Projects</span><i>.</i></h1>
+                <p>A collection of ideas, experiments, and things I'm turning into reality. Pick a project to explore what lives inside it.</p>
+            </header>
 
-                <div class="card" onclick="switchView('windroid-view')">
-                    <div class="card-thumbnail">
-                        <img src="images/twp.png" alt="The Windroid Project" onerror="this.style.display='none'; document.getElementById('svg-twp').style.display='block';">
-                        <svg id="svg-twp" style="display: none;" viewBox="0 0 400 200">
-                            <rect width="100%" height="100%" fill="#111" opacity="0.3" />
-                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Bangers', cursive" font-size="55" fill="#2ed573" letter-spacing="2">TWP</text>
-                        </svg>
-                    </div>
-                    <div class="card-body">
-                        <h3>The Windroid Project</h3>
-                        <p>A project containing many open-source games, programs, and more!</p>
-                    </div>
+            <section class="projects-section" aria-label="Featured projects">
+                <div class="projects-section-heading">
+                    <div><span class="media-kicker">FEATURED</span><h2>Big ideas, in progress</h2></div>
+                    <span class="projects-count">01 project</span>
                 </div>
 
-            </div>
+                <div class="grid-layout projects-grid">
+                    <article class="card project-featured-card" role="button" tabindex="0" aria-label="Explore The Windroid Project" onclick="switchView('windroid-view')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();switchView('windroid-view')}">
+                        <div class="card-thumbnail project-featured-thumbnail">
+                            <img src="images/twp.png" alt="The Windroid Project artwork" onerror="this.style.display='none'; document.getElementById('svg-twp').style.display='block';">
+                            <svg id="svg-twp" style="display: none;" viewBox="0 0 400 200" aria-hidden="true">
+                                <rect width="100%" height="100%" fill="#111" opacity="0.3" />
+                                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="'Bangers', cursive" font-size="55" fill="#2ed573" letter-spacing="2">TWP</text>
+                            </svg>
+                            <span class="project-image-label">OPEN-SOURCE ECOSYSTEM</span>
+                        </div>
+                        <div class="card-body project-featured-body">
+                            <div class="project-meta"><span class="project-type">GAMES · SOFTWARE · EXPERIMENTS</span><span class="project-status">Ongoing</span></div>
+                            <h3>The Windroid Project</h3>
+                            <p>A growing ecosystem of open-source games, software, simulations, and experiments — built around curiosity and the freedom to create.</p>
+                            <span class="project-card-action">Explore the project <b aria-hidden="true">↗</b></span>
+                        </div>
+                    </article>
+                </div>
+            </section>
         </div>
     </main>
 
