@@ -1175,3 +1175,42 @@ html, body {
 @media(max-width:640px) {
     .contact-page-card.contact-email-card { grid-column: auto; }
 }
+
+
+/* Contact choices: two primary channels and a quieter email alternative. */
+.contact-alternative {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 18px;
+    margin: 22px auto 0;
+    padding: 16px 20px;
+    width: fit-content;
+    max-width: 100%;
+    border: 1px solid rgba(255,255,255,.17);
+    border-radius: 15px;
+    background: rgba(12,14,48,.2);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+.contact-alternative a {
+    color: rgba(255,255,255,.88);
+    font-size: .94rem;
+    font-weight: 600;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+.contact-alternative a:hover {
+    color: #ffeaa7;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+.contact-alternative:focus-within {
+    outline: 2px solid #ffeaa7;
+    outline-offset: 3px;
+}
+@media(max-width:640px) {
+    .contact-alternative { width: 100%; flex-direction: column; text-align: center; }
+}
