@@ -1102,3 +1102,24 @@ html, body {
  .contact-menu-panel{position:static;width:min(100%,300px);margin:8px auto 0;text-align:left}
 }
 @media(prefers-reduced-motion:reduce){.home-quick-links button{transition:none}}
+
+
+/* Dedicated contact page */
+.contact-page{width:min(1050px,100%);margin:0 auto 38px;padding:clamp(24px,4vw,46px);border-radius:26px}
+.contact-page-header{max-width:690px;margin:0 auto 30px;text-align:center}
+.contact-page-header h1{font-size:clamp(2.5rem,6vw,4rem);line-height:1.05;margin:8px 0 12px;letter-spacing:-1.5px}
+.contact-page-header h1 span{color:#ffeaa7}
+.contact-page-header p{font-size:1.05rem;line-height:1.7;opacity:.88}
+.contact-page-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.contact-page-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;min-height:205px;padding:22px;border-radius:19px;text-decoration:none;color:inherit;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.17);box-shadow:inset 0 1px 0 rgba(255,255,255,.09);transition:transform .2s ease,background .2s ease,border-color .2s ease}
+.contact-page-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.12);border-color:rgba(255,234,167,.42)}
+.contact-page-card.contact-primary{grid-column:1/-1;min-height:190px;background:linear-gradient(120deg,rgba(255,234,167,.16),rgba(255,255,255,.07))}
+.contact-card-kicker{font-size:.68rem;font-weight:800;letter-spacing:1.7px;color:#ffeaa7}
+.contact-page-icon{position:absolute;right:22px;top:19px;font-size:1.7rem;opacity:.8}
+.contact-page-card h2{font-size:1.55rem;margin:12px 0 5px}
+.contact-page-card p{max-width:470px;line-height:1.55;opacity:.82;margin:0 0 18px}
+.contact-card-action{margin-top:auto;color:#ffeaa7;font-weight:700}
+.contact-page-note{text-align:center;margin:25px 0 0;font-size:.9rem;opacity:.7}
+.contact-page-card:focus-visible{outline:3px solid #ffeaa7;outline-offset:4px}
+@media(max-width:640px){.contact-page{padding:22px 16px}.contact-page-grid{grid-template-columns:1fr}.contact-page-card.contact-primary{grid-column:auto}.contact-page-card{min-height:180px}}
+@media(prefers-reduced-motion:reduce){.contact-page-card{transition:none}}
