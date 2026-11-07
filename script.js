@@ -1,132 +1,265 @@
-(() => {
-  "use strict";
-  const data = window.PORTFOLIO_DATA || {};
-  const $ = (selector, root = document) => root.querySelector(selector);
-  const el = (tag, className, text) => {
-    const node = document.createElement(tag);
-    if (className) node.className = className;
-    if (text !== undefined && text !== null) node.textContent = text;
-    return node;
-  };
-  const setText = (selector, value) => { const node = $(selector); if (node) node.textContent = value || ""; };
+/* Portfolio renderer. Content lives in data.js. */
+let currentViewId = 'home-view';
+const portfolioProjects = Array.isArray(window.PORTFOLIO_DATA?.projects)
+    ? window.PORTFOLIO_DATA.projects
+    : [];
 
-  function renderStaticText() {
-    setText("[data-site-name]", data.siteName || "Portfolio");
-    document.title = data.siteName ? data.siteName + " — Portfolio" : "Portfolio";
-    setText("[data-hero-eyebrow]", data.home?.eyebrow);
-    setText("[data-hero-title]", data.home?.title);
-    setText("[data-hero-description]", data.home?.description);
-    setText("[data-about-heading]", data.about?.heading);
-    setText("[data-footer-text]", data.footerText);
-    const about = $("[data-about-description]");
-    (data.about?.paragraphs || []).forEach(text => about?.appendChild(el("p", "", text)));
-  }
+function switchView(viewId) {
+    document.querySelector('.nav-links')?.classList.remove('nav-active');
+    document.querySelector('.hamburger')?.classList.remove('toggle');
+    if (currentViewId === viewId) return;
 
-  function renderProjects() {
-    const grid = $("#projects-grid"), empty = $("#projects-empty");
-    const projects = Array.isArray(data.projects) ? data.projects : [];
-    if (empty) empty.hidden = projects.length > 0;
-    projects.forEach(project => {
-      const card = el("button", "project-card");
-      card.type = "button";
-      card.setAttribute("aria-label", "View details for " + (project.title || "project"));
-      const thumb = el("div", "project-thumb");
-      if (project.image) {
-        const image = el("img"); image.src = project.image; image.alt = (project.title || "Project") + " artwork"; image.loading = "lazy";
-        image.onerror = () => { image.remove(); thumb.appendChild(el("span", "", "✳")); };
-        thumb.appendChild(image);
-      } else thumb.appendChild(el("span", "", "✳"));
-      const body = el("div", "project-card-content");
-      body.append(el("span", "project-category", project.category || "Project"), el("h3", "", project.title || "Untitled project"), el("p", "", project.description || ""), el("span", "project-more", "View details ↗"));
-      card.append(thumb, body);
-      card.addEventListener("click", () => openProject(project));
-      grid?.appendChild(card);
-    });
-  }
+    document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
+    const target = document.getElementById(viewId);
+    if (!target) return;
 
-  function renderMedia() {
-    const grid = $("#featured-media-grid");
-    (Array.isArray(data.media) ? data.media : []).forEach(item => {
-      const card = el("article", "media-card");
-      let frame;
-      if (item.kind === "youtube" && item.id) {
-        frame = el("iframe", "embed-frame");
-        frame.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(item.id);
-        frame.title = item.title || "YouTube video"; frame.loading = "lazy";
-        frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-        frame.allowFullscreen = true;
-      } else if (item.kind === "spotify" && item.embedUrl) {
-        frame = el("iframe", "embed-frame spotify"); frame.src = item.embedUrl;
-        frame.title = item.title || "Spotify embed"; frame.loading = "lazy";
-        frame.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
-      } else return;
-      card.appendChild(frame); card.appendChild(el("h3", "", item.title || "Featured media"));
-      if (item.description) card.appendChild(el("p", "", item.description));
-      grid?.appendChild(card);
-    });
-    if (grid && !grid.children.length) grid.appendChild(el("p", "empty-state", "Featured videos and music will appear here."));
-  }
+    target.classList.add('active');
+    currentViewId = viewId;
 
-  function renderSocials() {
-    const grid = $("#social-links");
-    (Array.isArray(data.socials) ? data.socials : []).forEach(item => {
-      if (!item.url) return;
-      const link = el("a", "social-card"); link.href = item.url; link.target = "_blank"; link.rel = "noopener noreferrer";
-      const mark = el("span", "social-mark", item.mark || "↗"), copy = el("span");
-      copy.appendChild(el("strong", "", item.name || "Social profile"));
-      if (item.handle) copy.appendChild(el("small", "", item.handle));
-      link.append(mark, copy); grid?.appendChild(link);
-    });
-    if (grid && !grid.children.length) grid.appendChild(el("p", "empty-state", "Your social links will appear here."));
-  }
+    // Keep the main portfolio and The Windroid Project on independent stylesheets.
+    const isWindroid = viewId === 'windroid-view';
+    document.getElementById('main-theme').disabled = isWindroid;
+    document.getElementById('twp-theme').disabled = !isWindroid;
 
-  function openProject(project) {
-    const dialog = $("#project-dialog");
-    setText("[data-dialog-category]", project.category || "Project");
-    setText("[data-dialog-title]", project.title || "Untitled project");
-    setText("[data-dialog-description]", project.description || "");
-    const tags = $("[data-dialog-tags]"); tags.replaceChildren();
-    (project.tags || []).forEach(tag => tags.appendChild(el("span", "tag", tag)));
-    const subprojects = $("[data-dialog-subprojects]"); subprojects.replaceChildren();
-    (project.subprojects || []).forEach(sub => {
-      const card = el("article", "subproject-card");
-      card.appendChild(el("h3", "", sub.name || "Module"));
-      if (sub.description) card.appendChild(el("p", "", sub.description));
-      if (sub.link) { const link = el("a", "", "Explore ↗"); link.href = sub.link; link.target = "_blank"; link.rel = "noopener noreferrer"; card.appendChild(link); }
-      subprojects.appendChild(card);
-    });
-    const mainLink = $("[data-dialog-link]");
-    if (project.link) { mainLink.href = project.link; mainLink.hidden = false; }
-    else { mainLink.hidden = true; mainLink.removeAttribute("href"); }
-    if (typeof dialog.showModal === "function") dialog.showModal();
-  }
-
-  function setupNavigation() {
-    const nav = $("#primary-nav"), toggle = $(".menu-toggle");
-    const views = [...document.querySelectorAll(".view")];
-    function showView(id) {
-      if (!views.some(view => view.id === id)) return;
-      views.forEach(view => view.classList.toggle("active", view.id === id));
-      document.querySelectorAll("[data-view]").forEach(button => button.classList.toggle("active", button.dataset.view === id));
-      nav?.classList.remove("open"); toggle?.setAttribute("aria-expanded", "false");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    if (viewId === 'home-view') {
+        const animImg = document.getElementById('synfig-animation');
+        if (animImg && animImg.style.display !== 'none') {
+            animImg.src = 'images/amal9137.webp?t=' + Date.now();
+        }
     }
-    document.querySelectorAll("[data-view]").forEach(button => button.addEventListener("click", () => showView(button.dataset.view)));
-    document.querySelectorAll("[data-go-view]").forEach(button => button.addEventListener("click", () => showView(button.dataset.goView)));
-    document.querySelectorAll("[data-view-link]").forEach(link => link.addEventListener("click", event => { event.preventDefault(); showView(link.dataset.viewLink); }));
-    toggle?.addEventListener("click", () => {
-      const open = toggle.getAttribute("aria-expanded") !== "true";
-      toggle.setAttribute("aria-expanded", String(open)); nav?.classList.toggle("open", open);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function createProjectImage(src, title, className) {
+    const wrapper = document.createElement('div');
+    wrapper.className = className;
+    if (!src) return wrapper;
+
+    const image = document.createElement('img');
+    image.src = src;
+    image.alt = (title || 'Project') + ' artwork';
+    image.loading = 'lazy';
+    image.onerror = () => image.remove();
+    wrapper.appendChild(image);
+    return wrapper;
+}
+
+function renderProjects() {
+    const grid = document.getElementById('projects-grid');
+    const count = document.getElementById('projects-count');
+    if (!grid) return;
+
+    grid.replaceChildren();
+    if (count) {
+        count.textContent = portfolioProjects.length +
+            (portfolioProjects.length === 1 ? ' project' : ' projects');
+    }
+
+    portfolioProjects.forEach(project => {
+        const card = document.createElement('article');
+        card.className = 'card project-featured-card';
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', 'Explore ' + project.title);
+
+        const open = () => openProject(project);
+        card.addEventListener('click', open);
+        card.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                open();
+            }
+        });
+
+        const thumb = createProjectImage(
+            project.image, project.title,
+            'card-thumbnail project-featured-thumbnail'
+        );
+        const label = document.createElement('span');
+        label.className = 'project-image-label';
+        label.textContent = project.category || 'PROJECT';
+        thumb.appendChild(label);
+
+        const body = document.createElement('div');
+        body.className = 'card-body project-featured-body';
+        const meta = document.createElement('div');
+        meta.className = 'project-meta';
+        const type = document.createElement('span');
+        type.className = 'project-type';
+        type.textContent = (project.tags || []).join(' · ') ||
+            project.category || 'PROJECT';
+        meta.appendChild(type);
+
+        if (project.status) {
+            const status = document.createElement('span');
+            status.className = 'project-status';
+            status.textContent = project.status;
+            meta.appendChild(status);
+        }
+
+        const title = document.createElement('h3');
+        title.textContent = project.title || 'Untitled project';
+        const description = document.createElement('p');
+        description.textContent = project.description || '';
+        const action = document.createElement('span');
+        action.className = 'project-card-action';
+        action.textContent = 'Explore the project ↗';
+
+        body.append(meta, title, description, action);
+        card.append(thumb, body);
+        grid.appendChild(card);
     });
-  }
+}
 
-  function setupDialog() {
-    const dialog = $("#project-dialog");
-    $(".dialog-close")?.addEventListener("click", () => dialog.close());
-    dialog?.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
-  }
+function renderWindroidSubprojects() {
+    const grid = document.getElementById('windroid-subprojects-grid');
+    const rootProject = portfolioProjects.find(project =>
+        project.theme === 'twp' || project.id === 'the-windroid-project'
+    );
+    if (!grid) return;
 
-  document.addEventListener("DOMContentLoaded", () => {
-    renderStaticText(); renderProjects(); renderMedia(); renderSocials(); setupNavigation(); setupDialog();
-  });
-})();
+    grid.replaceChildren();
+    (rootProject?.subprojects || []).forEach(subproject => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+
+        const open = () => openNode(subproject, 'parts', 'Parts');
+        card.addEventListener('click', open);
+        card.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                open();
+            }
+        });
+
+        const thumb = createProjectImage(
+            subproject.image, subproject.title, 'card-thumbnail'
+        );
+        const body = document.createElement('div');
+        body.className = 'card-body';
+        const title = document.createElement('h3');
+        title.textContent = subproject.title || 'Untitled sub-project';
+        const description = document.createElement('p');
+        description.textContent = subproject.description || '';
+        body.append(title, description);
+
+        if (subproject.status) {
+            const status = document.createElement('span');
+            status.className = 'project-status';
+            status.textContent = subproject.status;
+            body.appendChild(status);
+        }
+
+        card.append(thumb, body);
+        grid.appendChild(card);
+    });
+}
+
+function openProject(project) {
+    if (project.theme === 'twp' || project.id === 'the-windroid-project') {
+        switchView('windroid-view');
+    } else {
+        openNode(project, 'subprojects', 'Sub-projects');
+    }
+}
+
+function openNode(node, childKey, heading) {
+    document.getElementById('overlay-title').textContent =
+        node.title || 'Project';
+    document.getElementById('overlay-subtitle').textContent =
+        node.status || '';
+    document.getElementById('overlay-desc').textContent =
+        node.description || '';
+    document.getElementById('overlay-items-heading').textContent = heading;
+
+    const grid = document.getElementById('overlay-parts-grid');
+    grid.replaceChildren();
+    const children = Array.isArray(node[childKey]) ? node[childKey] : [];
+
+    if (!children.length) {
+        const empty = document.createElement('p');
+        empty.className = 'empty-overlay-msg';
+        empty.textContent = node.emptyMessage ||
+            'Nothing has been added here yet.';
+        grid.appendChild(empty);
+    } else {
+        children.forEach(child => {
+            const card = document.createElement('article');
+            card.className = 'overlay-sub-card';
+            const title = document.createElement('h4');
+            title.textContent = child.title || 'Untitled item';
+            const description = document.createElement('p');
+            description.textContent = child.description || '';
+            card.append(title, description);
+
+            if (childKey === 'subprojects' && Array.isArray(child.parts)) {
+                card.tabIndex = 0;
+                card.setAttribute('role', 'button');
+                const action = document.createElement('span');
+                action.className = 'project-card-action';
+                action.textContent = 'View parts ↗';
+                card.appendChild(action);
+
+                const open = () => openNode(child, 'parts', 'Parts');
+                card.addEventListener('click', open);
+                card.addEventListener('keydown', event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        open();
+                    }
+                });
+            } else if (child.link) {
+                const link = document.createElement('a');
+                link.href = child.link;
+                link.textContent = 'Explore part ↗';
+                card.appendChild(link);
+            }
+            grid.appendChild(card);
+        });
+    }
+
+    document.getElementById('project-overlay').classList.add('active');
+    document.body.classList.add('modal-open');
+}
+
+function closeOverlay() {
+    document.getElementById('project-overlay').classList.remove('active');
+    document.body.classList.remove('modal-open');
+}
+
+function closeOverlayOnOutsideClick(event) {
+    if (event.target === document.getElementById('project-overlay')) {
+        closeOverlay();
+    }
+}
+
+function showHomeFallback() {
+    const image = document.getElementById('synfig-animation');
+    const fallback = document.getElementById('fallback-h1');
+    if (image) image.style.display = 'none';
+    if (fallback) fallback.style.display = 'block';
+}
+
+function toggleMenu() {
+    document.querySelector('.nav-links')?.classList.toggle('nav-active');
+    document.querySelector('.hamburger')?.classList.toggle('toggle');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderProjects();
+    renderWindroidSubprojects();
+
+    const params = new URLSearchParams(window.location.search);
+    const views = {
+        projects: 'projects-view',
+        media: 'media-view',
+        contact: 'contact-view',
+        home: 'home-view',
+        windroid: 'windroid-view'
+    };
+    if (views[params.get('view')]) {
+        switchView(views[params.get('view')]);
+    }
+});
