@@ -1244,3 +1244,28 @@ html, body {
 .project-featured-card:focus-visible{outline:3px solid #ffeaa7;outline-offset:5px}
 @media(max-width:700px){.projects-shell{padding:23px 16px}.projects-header{margin-bottom:28px}.projects-section-heading{align-items:flex-start}.project-featured-card{grid-template-columns:1fr}.project-featured-thumbnail{min-height:190px;height:210px;border-right:0;border-bottom:1px solid rgba(255,255,255,.13)}.project-featured-body{padding:22px}}
 @media(prefers-reduced-motion:reduce){.project-card-action b{transition:none}}
+
+
+/* Clickable aspect cards should look like cards, not underlined links. */
+.aspect-grid > .aspect-link,
+.aspect-grid > .aspect-link:visited {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+.aspect-grid > .aspect-link:hover,
+.aspect-grid > .aspect-link:focus,
+.aspect-grid > .aspect-link:active {
+    color: inherit;
+    text-decoration: none;
+}
+.aspect-grid > .aspect-link .aspect-link-action {
+    display: inline-block;
+    color: #ffeaa7;
+    font-weight: 700;
+    text-decoration: none;
+}
+.aspect-grid > .aspect-link:focus-visible {
+    outline: 3px solid #ffeaa7;
+    outline-offset: 4px;
+}
