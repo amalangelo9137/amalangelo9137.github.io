@@ -65,8 +65,8 @@ window.PORTFOLIO_DATA = {
         { type: "text", text: "This game currently has a somewhat working Fundamental Force system with basic controls for both PC (keyboard + mouse) and mobile (touch) devices. Eventually, I am trying to add a container environment saving system, things like that." }
       ],
       downloadLinks: [
-        { label: "GitHub Releases", url: "https://github.com/amalangelo9137/Windroid-Real-Life-Simulator/releases" },
-        { label: "Game Jolt", url: "https://gamejolt.com/games/wdsimMICRO/1075586" }
+        { label: "Download — GitHub Releases", url: "https://github.com/amalangelo9137/Windroid-Real-Life-Simulator/releases" },
+        { label: "Play on Game Jolt", url: "https://gamejolt.com/games/wdsimMICRO/1075586" }
       ]
     },
     {
@@ -80,7 +80,7 @@ window.PORTFOLIO_DATA = {
         { type: "text", text: "This game is NOT allowed to contain anything from fantasies or our imagination (other than the Pseudo Biological Framework, because we are not literally in the sim. Without it, how are we supposed to move with WASD or our mouse?), to help maintain the 1:1 ratio." }
       ],
       downloadLinks: [
-        { label: "GitHub Releases", url: "https://github.com/amalangelo9137/Windroid-Virtual-Life-Simulator/releases" }
+        { label: "Download — GitHub Releases", url: "https://github.com/amalangelo9137/Windroid-Virtual-Life-Simulator/releases" }
       ]
     },
     {
