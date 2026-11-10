@@ -1513,20 +1513,34 @@ html, body {
 }
 
 
-/* A single curtain hides the atomic theme/view swap from the user. */
-body::after {
+
+/* Shared theme background layer: Windroid fades in over the main gradient. */
+body {
+    position: relative;
+    isolation: isolate;
+}
+
+body::before {
     content: "";
     position: fixed;
     inset: 0;
-    z-index: 9999;
+    z-index: -1;
     pointer-events: none;
+    background: linear-gradient(135deg, #2ed573, #ff7f50, #2ed573, #ff4757, #1e90ff);
+    background-size: 400% 400%;
+    background-attachment: fixed;
     opacity: 0;
-    background: rgba(8, 10, 20, .88);
-    transition: opacity .19s ease;
+    transition: opacity .85s ease-in-out;
+    animation: gradientBG 18s ease infinite;
 }
-body.theme-transitioning::after {
+
+body.windroid-theme::before {
     opacity: 1;
 }
+
 @media (prefers-reduced-motion: reduce) {
-    body::after { transition: none; }
+    body::before {
+        transition: none;
+        animation: none;
+    }
 }
