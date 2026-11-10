@@ -1636,3 +1636,58 @@ body.windroid-theme::before {
 @media (prefers-reduced-motion: reduce) {
     .part-action-button { transition: none; }
 }
+
+
+/* Rich content blocks in the shared project viewer */
+.part-content strong { font-weight: 800; color: #fff; }
+.part-content em { font-style: italic; }
+.part-content u { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.part-content code,
+.part-code {
+    font-family: Consolas, "Courier New", monospace;
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 7px;
+    background: rgba(0,0,0,.28);
+}
+.part-content code { padding: 2px 6px; color: #ffeaa7; }
+.part-code {
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 17px 19px;
+    line-height: 1.65;
+    color: rgba(255,255,255,.92);
+    white-space: pre;
+}
+.part-code code { padding: 0; border: 0; background: none; color: inherit; }
+.part-content a,
+.part-inline-link { color: #ffeaa7; text-underline-offset: 4px; }
+.part-content a:hover { color: #fff; }
+.part-quote {
+    margin: 0;
+    padding: 18px 22px;
+    border-left: 4px solid #ffeaa7;
+    border-radius: 0 13px 13px 0;
+    background: rgba(0,0,0,.2);
+    color: rgba(255,255,255,.92);
+}
+.part-quote p { margin: 0; line-height: 1.75; }
+.part-quote cite {
+    display: block;
+    margin-top: 10px;
+    font-size: .88rem;
+    font-style: normal;
+    opacity: .7;
+}
+.part-callout {
+    padding: 18px 20px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 14px;
+    background: rgba(255,255,255,.08);
+}
+.part-callout h4 { margin: 0 0 7px; color: #ffeaa7; }
+.part-callout p { margin: 0; line-height: 1.7; }
+.part-callout-warning { border-color: rgba(255,190,90,.45); background: rgba(255,160,50,.09); }
+.part-callout-success { border-color: rgba(46,213,115,.4); background: rgba(46,213,115,.08); }
+.part-divider { width: 100%; border: 0; border-top: 1px solid rgba(255,255,255,.2); margin: 8px 0; }
+.part-list { display: flex; flex-direction: column; gap: 7px; }
+.part-list li { line-height: 1.7; padding-left: 3px; }
