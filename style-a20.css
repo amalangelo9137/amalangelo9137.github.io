@@ -1512,11 +1512,21 @@ html, body {
     grid-column: 1 / -1;
 }
 
-/* Theme swaps are structural changes, not animated page transitions. */
-body.theme-switching,
-body.theme-switching *,
-body.theme-switching *::before,
-body.theme-switching *::after {
-    animation: none !important;
-    transition: none !important;
+
+/* A single curtain hides the atomic theme/view swap from the user. */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    background: rgba(8, 10, 20, .88);
+    transition: opacity .19s ease;
+}
+body.theme-transitioning::after {
+    opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+    body::after { transition: none; }
 }
