@@ -1,25 +1,90 @@
 /* Portfolio renderer. Content lives in data.js. */
 let currentViewId = 'home-view';
+let modalReturnFocus = null;
+
 const portfolioProjects = Array.isArray(window.PORTFOLIO_DATA?.projects)
     ? window.PORTFOLIO_DATA.projects
     : [];
 
-function switchView(viewId) {
-    document.querySelector('.nav-links')?.classList.remove('nav-active');
-    document.querySelector('.hamburger')?.classList.remove('toggle');
-    if (currentViewId === viewId) return;
+const viewKeys = {
+    'home-view': 'home',
+    'projects-view': 'projects',
+    'media-view': 'media',
+    'contact-view': 'contact',
+    'windroid-view': 'windroid'
+};
 
-    document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
+function updateNavigationState(viewId) {
+    const activeView = viewId === 'windroid-view' ? 'projects-view' : viewId;
+    document.querySelectorAll('.nav-links [data-view]').forEach(button => {
+        if (button.dataset.view === activeView) {
+            button.setAttribute('aria-current', 'page');
+        } else {
+            button.removeAttribute('aria-current');
+        }
+    });
+}
+
+function setMenuOpen(open) {
+    const nav = document.getElementById('primary-navigation');
+    const links = document.getElementById('nav-links');
+    const hamburger = document.querySelector('.hamburger');
+    if (!nav || !links || !hamburger) return;
+
+    const isMobile = window.matchMedia?.('(max-width: 768px)').matches ?? false;
+    links.classList.toggle('nav-active', open && isMobile);
+    hamburger.classList.toggle('toggle', open && isMobile);
+    hamburger.setAttribute('aria-expanded', String(open && isMobile));
+    hamburger.setAttribute('aria-label', open && isMobile ? 'Close navigation' : 'Open navigation');
+
+    // The off-canvas links must not remain keyboard-focusable while hidden.
+    nav.inert = isMobile && !open;
+    nav.setAttribute('aria-hidden', String(isMobile && !open));
+}
+
+function updateViewUrl(viewId, replace = false) {
+    const key = viewKeys[viewId];
+    if (!key) return;
+
+    const url = new URL(window.location.href);
+    if (key === 'home') {
+        url.searchParams.delete('view');
+    } else {
+        url.searchParams.set('view', key);
+    }
+
+    const method = replace ? 'replaceState' : 'pushState';
+    window.history[method]({ viewId }, '', url);
+}
+
+function switchView(viewId, options = {}) {
     const target = document.getElementById(viewId);
-    if (!target) return;
+    if (!target || !viewKeys[viewId]) return false;
+
+    setMenuOpen(false);
+    if (currentViewId === viewId) {
+        updateNavigationState(viewId);
+        return false;
+    }
+
+    document.querySelectorAll('.view').forEach(view => {
+        view.classList.remove('active');
+        view.setAttribute('aria-hidden', 'true');
+    });
 
     target.classList.add('active');
+    target.removeAttribute('aria-hidden');
     currentViewId = viewId;
 
     // Keep the main portfolio and The Windroid Project on independent stylesheets.
     const isWindroid = viewId === 'windroid-view';
-    document.getElementById('main-theme').disabled = isWindroid;
-    document.getElementById('twp-theme').disabled = !isWindroid;
+    const mainTheme = document.getElementById('main-theme');
+    const twpTheme = document.getElementById('twp-theme');
+    if (mainTheme) mainTheme.disabled = isWindroid;
+    if (twpTheme) twpTheme.disabled = !isWindroid;
+
+    updateNavigationState(viewId);
+    if (options.updateHistory !== false) updateViewUrl(viewId);
 
     if (viewId === 'home-view') {
         const animImg = document.getElementById('synfig-animation');
@@ -27,7 +92,12 @@ function switchView(viewId) {
             animImg.src = 'images/amal9137.webp?t=' + Date.now();
         }
     }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (options.focus !== false) {
+        target.focus({ preventScroll: true });
+    }
+    return true;
 }
 
 function createProjectImage(src, title, className) {
@@ -60,6 +130,7 @@ function renderProjects() {
         card.className = 'card project-featured-card';
         card.tabIndex = 0;
         card.setAttribute('role', 'button');
+        card.setAttribute('aria-haspopup', 'dialog');
         card.setAttribute('aria-label', 'Explore ' + project.title);
 
         const open = () => openProject(project);
@@ -124,6 +195,8 @@ function renderWindroidSubprojects() {
         card.className = 'card';
         card.tabIndex = 0;
         card.setAttribute('role', 'button');
+        card.setAttribute('aria-haspopup', 'dialog');
+        card.setAttribute('aria-label', 'Explore ' + subproject.title);
 
         const open = () => openNode(subproject, 'parts', 'Parts');
         card.addEventListener('click', open);
@@ -166,6 +239,12 @@ function openProject(project) {
 }
 
 function openNode(node, childKey, heading) {
+    const overlay = document.getElementById('project-overlay');
+    const wasAlreadyOpen = overlay.classList.contains('active');
+    if (!wasAlreadyOpen) {
+        modalReturnFocus = document.activeElement;
+    }
+
     document.getElementById('overlay-title').textContent =
         node.title || 'Project';
     document.getElementById('overlay-subtitle').textContent =
@@ -197,6 +276,8 @@ function openNode(node, childKey, heading) {
             if (childKey === 'subprojects' && Array.isArray(child.parts)) {
                 card.tabIndex = 0;
                 card.setAttribute('role', 'button');
+                card.setAttribute('aria-haspopup', 'dialog');
+                card.setAttribute('aria-label', 'View parts for ' + (child.title || 'this project'));
                 const action = document.createElement('span');
                 action.className = 'project-card-action';
                 action.textContent = 'View parts ↗';
@@ -220,13 +301,45 @@ function openNode(node, childKey, heading) {
         });
     }
 
-    document.getElementById('project-overlay').classList.add('active');
+    overlay.classList.add('active');
+    overlay.setAttribute('aria-hidden', 'false');
+    overlay.inert = false;
+    document.getElementById('main-content').inert = true;
+    document.getElementById('main-content').setAttribute('aria-hidden', 'true');
+    const toolbar = document.querySelector('.toolbar');
+    if (toolbar) {
+        toolbar.inert = true;
+        toolbar.setAttribute('aria-hidden', 'true');
+    }
     document.body.classList.add('modal-open');
+
+    if (wasAlreadyOpen) {
+        document.getElementById('overlay-title').focus();
+    } else {
+        document.querySelector('.overlay-close-btn').focus();
+    }
 }
 
 function closeOverlay() {
-    document.getElementById('project-overlay').classList.remove('active');
+    const overlay = document.getElementById('project-overlay');
+    if (!overlay.classList.contains('active')) return;
+
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.inert = true;
+
+    const main = document.getElementById('main-content');
+    main.inert = false;
+    main.removeAttribute('aria-hidden');
+    const toolbar = document.querySelector('.toolbar');
+    if (toolbar) {
+        toolbar.inert = false;
+        toolbar.removeAttribute('aria-hidden');
+    }
+
     document.body.classList.remove('modal-open');
+    if (modalReturnFocus?.isConnected) modalReturnFocus.focus();
+    modalReturnFocus = null;
 }
 
 function closeOverlayOnOutsideClick(event) {
@@ -243,23 +356,84 @@ function showHomeFallback() {
 }
 
 function toggleMenu() {
-    document.querySelector('.nav-links')?.classList.toggle('nav-active');
-    document.querySelector('.hamburger')?.classList.toggle('toggle');
+    const nav = document.getElementById('nav-links');
+    const isOpen = nav?.classList.contains('nav-active') ?? false;
+    setMenuOpen(!isOpen);
+    if (!isOpen) {
+        document.querySelector('#nav-links button')?.focus();
+    }
 }
+
+function handleDocumentKeydown(event) {
+    const overlay = document.getElementById('project-overlay');
+    if (overlay?.classList.contains('active')) {
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            closeOverlay();
+            return;
+        }
+
+        if (event.key === 'Tab') {
+            const focusable = [...overlay.querySelectorAll(
+                'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+            )].filter(element => !element.closest('[inert]'));
+            if (!focusable.length) {
+                event.preventDefault();
+                overlay.querySelector('.overlay-panel').focus();
+                return;
+            }
+
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (event.shiftKey && (document.activeElement === first ||
+                !overlay.contains(document.activeElement))) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        }
+        return;
+    }
+
+    const nav = document.getElementById('nav-links');
+    if (event.key === 'Escape' && nav?.classList.contains('nav-active')) {
+        event.preventDefault();
+        setMenuOpen(false);
+        document.querySelector('.hamburger')?.focus();
+    }
+}
+
+document.addEventListener('keydown', handleDocumentKeydown);
 
 document.addEventListener('DOMContentLoaded', () => {
     renderProjects();
     renderWindroidSubprojects();
 
+    // The mobile drawer starts inert; desktop navigation remains available.
+    setMenuOpen(false);
+    window.addEventListener('resize', () => {
+        const nav = document.getElementById('nav-links');
+        const isOpen = nav?.classList.contains('nav-active') ?? false;
+        setMenuOpen(isOpen);
+    });
+
     const params = new URLSearchParams(window.location.search);
-    const views = {
-        projects: 'projects-view',
-        media: 'media-view',
-        contact: 'contact-view',
-        home: 'home-view',
-        windroid: 'windroid-view'
-    };
-    if (views[params.get('view')]) {
-        switchView(views[params.get('view')]);
+    const requestedView = Object.entries(viewKeys).find(([, key]) =>
+        key === params.get('view')
+    )?.[0];
+
+    if (requestedView && requestedView !== currentViewId) {
+        switchView(requestedView, { updateHistory: false, focus: false });
+    } else {
+        updateNavigationState(currentViewId);
     }
+
+    window.addEventListener('popstate', () => {
+        const key = new URLSearchParams(window.location.search).get('view');
+        const viewId = Object.entries(viewKeys).find(([, value]) => value === key)?.[0]
+            || 'home-view';
+        switchView(viewId, { updateHistory: false });
+    });
 });
