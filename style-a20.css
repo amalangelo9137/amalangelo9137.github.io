@@ -1294,34 +1294,6 @@ html, body {
     border-bottom: 0 !important;
 }
 
-/* Animated brand mark in the main toolbar. */
-.toolbar .logo {
-    appearance: none;
-    -webkit-appearance: none;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-}
-.toolbar .logo-animation {
-    display: block;
-    width: 112px;
-    height: 62px;
-    object-fit: contain;
-    pointer-events: none;
-}
-.toolbar .logo:focus-visible {
-    outline: 2px solid #ffeaa7;
-    outline-offset: 5px;
-    border-radius: 8px;
-}
-@media (prefers-reduced-motion: reduce) {
-    .toolbar .logo-animation { animation: none; }
-}
-
-
 /* Definitive aspect-card link reset (keep the card typography untouched). */
 .creator-aspects .aspect-grid a.aspect-link,
 .creator-aspects .aspect-grid a.aspect-link:link,
@@ -1336,56 +1308,65 @@ html, body {
     border-bottom: 0 !important;
 }
 
-/* One-shot transparent logo animation, sized to read clearly in the toolbar. */
-.toolbar .logo {
-    width: 84px !important;
-    height: 56px !important;
-    min-width: 84px !important;
-    min-height: 56px !important;
-    max-width: 84px !important;
-    max-height: 56px !important;
-    flex: 0 0 84px !important;
-    overflow: hidden;
-    background: transparent !important;
-}
-.toolbar .logo-animation {
-    display: block;
-    width: 84px !important;
-    height: 56px !important;
-    max-width: 84px !important;
-    max-height: 56px !important;
-    object-fit: contain;
-    background: transparent !important;
-    mix-blend-mode: normal;
-}
 
 
-/* Final logo sizing: remove the previous 84x56 cap and let the mark breathe. */
+
+/* Shared transparent brand button — used across every site section. */
 .toolbar .logo {
-    width: 156px !important;
-    height: 92px !important;
-    min-width: 156px !important;
-    min-height: 92px !important;
-    max-width: 156px !important;
-    max-height: 92px !important;
-    flex: 0 0 156px !important;
-    overflow: visible !important;
-    padding: 0 !important;
-    border: 0 !important;
+    appearance: none;
+    -webkit-appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 184px;
+    width: 184px;
+    height: 104px;
+    min-width: 184px;
+    min-height: 104px;
+    max-width: 184px;
+    max-height: 104px;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
     background: transparent !important;
     box-shadow: none !important;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
 }
 .toolbar .logo-animation {
     display: block;
-    width: 156px !important;
-    height: 92px !important;
-    max-width: none !important;
-    max-height: none !important;
+    width: 184px;
+    height: 104px;
+    max-width: none;
+    max-height: none;
     object-fit: contain;
     object-position: center;
     background: transparent !important;
-    opacity: 1 !important;
-    filter: none !important;
-    mix-blend-mode: normal !important;
+    opacity: 1;
+    filter: none;
+    mix-blend-mode: normal;
     pointer-events: none;
+}
+.toolbar .logo:focus-visible {
+    outline: 2px solid #ffeaa7;
+    outline-offset: 3px;
+    border-radius: 8px;
+}
+@media (max-width: 768px) {
+    .toolbar .logo {
+        flex-basis: 144px;
+        width: 144px;
+        height: 82px;
+        min-width: 144px;
+        min-height: 82px;
+        max-width: 144px;
+        max-height: 82px;
+    }
+    .toolbar .logo-animation {
+        width: 144px;
+        height: 82px;
+    }
 }
