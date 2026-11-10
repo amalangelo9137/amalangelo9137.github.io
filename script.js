@@ -414,10 +414,14 @@ function handleDocumentKeydown(event) {
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
     const active = document.activeElement;
+    const activeIndex = focusable.indexOf(active);
 
-    if (!overlay.contains(active) || (event.shiftKey && active === first)) {
+    if (activeIndex === -1) {
         event.preventDefault();
         (event.shiftKey ? last : first).focus();
+    } else if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
     } else if (!event.shiftKey && active === last) {
         event.preventDefault();
         first.focus();
