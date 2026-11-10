@@ -285,6 +285,7 @@ function openNode(node, childKey, heading) {
                 if (child.partId) {
                     card.addEventListener('click', event => {
                         event.preventDefault();
+                        closeOverlay();
                         openPart(child.partId);
                     });
                 } else {
