@@ -852,3 +852,63 @@ html, body {
         padding: 12px;
     }
 }
+
+/* Shared transparent brand button — used across every site section. */
+.toolbar .logo {
+    appearance: none;
+    -webkit-appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 184px;
+    width: 184px;
+    height: 104px;
+    min-width: 184px;
+    min-height: 104px;
+    max-width: 184px;
+    max-height: 104px;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+.toolbar .logo-animation {
+    display: block;
+    width: 184px;
+    height: 104px;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    object-position: center;
+    background: transparent !important;
+    opacity: 1;
+    filter: none;
+    mix-blend-mode: normal;
+    pointer-events: none;
+}
+.toolbar .logo:focus-visible {
+    outline: 2px solid #ffeaa7;
+    outline-offset: 3px;
+    border-radius: 8px;
+}
+@media (max-width: 768px) {
+    .toolbar .logo {
+        flex-basis: 144px;
+        width: 144px;
+        height: 82px;
+        min-width: 144px;
+        min-height: 82px;
+        max-width: 144px;
+        max-height: 82px;
+    }
+    .toolbar .logo-animation {
+        width: 144px;
+        height: 82px;
+    }
+}
