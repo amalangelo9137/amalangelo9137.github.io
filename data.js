@@ -61,8 +61,9 @@ window.PORTFOLIO_DATA = {
       subtitle: "The type of game no one wants to play, but is useful for educational purposes.",
       content: [
         { type: "image", src: "twp/wdsim/MICRO/images/sample.png", alt: "Windroid Sim MICRO preview", caption: "Windroid Sim — MICRO" },
-        { type: "text", text: "Windroid Real Life Simulator is a simulation where you can build your own particle world. Discover the forces you rely on, and explore the structure of matter itself. MICRO aims to teach the user about space, particles, and the tiny forces that connect the whole universe together. It also aims to make Physics easier to learn for students." },
-        { type: "text", text: "This game currently has a somewhat working Fundamental Force system with basic controls for both PC (keyboard + mouse) and mobile (touch) devices. Eventually, I am trying to add a container environment saving system, things like that." }
+        { type: "text", runs: [{ type: "text", text: "Windroid Real Life Simulator is a simulation where you can build your own particle world. Discover the forces you rely on, and explore the structure of matter itself. " }, { type: "strong", text: "MICRO" }, { type: "text", text: " aims to teach the user about space, particles, and the tiny forces that connect the whole universe together. It also aims to make " }, { type: "em", text: "Physics" }, { type: "text", text: " easier to learn for students." }] },
+        { type: "text", runs: [{ type: "text", text: "This game currently has a somewhat working " }, { type: "strong", text: "Fundamental Force system" }, { type: "text", text: " with basic controls for both PC (keyboard + mouse) and mobile (touch) devices. Eventually, I am trying to add a container environment saving system, things like that." }] },
+        { type: "callout", title: "Development status", variant: "info", runs: [{ type: "text", text: "The project is still in development. Features and systems may change as the simulation evolves." }] }
       ],
       downloadLinks: [
         { label: "Download — GitHub Releases", url: "https://github.com/amalangelo9137/Windroid-Real-Life-Simulator/releases" },
@@ -76,7 +77,7 @@ window.PORTFOLIO_DATA = {
       subtitle: "The gamer friendly real life like experience",
       content: [
         { type: "embed", src: "https://www.youtube-nocookie.com/embed/_pbD9caaxyk", title: "Windroid Sim MACRO gameplay video" },
-        { type: "text", text: "Windroid Virtual Life Simulator aims to be a gamer friendly version of Windroid Sim. In this game, we get to explore a barren land and sustain our lives with the help of the Pseudo Biological Framework (nice name lol). Our mission is to find the Vision UI Module first, so we can access our health stats and enable alerts." },
+        { type: "text", runs: [{ type: "text", text: "Windroid Virtual Life Simulator aims to be a gamer friendly version of Windroid Sim. In this game, we get to explore a barren land and sustain our lives with the help of the " }, { type: "strong", text: "Pseudo Biological Framework" }, { type: "text", text: " (nice name lol). Our mission is to find the Vision UI Module first, so we can access our health stats and enable alerts." }] },
         { type: "text", text: "This game is NOT allowed to contain anything from fantasies or our imagination (other than the Pseudo Biological Framework, because we are not literally in the sim. Without it, how are we supposed to move with WASD or our mouse?), to help maintain the 1:1 ratio." }
       ],
       downloadLinks: [
