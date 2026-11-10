@@ -347,30 +347,165 @@ function openNode(node, childKey, heading) {
     }
 }
 
+function safePartUrl(value) {
+    if (typeof value !== 'string' || !value.trim()) return null;
+    const raw = value.trim();
+    try {
+        const url = new URL(raw, window.location.href);
+        if (!['http:', 'https:', 'mailto:', 'tel:'].includes(url.protocol)) return null;
+        return raw;
+    } catch {
+        return null;
+    }
+}
+
+function appendInlineContent(parent, runs) {
+    const entries = Array.isArray(runs) ? runs : [{ type: 'text', text: String(runs ?? '') }];
+    entries.forEach(run => {
+        if (typeof run === 'string') {
+            parent.appendChild(document.createTextNode(run));
+            return;
+        }
+        if (!run || typeof run !== 'object') return;
+        const value = String(run.text ?? run.label ?? '');
+        const type = run.type || 'text';
+        if (type === 'br') {
+            parent.appendChild(document.createElement('br'));
+            return;
+        }
+        if (type === 'link') {
+            const href = safePartUrl(run.url || run.href);
+            if (!href) {
+                parent.appendChild(document.createTextNode(value));
+                return;
+            }
+            const link = document.createElement('a');
+            link.href = href;
+            link.textContent = value || href;
+            if (/^https?:\/\//i.test(href)) {
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+            }
+            parent.appendChild(link);
+            return;
+        }
+        const tags = {
+            strong: 'strong',
+            bold: 'strong',
+            em: 'em',
+            italic: 'em',
+            underline: 'u',
+            code: 'code',
+            mark: 'mark',
+            del: 'del',
+            sub: 'sub',
+            sup: 'sup'
+        };
+        const tag = tags[type];
+        if (!tag) {
+            parent.appendChild(document.createTextNode(value));
+            return;
+        }
+        const element = document.createElement(tag);
+        element.textContent = value;
+        parent.appendChild(element);
+    });
+}
+
 function appendPartContent(container, block) {
     if (!block || typeof block !== 'object') return;
 
     if (block.type === 'text') {
         const paragraph = document.createElement('p');
         paragraph.className = 'part-text';
-        paragraph.textContent = block.text || '';
+        if (Array.isArray(block.runs)) appendInlineContent(paragraph, block.runs);
+        else paragraph.textContent = block.text || '';
         container.appendChild(paragraph);
         return;
     }
 
     if (block.type === 'heading') {
-        const heading = document.createElement('h3');
+        const level = Math.min(4, Math.max(2, Number(block.level) || 3));
+        const heading = document.createElement('h' + level);
         heading.className = 'part-section-heading';
-        heading.textContent = block.text || '';
+        if (Array.isArray(block.runs)) appendInlineContent(heading, block.runs);
+        else heading.textContent = block.text || '';
         container.appendChild(heading);
         return;
     }
 
+    if (block.type === 'quote') {
+        const quote = document.createElement('blockquote');
+        quote.className = 'part-quote';
+        const paragraph = document.createElement('p');
+        if (Array.isArray(block.runs)) appendInlineContent(paragraph, block.runs);
+        else paragraph.textContent = block.text || '';
+        quote.appendChild(paragraph);
+        if (block.attribution) {
+            const cite = document.createElement('cite');
+            cite.textContent = block.attribution;
+            quote.appendChild(cite);
+        }
+        container.appendChild(quote);
+        return;
+    }
+
+    if (block.type === 'callout') {
+        const callout = document.createElement('aside');
+        callout.className = 'part-callout' + (block.variant ? ' part-callout-' + String(block.variant).replace(/[^a-z0-9_-]/gi, '') : '');
+        if (block.title) {
+            const heading = document.createElement('h4');
+            heading.textContent = block.title;
+            callout.appendChild(heading);
+        }
+        const paragraph = document.createElement('p');
+        if (Array.isArray(block.runs)) appendInlineContent(paragraph, block.runs);
+        else paragraph.textContent = block.text || '';
+        callout.appendChild(paragraph);
+        container.appendChild(callout);
+        return;
+    }
+
+    if (block.type === 'divider') {
+        const divider = document.createElement('hr');
+        divider.className = 'part-divider';
+        container.appendChild(divider);
+        return;
+    }
+
+    if (block.type === 'code') {
+        const pre = document.createElement('pre');
+        pre.className = 'part-code';
+        const code = document.createElement('code');
+        if (block.language) code.dataset.language = String(block.language);
+        code.textContent = block.code || block.text || '';
+        pre.appendChild(code);
+        container.appendChild(pre);
+        return;
+    }
+
+    if (block.type === 'link') {
+        const href = safePartUrl(block.url || block.href);
+        if (!href) return;
+        const link = document.createElement('a');
+        link.className = 'part-inline-link';
+        link.href = href;
+        link.textContent = block.label || block.text || href;
+        if (/^https?:\/\//i.test(href)) {
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+        }
+        container.appendChild(link);
+        return;
+    }
+
     if (block.type === 'image') {
+        const src = safePartUrl(block.src);
+        if (!src) return;
         const figure = document.createElement('figure');
         figure.className = 'part-media';
         const image = document.createElement('img');
-        image.src = block.src || '';
+        image.src = src;
         image.alt = block.alt || '';
         image.loading = 'lazy';
         image.onerror = () => figure.remove();
@@ -385,16 +520,17 @@ function appendPartContent(container, block) {
     }
 
     if (block.type === 'video' || block.type === 'embed') {
+        const src = safePartUrl(block.src);
+        if (!src) return;
         const figure = document.createElement('figure');
         figure.className = 'part-media part-video';
         const frame = document.createElement(block.type === 'video' ? 'video' : 'iframe');
+        frame.src = src;
         if (block.type === 'video') {
-            frame.src = block.src || '';
             frame.controls = true;
             frame.playsInline = true;
             frame.preload = 'metadata';
         } else {
-            frame.src = block.src || '';
             frame.title = block.title || 'Embedded video';
             frame.loading = 'lazy';
             frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
@@ -411,12 +547,14 @@ function appendPartContent(container, block) {
         return;
     }
 
-    if (block.type === 'list' && Array.isArray(block.items)) {
-        const list = document.createElement('ul');
+    if ((block.type === 'list' || block.type === 'ordered-list') && Array.isArray(block.items)) {
+        const list = document.createElement(block.type === 'ordered-list' ? 'ol' : 'ul');
         list.className = 'part-list';
         block.items.forEach(item => {
             const li = document.createElement('li');
-            li.textContent = item;
+            if (Array.isArray(item)) appendInlineContent(li, item);
+            else if (item && typeof item === 'object' && Array.isArray(item.runs)) appendInlineContent(li, item.runs);
+            else li.textContent = typeof item === 'string' ? item : String(item?.text || '');
             list.appendChild(li);
         });
         container.appendChild(list);
