@@ -130,7 +130,9 @@ function renderProjects() {
         card.className = 'card project-featured-card';
         card.tabIndex = 0;
         card.setAttribute('role', 'button');
-        card.setAttribute('aria-haspopup', 'dialog');
+        if (project.theme !== 'twp' && project.id !== 'the-windroid-project') {
+            card.setAttribute('aria-haspopup', 'dialog');
+        }
         card.setAttribute('aria-label', 'Explore ' + project.title);
 
         const open = () => openProject(project);
