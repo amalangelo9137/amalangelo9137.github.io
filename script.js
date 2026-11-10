@@ -95,8 +95,9 @@ function switchView(viewId, options = {}) {
         }
     }
 
-    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    // View changes are state changes, not page-scroll animations. Avoid
+    // competing smooth-scroll and focus animations when entering Windroid.
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     if (options.focus !== false) {
         target.focus({ preventScroll: true });
     }
@@ -399,6 +400,31 @@ function handleDocumentKeydown(event) {
             setMenuOpen(false);
             document.querySelector('.hamburger')?.focus();
             return;
+        }
+    }
+
+    if (menuOpen && event.key === 'Tab' &&
+        (window.matchMedia?.('(max-width: 768px)').matches ?? false)) {
+        const menuItems = [...nav.querySelectorAll('button:not([disabled])')]
+            .filter(element => element.getClientRects().length > 0);
+        if (menuItems.length) {
+            const firstMenuItem = menuItems[0];
+            const lastMenuItem = menuItems[menuItems.length - 1];
+            if (event.shiftKey && document.activeElement === firstMenuItem) {
+                event.preventDefault();
+                lastMenuItem.focus();
+                return;
+            }
+            if (!event.shiftKey && document.activeElement === lastMenuItem) {
+                event.preventDefault();
+                firstMenuItem.focus();
+                return;
+            }
+            if (!nav.contains(document.activeElement)) {
+                event.preventDefault();
+                (event.shiftKey ? lastMenuItem : firstMenuItem).focus();
+                return;
+            }
         }
     }
 
