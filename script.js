@@ -21,7 +21,9 @@ const viewKeys = {
 };
 
 function updateNavigationState(viewId) {
-    const activeView = viewId === 'windroid-view' ? 'projects-view' : viewId;
+    const activeView = (viewId === 'windroid-view' || viewId === 'part-view')
+        ? 'projects-view'
+        : viewId;
     document.querySelectorAll('.nav-links [data-view]').forEach(button => {
         if (button.dataset.view === activeView) {
             button.setAttribute('aria-current', 'page');
@@ -69,17 +71,16 @@ function switchView(viewId, options = {}) {
     if (!target || !viewKeys[viewId]) return false;
 
     setMenuOpen(false);
+    // Keep the shared stylesheet's theme in sync, including part-to-part navigation.
+    document.body.classList.toggle('windroid-theme',
+        viewId === 'windroid-view' || (viewId === 'part-view' && currentPart?.theme === 'twp'));
+
     if (currentViewId === viewId) {
         updateNavigationState(viewId);
         if (options.updateHistory !== false) updateViewUrl(viewId);
         if (options.focus !== false) target.focus({ preventScroll: true });
         return false;
     }
-
-    // Both visual themes now live in one stylesheet. Switching is a body
-    // class change, so the background can crossfade without swapping CSS.
-    document.body.classList.toggle('windroid-theme',
-        viewId === 'windroid-view' || (viewId === 'part-view' && currentPart?.theme === 'twp'));
 
     document.querySelectorAll('.view').forEach(view => {
         view.classList.remove('active');
