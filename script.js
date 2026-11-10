@@ -1,6 +1,11 @@
 /* Portfolio renderer. Content lives in data.js. */
 let currentViewId = 'home-view';
 let modalReturnFocus = null;
+let currentPart = null;
+
+const portfolioParts = Array.isArray(window.PORTFOLIO_DATA?.parts)
+    ? window.PORTFOLIO_DATA.parts
+    : [];
 
 const portfolioProjects = Array.isArray(window.PORTFOLIO_DATA?.projects)
     ? window.PORTFOLIO_DATA.projects
@@ -11,7 +16,8 @@ const viewKeys = {
     'projects-view': 'projects',
     'media-view': 'media',
     'contact-view': 'contact',
-    'windroid-view': 'windroid'
+    'windroid-view': 'windroid',
+    'part-view': 'part'
 };
 
 function updateNavigationState(viewId) {
@@ -71,7 +77,8 @@ function switchView(viewId, options = {}) {
 
     // Both visual themes now live in one stylesheet. Switching is a body
     // class change, so the background can crossfade without swapping CSS.
-    document.body.classList.toggle('windroid-theme', viewId === 'windroid-view');
+    document.body.classList.toggle('windroid-theme',
+        viewId === 'windroid-view' || (viewId === 'part-view' && currentPart?.theme === 'twp'));
 
     document.querySelectorAll('.view').forEach(view => {
         view.classList.remove('active');
@@ -268,12 +275,20 @@ function openNode(node, childKey, heading) {
         children.forEach(child => {
             // A part with a destination is one large link, not a dead card
             // containing a small clickable text link.
-            const isPartLink = childKey === 'parts' && Boolean(child.link);
+            const isPartLink = childKey === 'parts' && Boolean(child.partId || child.link);
             const card = document.createElement(isPartLink ? 'a' : 'article');
             card.className = 'overlay-sub-card';
             if (isPartLink) {
-                card.href = child.link;
+                card.href = child.partId ? '?part=' + encodeURIComponent(child.partId) : child.link;
                 card.setAttribute('aria-label', 'Open ' + (child.title || 'project part'));
+                if (child.partId) {
+                    card.addEventListener('click', event => {
+                        event.preventDefault();
+                        openPart(child.partId);
+                    });
+                } else {
+                    card.target = '_self';
+                }
             }
 
             const title = document.createElement('h4');
@@ -327,6 +342,134 @@ function openNode(node, childKey, heading) {
     } else {
         document.querySelector('.overlay-close-btn').focus();
     }
+}
+
+function appendPartContent(container, block) {
+    if (!block || typeof block !== 'object') return;
+
+    if (block.type === 'text') {
+        const paragraph = document.createElement('p');
+        paragraph.className = 'part-text';
+        paragraph.textContent = block.text || '';
+        container.appendChild(paragraph);
+        return;
+    }
+
+    if (block.type === 'heading') {
+        const heading = document.createElement('h3');
+        heading.className = 'part-section-heading';
+        heading.textContent = block.text || '';
+        container.appendChild(heading);
+        return;
+    }
+
+    if (block.type === 'image') {
+        const figure = document.createElement('figure');
+        figure.className = 'part-media';
+        const image = document.createElement('img');
+        image.src = block.src || '';
+        image.alt = block.alt || '';
+        image.loading = 'lazy';
+        image.onerror = () => figure.remove();
+        figure.appendChild(image);
+        if (block.caption) {
+            const caption = document.createElement('figcaption');
+            caption.textContent = block.caption;
+            figure.appendChild(caption);
+        }
+        container.appendChild(figure);
+        return;
+    }
+
+    if (block.type === 'video' || block.type === 'embed') {
+        const figure = document.createElement('figure');
+        figure.className = 'part-media part-video';
+        const frame = document.createElement(block.type === 'video' ? 'video' : 'iframe');
+        if (block.type === 'video') {
+            frame.src = block.src || '';
+            frame.controls = true;
+            frame.playsInline = true;
+            frame.preload = 'metadata';
+        } else {
+            frame.src = block.src || '';
+            frame.title = block.title || 'Embedded video';
+            frame.loading = 'lazy';
+            frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            frame.allowFullscreen = true;
+            frame.referrerPolicy = 'strict-origin-when-cross-origin';
+        }
+        figure.appendChild(frame);
+        if (block.caption) {
+            const caption = document.createElement('figcaption');
+            caption.textContent = block.caption;
+            figure.appendChild(caption);
+        }
+        container.appendChild(figure);
+        return;
+    }
+
+    if (block.type === 'list' && Array.isArray(block.items)) {
+        const list = document.createElement('ul');
+        list.className = 'part-list';
+        block.items.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            list.appendChild(li);
+        });
+        container.appendChild(list);
+    }
+}
+
+function renderPart(part) {
+    const title = document.getElementById('part-title');
+    const subtitle = document.getElementById('part-subtitle');
+    const content = document.getElementById('part-content');
+    const actions = document.getElementById('part-actions');
+    if (!title || !subtitle || !content || !actions) return;
+
+    document.title = (part.title || 'Project part') + ' — amalangelo9137';
+    title.textContent = part.title || 'Project part';
+    subtitle.textContent = part.subtitle || '';
+    content.replaceChildren();
+    actions.replaceChildren();
+
+    (Array.isArray(part.content) ? part.content : [])
+        .forEach(block => appendPartContent(content, block));
+
+    const links = [];
+    if (part.downloadUrl) links.push({ label: 'Download', url: part.downloadUrl });
+    if (Array.isArray(part.downloadLinks)) links.push(...part.downloadLinks);
+    if (part.repoUrl) links.push({ label: 'Go to repository', url: part.repoUrl });
+
+    links.forEach(link => {
+        if (!link?.url) return;
+        const anchor = document.createElement('a');
+        anchor.className = 'part-action-button';
+        anchor.href = link.url;
+        anchor.textContent = link.label || 'Open link';
+        if (/^https?:\/\//i.test(link.url)) {
+            anchor.target = '_blank';
+            anchor.rel = 'noopener noreferrer';
+        }
+        actions.appendChild(anchor);
+    });
+}
+
+function openPart(partId, options = {}) {
+    const part = portfolioParts.find(item => item.id === partId);
+    if (!part) return false;
+
+    currentPart = part;
+    renderPart(part);
+    switchView('part-view', { updateHistory: false, focus: options.focus !== false });
+
+    if (options.updateHistory !== false) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('view');
+        url.searchParams.set('part', part.id);
+        window.history.pushState({ partId: part.id }, '', url);
+    }
+    return true;
 }
 
 function closeOverlay() {
@@ -490,20 +633,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const params = new URLSearchParams(window.location.search);
-    const requestedView = Object.entries(viewKeys).find(([, key]) =>
-        key === params.get('view')
+    const requestedPart = params.get('part');
+    const requestedView = Object.entries(viewKeys).find(([id, key]) =>
+        id !== 'part-view' && key === params.get('view')
     )?.[0];
 
-    if (requestedView && requestedView !== currentViewId) {
+    if (requestedPart && openPart(requestedPart, { updateHistory: false, focus: false })) {
+        // A direct part URL opens the shared part viewer.
+    } else if (requestedView && requestedView !== currentViewId) {
         switchView(requestedView, { updateHistory: false, focus: false });
     } else {
         updateNavigationState(currentViewId);
     }
 
     window.addEventListener('popstate', () => {
-        const key = new URLSearchParams(window.location.search).get('view');
-        const viewId = Object.entries(viewKeys).find(([, value]) => value === key)?.[0]
-            || 'home-view';
+        const stateParams = new URLSearchParams(window.location.search);
+        const partId = stateParams.get('part');
+        if (partId && openPart(partId, { updateHistory: false })) return;
+        currentPart = null;
+        const key = stateParams.get('view');
+        const viewId = Object.entries(viewKeys).find(([id, value]) =>
+            id !== 'part-view' && value === key
+        )?.[0] || 'home-view';
         switchView(viewId, { updateHistory: false });
     });
 });
