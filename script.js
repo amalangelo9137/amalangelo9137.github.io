@@ -69,8 +69,11 @@ function switchView(viewId, options = {}) {
         return false;
     }
 
-    // Switch the theme sheets as one synchronous state change before exposing
-    // the destination view. This avoids a frame with the destination unstyled.
+    // Suppress animations while swapping global theme sheets. Otherwise
+    // keyframe/transition states restart mid-frame and can make open dialogs
+    // appear to jump even though the dialog itself remains open.
+    document.body.classList.add('theme-switching');
+
     const isWindroid = viewId === 'windroid-view';
     const mainTheme = document.getElementById('main-theme');
     const twpTheme = document.getElementById('twp-theme');
@@ -81,6 +84,12 @@ function switchView(viewId, options = {}) {
         if (mainTheme) mainTheme.disabled = false;
         if (twpTheme) twpTheme.disabled = true;
     }
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            document.body.classList.remove('theme-switching');
+        });
+    });
 
     document.querySelectorAll('.view').forEach(view => {
         view.classList.remove('active');
