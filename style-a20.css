@@ -1370,3 +1370,52 @@ html, body {
         height: 82px;
     }
 }
+
+
+/* Phase 1 UX: clear navigation state and consistent keyboard focus. */
+.nav-links button[aria-current="page"] {
+    color: #ffeaa7;
+    text-shadow: 0 0 16px rgba(255, 234, 167, .24);
+}
+.nav-links button:focus-visible,
+.hamburger:focus-visible,
+.back-btn:focus-visible,
+.overlay-close-btn:focus-visible,
+.overlay-sub-card[role="button"]:focus-visible {
+    outline: 3px solid #ffeaa7;
+    outline-offset: 4px;
+}
+.overlay-panel[role="dialog"] {
+    overscroll-behavior: contain;
+}
+@media (max-width: 768px) {
+    .nav-links {
+        visibility: hidden;
+        transition: right .4s cubic-bezier(.4, 0, .2, 1), visibility 0s linear .4s;
+    }
+    .nav-links.nav-active {
+        visibility: visible;
+        transition-delay: 0s;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    body {
+        animation: none !important;
+    }
+    .view {
+        animation: none !important;
+    }
+    .nav-links,
+    .nav-links button,
+    .hamburger,
+    .hamburger span,
+    .overlay-modal,
+    .overlay-panel,
+    .overlay-close-btn,
+    .back-btn,
+    .card,
+    .overlay-sub-card {
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
