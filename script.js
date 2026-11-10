@@ -53,6 +53,7 @@ function updateViewUrl(viewId, replace = false) {
     if (!key) return;
 
     const url = new URL(window.location.href);
+    url.searchParams.delete('part');
     if (key === 'home') {
         url.searchParams.delete('view');
     } else {
