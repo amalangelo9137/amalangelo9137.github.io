@@ -1047,3 +1047,20 @@ html, body {
         transition: none !important;
     }
 }
+
+
+/* Keep theme changes from restarting view and modal animations mid-transition. */
+body.theme-switching,
+body.theme-switching *,
+body.theme-switching *::before,
+body.theme-switching *::after {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Keyboard users can identify the home link in the project subpages. */
+.toolbar .logo:focus-visible {
+    outline: 3px solid #ffeaa7;
+    outline-offset: 5px;
+    border-radius: 8px;
+}
