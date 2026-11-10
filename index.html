@@ -24,22 +24,23 @@
             <span id="logo-text" style="display: none;">amal9137</span>
         </button>
 
-        <button class="hamburger" onclick="toggleMenu()">
+        <button class="hamburger" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false" onclick="toggleMenu()">
             <span></span>
             <span></span>
             <span></span>
         </button>
 
-        <nav>
-            <ul class="nav-links">
-                <li><button onclick="switchView('home-view')">Home</button></li>
-                <li><button onclick="switchView('projects-view')">Projects</button></li>
-                <li><button onclick="switchView('media-view')">Media</button></li>
-                <li><button onclick="switchView('contact-view')">Contact</button></li>
+        <nav id="primary-navigation" aria-label="Primary navigation">
+            <ul id="nav-links" class="nav-links">
+                <li><button type="button" data-view="home-view" aria-current="page" onclick="switchView('home-view')">Home</button></li>
+                <li><button type="button" data-view="projects-view" onclick="switchView('projects-view')">Projects</button></li>
+                <li><button type="button" data-view="media-view" onclick="switchView('media-view')">Media</button></li>
+                <li><button type="button" data-view="contact-view" onclick="switchView('contact-view')">Contact</button></li>
             </ul>
         </nav>    </header>
 
-    <main id="home-view" class="view active">
+    <main id="main-content">
+    <section id="home-view" class="view active" aria-label="Home">
         <div class="home-intro-panel glass-panel blur-light">
             <div class="about-container home-about-container">
                 <div class="profile-img-wrapper">
@@ -79,9 +80,9 @@
                 <iframe title="Amal9137 on Spotify" src="https://open.spotify.com/embed/track/7jRztkNqmz4hzNQbn302cY?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </section>
         </div>
-    </main>
+    </section>
 
-    <main id="projects-view" class="view">
+    <section id="projects-view" class="view" aria-label="Projects">
         <div class="glass-panel blur-light projects-shell">
             <header class="projects-header">
                 <span class="home-eyebrow">THE THINGS I'M BUILDING</span>
@@ -98,9 +99,9 @@
                 <div id="projects-grid" class="grid-layout projects-grid" aria-live="polite"></div>
             </section>
         </div>
-    </main>
+    </section>
 
-    <main id="media-view" class="view">
+    <section id="media-view" class="view" aria-label="Media">
         <div class="glass-panel blur-light">
             <h2>Music, videos & other media</h2>
             <p class="subtitle-text">The creative side of what I make — original music, visualizers, and videos.</p>
@@ -126,9 +127,9 @@
                 </div>
             </section>
         </div>
-    </main>
+    </section>
 
-    <main id="contact-view" class="view">
+    <section id="contact-view" class="view" aria-label="Contact">
         <section class="contact-page glass-panel blur-light">
             <header class="contact-page-header">
                 <span class="home-eyebrow">LET'S CONNECT</span>
@@ -150,20 +151,21 @@
                 <a href="mailto:amalangelo9137@outlook.com">Email me at amalangelo9137@outlook.com ↗</a>
             </div>
         </section>
-    </main>
+    </section>
 
-    <main id="windroid-view" class="view">
+    <section id="windroid-view" class="view" aria-label="Windroid">
         <div class="glass-panel blur-heavy">
             <button class="back-btn" onclick="switchView('projects-view')">⬅ Back to Projects</button>
             <h2>The Windroid Project</h2>
             <p class="subtitle-text">Welcome to the Windroid eXPerience! Select a sub-project here.</p>
             <div id="windroid-subprojects-grid" class="grid-layout" aria-live="polite"></div>
         </div>
+    </section>
     </main>
 
-        <div id="project-overlay" class="overlay-modal" onclick="closeOverlayOnOutsideClick(event)">
-            <div class="overlay-panel blur-heavy">
-                <button class="overlay-close-btn" onclick="closeOverlay()">✕</button>
+        <div id="project-overlay" class="overlay-modal" role="presentation" aria-hidden="true" inert onclick="closeOverlayOnOutsideClick(event)">
+            <div class="overlay-panel blur-heavy" role="dialog" aria-modal="true" aria-labelledby="overlay-title" aria-describedby="overlay-desc" tabindex="-1">
+                <button class="overlay-close-btn" type="button" aria-label="Close project details" onclick="closeOverlay()">✕</button>
                 <div class="overlay-header">
                     <h2 id="overlay-title">Project Name</h2>
                     <p id="overlay-subtitle" class="overlay-subtitle"></p>
