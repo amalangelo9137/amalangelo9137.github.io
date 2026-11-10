@@ -17,7 +17,7 @@
 <body>
 
     <header class="toolbar">
-        <button class="logo" type="button" onclick="switchView('home-view')" aria-label="Amal9137 home">
+        <button class="logo" type="button" data-view="home-view" aria-label="Amal9137 home">
             <video class="logo-animation" autoplay muted playsinline preload="auto" aria-hidden="true">
                 <source src="vids/amal9137.webm" type="video/webm">
             </video>
@@ -32,10 +32,10 @@
 
         <nav id="primary-navigation" aria-label="Primary navigation">
             <ul id="nav-links" class="nav-links">
-                <li><button type="button" data-view="home-view" aria-current="page" onclick="switchView('home-view')">Home</button></li>
-                <li><button type="button" data-view="projects-view" onclick="switchView('projects-view')">Projects</button></li>
-                <li><button type="button" data-view="media-view" onclick="switchView('media-view')">Media</button></li>
-                <li><button type="button" data-view="contact-view" onclick="switchView('contact-view')">Contact</button></li>
+                <li><button type="button" data-view="home-view" aria-current="page">Home</button></li>
+                <li><button type="button" data-view="projects-view">Projects</button></li>
+                <li><button type="button" data-view="media-view">Media</button></li>
+                <li><button type="button" data-view="contact-view">Contact</button></li>
             </ul>
         </nav>    </header>
 
@@ -57,8 +57,8 @@
                     <p class="lead-bio">Wassup! I am <strong>amalangelo9137</strong>, a random developer who likes to build random b******t. I like making games and songs, just for.... I don't even know anymore XD</p>
                     <p>I started <i>The Windroid Project</i> because I don't even have the money to afford <b>GEOMETRY DASH</b>. So, I made my own game, OS etc. <i>How is it? ...</i></p>
                     <div class="home-quick-links">
-                        <button onclick="switchView('projects-view')">Explore my projects <span aria-hidden="true">↗</span></button>
-                        <button class="secondary" onclick="switchView('media-view')">Watch & listen</button>
+                        <button type="button" data-view="projects-view">Explore my projects <span aria-hidden="true">↗</span></button>
+                        <button class="secondary" type="button" data-view="media-view">Watch & listen</button>
                     </div>
                 </div>
             </div>
@@ -155,7 +155,7 @@
 
     <section id="windroid-view" class="view" aria-label="Windroid" tabindex="-1">
         <div class="glass-panel blur-heavy">
-            <button class="back-btn" onclick="switchView('projects-view')">⬅ Back to Projects</button>
+            <button class="back-btn" type="button" data-view="projects-view">⬅ Back to Projects</button>
             <h2>The Windroid Project</h2>
             <p class="subtitle-text">Welcome to the Windroid eXPerience! Select a sub-project here.</p>
             <div id="windroid-subprojects-grid" class="grid-layout" aria-live="polite"></div>
