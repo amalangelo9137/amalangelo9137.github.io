@@ -1,6 +1,7 @@
 /* Portfolio renderer. Content lives in data.js. */
 let currentViewId = 'home-view';
 let modalReturnFocus = null;
+let viewSwitchToken = 0;
 
 const portfolioProjects = Array.isArray(window.PORTFOLIO_DATA?.projects)
     ? window.PORTFOLIO_DATA.projects
@@ -69,53 +70,61 @@ function switchView(viewId, options = {}) {
         return false;
     }
 
-    // Suppress animations while swapping global theme sheets. Otherwise
-    // keyframe/transition states restart mid-frame and can make open dialogs
-    // appear to jump even though the dialog itself remains open.
-    document.body.classList.add('theme-switching');
+    // Fade the whole interface behind a short-lived curtain. The theme and
+    // active view are changed only while covered, avoiding mixed-frame CSS.
+    const switchToken = ++viewSwitchToken;
+    const body = document.body;
+    body.classList.add('theme-transitioning');
+    body.setAttribute('aria-busy', 'true');
 
-    const isWindroid = viewId === 'windroid-view';
-    const mainTheme = document.getElementById('main-theme');
-    const twpTheme = document.getElementById('twp-theme');
-    if (isWindroid) {
-        if (twpTheme) twpTheme.disabled = false;
-        if (mainTheme) mainTheme.disabled = true;
-    } else {
-        if (mainTheme) mainTheme.disabled = false;
-        if (twpTheme) twpTheme.disabled = true;
-    }
+    window.setTimeout(() => {
+        if (switchToken !== viewSwitchToken) return;
 
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            document.body.classList.remove('theme-switching');
-        });
-    });
-
-    document.querySelectorAll('.view').forEach(view => {
-        view.classList.remove('active');
-        view.setAttribute('aria-hidden', 'true');
-    });
-
-    target.classList.add('active');
-    target.removeAttribute('aria-hidden');
-    currentViewId = viewId;
-
-    updateNavigationState(viewId);
-    if (options.updateHistory !== false) updateViewUrl(viewId);
-
-    if (viewId === 'home-view') {
-        const animImg = document.getElementById('synfig-animation');
-        if (animImg && animImg.style.display !== 'none') {
-            animImg.src = 'images/amal9137.webp?t=' + Date.now();
+        const isWindroid = viewId === 'windroid-view';
+        const mainTheme = document.getElementById('main-theme');
+        const twpTheme = document.getElementById('twp-theme');
+        if (isWindroid) {
+            if (twpTheme) twpTheme.disabled = false;
+            if (mainTheme) mainTheme.disabled = true;
+        } else {
+            if (mainTheme) mainTheme.disabled = false;
+            if (twpTheme) twpTheme.disabled = true;
         }
-    }
 
-    // View changes are state changes, not page-scroll animations. Avoid
-    // competing smooth-scroll and focus animations when entering Windroid.
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    if (options.focus !== false) {
-        target.focus({ preventScroll: true });
-    }
+        document.querySelectorAll('.view').forEach(view => {
+            view.classList.remove('active');
+            view.setAttribute('aria-hidden', 'true');
+        });
+
+        target.classList.add('active');
+        target.removeAttribute('aria-hidden');
+        currentViewId = viewId;
+
+        updateNavigationState(viewId);
+        if (options.updateHistory !== false) updateViewUrl(viewId);
+
+        if (viewId === 'home-view') {
+            const animImg = document.getElementById('synfig-animation');
+            if (animImg && animImg.style.display !== 'none') {
+                animImg.src = 'images/amal9137.webp?t=' + Date.now();
+            }
+        }
+
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        if (options.focus !== false) {
+            target.focus({ preventScroll: true });
+        }
+
+        // Let the browser apply the new stylesheet before lifting the curtain.
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                if (switchToken !== viewSwitchToken) return;
+                body.classList.remove('theme-transitioning');
+                body.removeAttribute('aria-busy');
+            });
+        });
+    }, 190);
+
     return true;
 }
 
