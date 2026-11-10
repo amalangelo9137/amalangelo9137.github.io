@@ -38,8 +38,8 @@ function setMenuOpen(open) {
     hamburger.setAttribute('aria-label', open && isMobile ? 'Close navigation' : 'Open navigation');
 
     // The off-canvas links must not remain keyboard-focusable while hidden.
-    nav.inert = isMobile && !open;
-    nav.setAttribute('aria-hidden', String(isMobile && !open));
+    links.inert = isMobile && !open;
+    links.setAttribute('aria-hidden', String(isMobile && !open));
 }
 
 function updateViewUrl(viewId, replace = false) {
@@ -64,6 +64,8 @@ function switchView(viewId, options = {}) {
     setMenuOpen(false);
     if (currentViewId === viewId) {
         updateNavigationState(viewId);
+        if (options.updateHistory !== false) updateViewUrl(viewId);
+        if (options.focus !== false) target.focus({ preventScroll: true });
         return false;
     }
 
@@ -367,48 +369,80 @@ function toggleMenu() {
     }
 }
 
+
+function getOverlayFocusableElements(overlay) {
+    return [...overlay.querySelectorAll(
+        'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+    )].filter(element =>
+        !element.closest('[inert]') &&
+        !element.hasAttribute('hidden') &&
+        element.getClientRects().length > 0
+    );
+}
+
 function handleDocumentKeydown(event) {
     const overlay = document.getElementById('project-overlay');
-    if (overlay?.classList.contains('active')) {
-        if (event.key === 'Escape') {
+    const overlayOpen = overlay?.classList.contains('active') ?? false;
+    const nav = document.getElementById('nav-links');
+    const menuOpen = nav?.classList.contains('nav-active') ?? false;
+
+    if (event.key === 'Escape') {
+        if (overlayOpen) {
             event.preventDefault();
+            event.stopPropagation();
             closeOverlay();
             return;
         }
-
-        if (event.key === 'Tab') {
-            const focusable = [...overlay.querySelectorAll(
-                'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
-            )].filter(element => !element.closest('[inert]'));
-            if (!focusable.length) {
-                event.preventDefault();
-                overlay.querySelector('.overlay-panel').focus();
-                return;
-            }
-
-            const first = focusable[0];
-            const last = focusable[focusable.length - 1];
-            if (event.shiftKey && (document.activeElement === first ||
-                !overlay.contains(document.activeElement))) {
-                event.preventDefault();
-                last.focus();
-            } else if (!event.shiftKey && document.activeElement === last) {
-                event.preventDefault();
-                first.focus();
-            }
+        if (menuOpen) {
+            event.preventDefault();
+            event.stopPropagation();
+            setMenuOpen(false);
+            document.querySelector('.hamburger')?.focus();
+            return;
         }
+    }
+
+    if (!overlayOpen || event.key !== 'Tab') return;
+
+    const focusable = getOverlayFocusableElements(overlay);
+    if (!focusable.length) {
+        event.preventDefault();
+        overlay.querySelector('.overlay-panel')?.focus();
         return;
     }
 
-    const nav = document.getElementById('nav-links');
-    if (event.key === 'Escape' && nav?.classList.contains('nav-active')) {
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const active = document.activeElement;
+
+    if (!overlay.contains(active) || (event.shiftKey && active === first)) {
         event.preventDefault();
-        setMenuOpen(false);
-        document.querySelector('.hamburger')?.focus();
+        (event.shiftKey ? last : first).focus();
+    } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
     }
 }
 
-document.addEventListener('keydown', handleDocumentKeydown);
+function keepFocusInsideOverlay(event) {
+    const overlay = document.getElementById('project-overlay');
+    if (!overlay?.classList.contains('active')) return;
+    if (overlay.contains(event.target)) return;
+    overlay.querySelector('.overlay-close-btn')?.focus();
+}
+
+window.addEventListener('keydown', handleDocumentKeydown, true);
+document.addEventListener('focusin', keepFocusInsideOverlay);
+
+
+document.addEventListener('click', event => {
+    const control = event.target.closest('[data-view]');
+    if (!control) return;
+    const viewId = control.dataset.view;
+    if (!viewKeys[viewId]) return;
+    event.preventDefault();
+    switchView(viewId);
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     renderProjects();
