@@ -69,6 +69,19 @@ function switchView(viewId, options = {}) {
         return false;
     }
 
+    // Switch the theme sheets as one synchronous state change before exposing
+    // the destination view. This avoids a frame with the destination unstyled.
+    const isWindroid = viewId === 'windroid-view';
+    const mainTheme = document.getElementById('main-theme');
+    const twpTheme = document.getElementById('twp-theme');
+    if (isWindroid) {
+        if (twpTheme) twpTheme.disabled = false;
+        if (mainTheme) mainTheme.disabled = true;
+    } else {
+        if (mainTheme) mainTheme.disabled = false;
+        if (twpTheme) twpTheme.disabled = true;
+    }
+
     document.querySelectorAll('.view').forEach(view => {
         view.classList.remove('active');
         view.setAttribute('aria-hidden', 'true');
@@ -77,13 +90,6 @@ function switchView(viewId, options = {}) {
     target.classList.add('active');
     target.removeAttribute('aria-hidden');
     currentViewId = viewId;
-
-    // Keep the main portfolio and The Windroid Project on independent stylesheets.
-    const isWindroid = viewId === 'windroid-view';
-    const mainTheme = document.getElementById('main-theme');
-    const twpTheme = document.getElementById('twp-theme');
-    if (mainTheme) mainTheme.disabled = isWindroid;
-    if (twpTheme) twpTheme.disabled = !isWindroid;
 
     updateNavigationState(viewId);
     if (options.updateHistory !== false) updateViewUrl(viewId);
@@ -271,8 +277,16 @@ function openNode(node, childKey, heading) {
         grid.appendChild(empty);
     } else {
         children.forEach(child => {
-            const card = document.createElement('article');
+            // A part with a destination is one large link, not a dead card
+            // containing a small clickable text link.
+            const isPartLink = childKey === 'parts' && Boolean(child.link);
+            const card = document.createElement(isPartLink ? 'a' : 'article');
             card.className = 'overlay-sub-card';
+            if (isPartLink) {
+                card.href = child.link;
+                card.setAttribute('aria-label', 'Open ' + (child.title || 'project part'));
+            }
+
             const title = document.createElement('h4');
             title.textContent = child.title || 'Untitled item';
             const description = document.createElement('p');
@@ -297,11 +311,11 @@ function openNode(node, childKey, heading) {
                         open();
                     }
                 });
-            } else if (child.link) {
-                const link = document.createElement('a');
-                link.href = child.link;
-                link.textContent = 'Explore part ↗';
-                card.appendChild(link);
+            } else if (isPartLink) {
+                const action = document.createElement('span');
+                action.className = 'project-card-action';
+                action.textContent = 'Open part ↗';
+                card.appendChild(action);
             }
             grid.appendChild(card);
         });
