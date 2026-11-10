@@ -1505,3 +1505,18 @@ html, body {
         transition: none !important;
     }
 }
+
+
+/* Contact cards share the same full-width layout. */
+.contact-page-grid > .contact-page-card {
+    grid-column: 1 / -1;
+}
+
+/* Theme swaps are structural changes, not animated page transitions. */
+body.theme-switching,
+body.theme-switching *,
+body.theme-switching *::before,
+body.theme-switching *::after {
+    animation: none !important;
+    transition: none !important;
+}
