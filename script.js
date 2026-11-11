@@ -408,7 +408,7 @@ function appendInlineContent(parent, runs) {
 
 function appendMarkdownText(parent, text) {
     const source = String(text ?? '');
-    const pattern = /(\\*\\*[^*]+\\*\\*|__[^_]+__|\\*[^*]+\\*|~~[^~]+~~|==[^=]+==|`[^`]+`)/g;
+    const pattern = /(\*\*[^*]+\*\*|__[^_]+__|\*[^*]+\*|~~[^~]+~~|==[^=]+==|`[^`]+`)/g;
     let cursor = 0;
     let match;
     while ((match = pattern.exec(source))) {
