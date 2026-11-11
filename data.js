@@ -60,8 +60,7 @@ window.PORTFOLIO_DATA = {
       title: "Windroid Real Life Simulator 3D",
       subtitle: "The type of game no one wants to play, but is useful for educational purposes.",
       content: [
-        { type: "image", src: "twp/wdsim/MICRO/images/sample.png", alt: "Windroid Sim MICRO preview", caption: "Windroid Sim — MICRO" },
-        { type: "text", runs: [{ type: "text", text: "Windroid Real Life Simulator is a simulation where you can build your own particle world. Discover the forces you rely on, and explore the structure of matter itself. " }, { type: "strong", text: "MICRO" }, { type: "text", text: " aims to teach the user about space, particles, and the tiny forces that connect the whole universe together. It also aims to make " }, { type: "em", text: "Physics" }, { type: "text", text: " easier to learn for students." }] },
+        { type: "feature", media: { type: "image", src: "/twp/wdsim/MICRO/images/sample.png", alt: "Windroid Sim MICRO preview", caption: "Windroid Sim — MICRO" }, title: "A particle-level sandbox", text: "Windroid Real Life Simulator is a simulation where you can build your own particle world. Discover the forces you rely on, and explore the structure of matter itself. **MICRO** aims to teach the user about space, particles, and the tiny forces that connect the whole universe together. It also aims to make *Physics* easier to learn for students." },
         { type: "text", runs: [{ type: "text", text: "This game currently has a somewhat working " }, { type: "strong", text: "Fundamental Force system" }, { type: "text", text: " with basic controls for both PC (keyboard + mouse) and mobile (touch) devices. Eventually, I am trying to add a container environment saving system, things like that." }] },
         { type: "callout", title: "Development status", variant: "info", runs: [{ type: "text", text: "The project is still in development. Features and systems may change as the simulation evolves." }] }
       ],
@@ -76,8 +75,7 @@ window.PORTFOLIO_DATA = {
       title: "Windroid Virtual Life Simulator 3D",
       subtitle: "The gamer friendly real life like experience",
       content: [
-        { type: "embed", src: "https://www.youtube-nocookie.com/embed/_pbD9caaxyk", title: "Windroid Sim MACRO gameplay video" },
-        { type: "text", runs: [{ type: "text", text: "Windroid Virtual Life Simulator aims to be a gamer friendly version of Windroid Sim. In this game, we get to explore a barren land and sustain our lives with the help of the " }, { type: "strong", text: "Pseudo Biological Framework" }, { type: "text", text: " (nice name lol). Our mission is to find the Vision UI Module first, so we can access our health stats and enable alerts." }] },
+        { type: "feature", media: { type: "embed", src: "https://www.youtube-nocookie.com/embed/_pbD9caaxyk", title: "Windroid Sim MACRO gameplay video" }, title: "A gamer-friendly simulation", text: "Windroid Virtual Life Simulator aims to be a gamer friendly version of Windroid Sim. In this game, we get to explore a barren land and sustain our lives with the help of the **Pseudo Biological Framework** (nice name lol). Our mission is to find the Vision UI Module first, so we can access our health stats and enable alerts." },
         { type: "text", text: "This game is NOT allowed to contain anything from fantasies or our imagination (other than the Pseudo Biological Framework, because we are not literally in the sim. Without it, how are we supposed to move with WASD or our mouse?), to help maintain the 1:1 ratio." }
       ],
       downloadLinks: [
@@ -90,8 +88,7 @@ window.PORTFOLIO_DATA = {
       title: "WinOS-EFI",
       subtitle: "The startup layer of WinOS.",
       content: [
-        { type: "image", src: "twp/wosdev/efi-kernel/images/sample.png", alt: "WinOS EFI and kernel preview" },
-        { type: "text", text: "WinOS-EFI is the EFI application acting as the startup layer for the WinOS system. It prepares the environment and passes the required boot information to the kernel." },
+        { type: "feature", media: { type: "image", src: "/twp/wosdev/efi-kernel/images/sample.png", alt: "WinOS EFI and kernel preview" }, title: "The startup layer", text: "WinOS-EFI is the EFI application acting as the startup layer for the WinOS system. It prepares the environment and passes the required boot information to the kernel." },
         { type: "text", text: "It is part of WinOS-Dev. The related sub-projects live in the same repository and are available for contribution." }
       ],
       repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
@@ -102,8 +99,7 @@ window.PORTFOLIO_DATA = {
       title: "WinOS-Kernel",
       subtitle: "The core foundation of the WinOS operating system.",
       content: [
-        { type: "image", src: "twp/wosdev/efi-kernel/images/sample.png", alt: "WinOS kernel preview" },
-        { type: "text", text: "WinOS-Kernel is a custom kernel designed for the WinOS operating system. It provides the foundational runtime and hardware-facing layer on which the WinOS API can run." },
+        { type: "feature", media: { type: "image", src: "/twp/wosdev/efi-kernel/images/sample.png", alt: "WinOS kernel preview" }, title: "The core of WinOS", text: "WinOS-Kernel is a custom kernel designed for the WinOS operating system. It provides the foundational runtime and hardware-facing layer on which the WinOS API can run." },
         { type: "text", text: "It is part of WinOS-Dev. The related sub-projects live in the same repository and are available for contribution." }
       ],
       repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
@@ -114,8 +110,7 @@ window.PORTFOLIO_DATA = {
       title: "WinOS-Editor",
       subtitle: "The editor application to create WinOS apps.",
       content: [
-        { type: "image", src: "twp/wosdev/editor/images/sample.png", alt: "WinOS Editor preview" },
-        { type: "text", text: "WinOS-Editor is a powerful tool designed to help developers create and customize applications for the WinOS platform. With its intuitive interface and robust feature set, you can build system and user applications with ease." },
+        { type: "feature", media: { type: "image", src: "/twp/wosdev/editor/images/sample.png", alt: "WinOS Editor preview" }, title: "Build for the WinOS ecosystem", text: "WinOS-Editor is a powerful tool designed to help developers create and customize applications for the WinOS platform. With its intuitive interface and robust feature set, you can build system and user applications with ease." },
         { type: "text", text: "It is part of WinOS-Dev. The related sub-projects live in the same repository and are available for contribution." }
       ],
       repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
