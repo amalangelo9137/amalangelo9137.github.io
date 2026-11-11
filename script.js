@@ -477,12 +477,12 @@ function appendPartContent(container, block) {
         callout.className = 'part-callout' + (block.variant ? ' part-callout-' + String(block.variant).replace(/[^a-z0-9_-]/gi, '') : '');
         if (block.title) {
             const heading = document.createElement('h4');
-            heading.textContent = block.title;
+            appendMarkdownText(heading, block.title);
             callout.appendChild(heading);
         }
         const paragraph = document.createElement('p');
         if (Array.isArray(block.runs)) appendInlineContent(paragraph, block.runs);
-        else paragraph.textContent = block.text || '';
+        else appendMarkdownText(paragraph, block.text || '');
         callout.appendChild(paragraph);
         container.appendChild(callout);
         return;
