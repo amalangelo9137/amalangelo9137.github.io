@@ -53,7 +53,7 @@ window.PORTFOLIO_DATA = {
           description: "A planned Android Open Source Project (AOSP) customization effort, with an emphasis on lightweight builds, useful customization, and extending support for older devices.",
           image: "images/waroms.png",
           status: "Not started",
-          emptyMessage: "NOT STARTED",
+          emptyMessage: "NOT STARTED GNG",
           parts: []
         },
         {
@@ -62,7 +62,7 @@ window.PORTFOLIO_DATA = {
           description: "An experimental MIDI instrument project exploring custom keyboard hardware and a flexible synthesizer workflow. The current direction includes adapting existing keybeds and prototyping input electronics before expanding the feature set.",
           image: "images/mobile.png",
           status: "Prototype / exploration",
-          emptyMessage: "IN EARLY DEVELOPMENT",
+          emptyMessage: "NOT STARTED GNG",
           parts: []
         }
       ]
