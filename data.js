@@ -96,7 +96,7 @@ window.PORTFOLIO_DATA = {
           type: "callout",
           title: "Warning",
           variant: "warning",
-          text: "The MICRO part is **paused** until *enough players join*."
+          text: "The MICRO part is **paused** to regain my lost sanity."
         }
       ],
       downloadLinks: [
