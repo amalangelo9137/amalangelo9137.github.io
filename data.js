@@ -75,17 +75,17 @@ window.PORTFOLIO_DATA = {
       title: "Windroid Real Life Simulator",
       subtitle: "Explore a world from the scale of particles.",
       content: [
-{
-  type: "quote",
-  text: "Windroid Sim. MICRO is a simulation where you build your own particle world. Discover the forces you rely on, and explore the structure of matter itself.",
-  attribution: "Windroid Sim. MICRO Intro"
-},
-        {
-          type: "feature",
-          media: { type: "image", src: "/twp/wdsim/MICRO/images/sample.png", alt: "Windroid Sim MICRO preview", caption: "Windroid Sim. MICRO" },
-          title: "A particle-level sandbox",
-          text: "Windroid Sim **MICRO** is the *small-scale side of the simulation project*. The idea is to *create a space where you can build and inspect a particle world*, *experiment with physical properties*, and *explore how fundamental interactions shape matter*. **The game was originally intended for educational purposes.**"
-        },
+          {
+              type: "quote",
+              text: "Windroid Sim. MICRO is a simulation where you build your own particle world. Discover the forces you rely on, and explore the structure of matter itself.",
+              attribution: "Windroid Sim. MICRO Intro"
+          },
+          {
+              type: "feature",
+              media: { type: "image", src: "/twp/wdsim/MICRO/images/sample.png", alt: "Windroid Sim MICRO preview", caption: "Windroid Sim. MICRO" },
+              title: "A particle-level sandbox",
+              text: "Windroid Sim **MICRO** is the *small-scale side of the simulation project*. The idea is to *create a space where you can build and inspect a particle world*, *experiment with physical properties*, and *explore how fundamental interactions shape matter*. **The game was originally intended for educational purposes.**"
+          },
         {
           type: "callout",
           title: "Current Status",
@@ -99,85 +99,81 @@ window.PORTFOLIO_DATA = {
           text: "The MICRO part is **paused** to regain my lost sanity."
         }
       ],
+      repoUrl: "https://github.com/amalangelo9137/Windroid-Real-Life-Simulator",
       downloadLinks: [
-        { label: "GitHub Releases >", url: "https://github.com/amalangelo9137/Windroid-Real-Life-Simulator/releases" },
         { label: "Game Jolt >", url: "https://gamejolt.com/games/wdsimMICRO/1075586" }
       ]
     },
     {
-      id: "wdsim-macro",
+      id: "wdsimMACRO",
       theme: "twp",
-      title: "Windroid Virtual Life Simulator 3D",
-      subtitle: "A grounded, player-facing take on a simulated world.",
+      title: "Windroid Virtual Life Simulator",
+      subtitle: "Explore a world from a 'human's perspective.",
       content: [
-        {
-          type: "feature",
-          media: { type: "embed", src: "https://www.youtube-nocookie.com/embed/_pbD9caaxyk", title: "Windroid Sim MACRO gameplay video" },
-          title: "A world to explore",
-          text: "Windroid Sim **MACRO** is the larger-scale, more game-oriented side of the project. It moves away from individual particles and focuses on navigating and sustaining life in a barren environment."
-        },
-        {
-          type: "heading",
-          level: 2,
-          text: "A simulation, not a fantasy world"
-        },
-        {
-          type: "text",
-          text: "The design goal is to keep the world grounded and internally consistent, rather than filling it with fantasy mechanics. The **Pseudo Biological Framework** is a deliberate game-layer abstraction: it represents the interface and control systems needed to interact with the simulation, not a claim that the world itself is biologically complete."
-        },
-        {
-          type: "feature",
-          media: { type: "image", src: "/twp/wdsim/MICRO/images/sample.png", alt: "Windroid Sim project preview" },
-          title: "Two scales, one broader idea",
-          text: "MACRO and MICRO are separate builds because representing a large environment and simulating particle-level behaviour are different technical problems. Together, they explore the same broad ambition from different scales."
-        },
+          {
+              type: "quote",
+              text: "Windroid Sim. MACRO is a game where you explore your own universe. Find the planets you like, and explore them.",
+              attribution: "Windroid Sim. MACRO Intro"
+          },
+          {
+              type: "feature",
+              media: { type: "image", src: "/twp/wdsim/MACRO/images/sample.png", alt: "Windroid Sim MACRO preview", caption: "Windroid Sim. MACRO" },
+              title: "A human-level sandbox",
+              text: "Windroid Sim **MACRO** is the *macro-scale side of the simulation project*. The goal is to *create a space where you can build your own macro world*, *run virtual world experiments*, and *conserve and exploit the planet for your sustainability*."
+          },
+          {
+              type: "embed",
+              src: "https://www.youtube-nocookie.com/embed/_pbD9caaxyk?si=ljXwrIZdzP39jIE7n-picture",
+              title: "Dev demo",
+              caption: "Watch the project in action."
+          },
         {
           type: "callout",
-          title: "Development status",
+          title: "Current Status",
           variant: "info",
-          text: "MACRO is an ongoing project. Its world systems, interface, and gameplay direction are subject to change as development continues."
-        },
-        {
-          type: "link",
-          url: "https://www.youtube.com/@thewindroidprojectofficial",
-          label: "More videos on The Windroid Project channel"
+          text: "The game is an **Early Access**, or even a *prototype*."
         }
       ],
-      downloadLinks: [
-        { label: "Download — GitHub Releases", url: "https://github.com/amalangelo9137/Windroid-Virtual-Life-Simulator/releases" }
-      ]
+      repoUrl: "https://github.com/amalangelo9137/Windroid-Virtual-Life-Simulator"
     },
     {
-      id: "winos-efi",
+      id: "winos_dev-base",
       theme: "twp",
-      title: "WinOS-EFI",
-      subtitle: "A small boot layer with one job: prepare the system and hand off to the kernel.",
+      title: "WinOS_Dev-Base",
+      subtitle: "A slop OS with basic window management and app window launching mechanisms.",
       content: [
         {
           type: "feature",
           media: { type: "image", src: "/twp/wosdev/efi-kernel/images/sample.png", alt: "WinOS EFI and kernel development preview" },
-          title: "The UEFI entry point",
-          text: "WinOS-EFI is the first stage in the current WinOS boot flow. It runs as a UEFI application, gathers the information the next stage needs, and transfers control to WinOS-Kernel."
-        },
-        {
-          type: "heading",
-          level: 2,
-          text: "Keep the bootloader focused"
-        },
-        {
-          type: "text",
-          text: "The EFI application is intentionally kept small. It handles startup responsibilities and passes a shared boot configuration — including framebuffer details, memory-map information, and pointers to available resources — rather than becoming the place where the operating system's larger features are implemented."
+          title: "WinOS-Dev",
+          text: "**WinOS-Dev** is a *fully AI made (Codex) project*, which is open for everyone. Its slop anyway."
         },
         {
           type: "callout",
           title: "Part of WinOS-Dev",
           variant: "info",
-          text: "WinOS-EFI is developed alongside WinOS-Kernel and WinOS-Editor in the WinOS-Dev repository. The project is still under active development."
+          text: "The project has *fully ended* and has been **archived**."
+        }
+      ],
+      repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
+    },
+    {
+      id: "winos_dev-editor",
+      theme: "twp",
+      title: "WinOS_Dev-Base",
+      subtitle: "A slop application to create windows for a slop OS.",
+      content: [
+        {
+          type: "feature",
+          media: { type: "image", src: "/twp/wosdev/editor/images/sample.png", alt: "WinOS Editor" },
+          title: "WinOS-Dev Editor App",
+          text: "**WinOS-Dev Editor** is slop made for **WinOS-Dev**'s window application development."
         },
         {
-          type: "quote",
-          text: "A clean hand-off is the beginning of a clean system.",
-          attribution: "WinOS — design direction"
+          type: "callout",
+          title: "Part of WinOS-Dev",
+          variant: "info",
+          text: "The project has *fully ended* and has been **archived**."
         }
       ],
       repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
