@@ -82,7 +82,7 @@ window.PORTFOLIO_DATA = {
 },
         {
           type: "feature",
-          media: { type: "image", src: "twp\wdsim\MICRO\images\sample.png", alt: "Windroid Sim MICRO preview", caption: "Windroid Sim. MICRO" },
+          media: { type: "image", src: "/twp/wdsim/MICRO/images/sample.png", alt: "Windroid Sim MICRO preview", caption: "Windroid Sim. MICRO" },
           title: "A particle-level sandbox",
           text: "Windroid Sim **MICRO** is the *small-scale side of the simulation project*. The idea is to *create a space where you can build and inspect a particle world*, *experiment with physical properties*, and *explore how fundamental interactions shape matter*. **The game was originally intended for educational purposes.**"
         },
