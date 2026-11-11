@@ -363,11 +363,11 @@ function appendInlineContent(parent, runs) {
     const entries = Array.isArray(runs) ? runs : [{ type: 'text', text: String(runs ?? '') }];
     entries.forEach(run => {
         if (typeof run === 'string') {
-            parent.appendChild(document.createTextNode(run));
+            appendMarkdownText(parent, run);
             return;
         }
         if (!run || typeof run !== 'object') return;
-        const value = String(run.text ?? run.label ?? '');
+        const value = String(run.value ?? run.text ?? run.label ?? '');
         const type = run.type || 'text';
         if (type === 'br') {
             parent.appendChild(document.createElement('br'));
@@ -376,13 +376,13 @@ function appendInlineContent(parent, runs) {
         if (type === 'link') {
             const href = safePartUrl(run.url || run.href);
             if (!href) {
-                parent.appendChild(document.createTextNode(value));
+                appendMarkdownText(parent, value);
                 return;
             }
             const link = document.createElement('a');
             link.href = href;
             link.textContent = value || href;
-            if (/^https?:\/\//i.test(href)) {
+            if (/^https?:\\/\\//i.test(href)) {
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';
             }
@@ -390,26 +390,48 @@ function appendInlineContent(parent, runs) {
             return;
         }
         const tags = {
-            strong: 'strong',
-            bold: 'strong',
-            em: 'em',
-            italic: 'em',
-            underline: 'u',
-            code: 'code',
-            mark: 'mark',
-            del: 'del',
-            sub: 'sub',
-            sup: 'sup'
+            text: null, strong: 'strong', bold: 'strong',
+            em: 'em', italic: 'em', underline: 'u',
+            code: 'code', mark: 'mark', del: 'del',
+            sub: 'sub', sup: 'sup'
         };
         const tag = tags[type];
         if (!tag) {
-            parent.appendChild(document.createTextNode(value));
+            appendMarkdownText(parent, value);
             return;
         }
         const element = document.createElement(tag);
         element.textContent = value;
         parent.appendChild(element);
     });
+}
+
+function appendMarkdownText(parent, text) {
+    const source = String(text ?? '');
+    const pattern = /(\\*\\*[^*]+\\*\\*|__[^_]+__|\\*[^*]+\\*|~~[^~]+~~|==[^=]+==|`[^`]+`)/g;
+    let cursor = 0;
+    let match;
+    while ((match = pattern.exec(source))) {
+        if (match.index > cursor) {
+            parent.appendChild(document.createTextNode(source.slice(cursor, match.index)));
+        }
+        const token = match[0];
+        let tag = 'span';
+        let value = token;
+        if (token.startsWith('**')) { tag = 'strong'; value = token.slice(2, -2); }
+        else if (token.startsWith('__')) { tag = 'u'; value = token.slice(2, -2); }
+        else if (token.startsWith('*')) { tag = 'em'; value = token.slice(1, -1); }
+        else if (token.startsWith('~~')) { tag = 'del'; value = token.slice(2, -2); }
+        else if (token.startsWith('==')) { tag = 'mark'; value = token.slice(2, -2); }
+        else if (token.startsWith('`')) { tag = 'code'; value = token.slice(1, -1); }
+        const element = document.createElement(tag);
+        element.textContent = value;
+        parent.appendChild(element);
+        cursor = pattern.lastIndex;
+    }
+    if (cursor < source.length) {
+        parent.appendChild(document.createTextNode(source.slice(cursor)));
+    }
 }
 
 function appendPartContent(container, block) {
@@ -496,6 +518,79 @@ function appendPartContent(container, block) {
             link.rel = 'noopener noreferrer';
         }
         container.appendChild(link);
+        return;
+    }
+
+    if (block.type === 'feature') {
+        const feature = document.createElement('section');
+        const featureIndex = container.querySelectorAll(':scope > .part-feature').length;
+        feature.className = 'part-feature' + (featureIndex % 2 ? ' part-feature-reverse' : '');
+
+        const mediaData = block.media || {};
+        const mediaType = mediaData.type || 'image';
+        const src = safePartUrl(mediaData.src);
+        if (src && ['image', 'video', 'embed'].includes(mediaType)) {
+            const figure = document.createElement('figure');
+            figure.className = 'part-media part-feature-media';
+            let media;
+            if (mediaType === 'image') {
+                media = document.createElement('img');
+                media.src = src;
+                media.alt = mediaData.alt || '';
+                media.loading = 'lazy';
+                media.onerror = () => figure.remove();
+            } else if (mediaType === 'video') {
+                media = document.createElement('video');
+                media.src = src;
+                media.controls = mediaData.controls !== false;
+                media.playsInline = true;
+                media.preload = 'metadata';
+                if (mediaData.poster) media.poster = mediaData.poster;
+                if (mediaData.autoplay) media.autoplay = true;
+                if (mediaData.muted || mediaData.autoplay) media.muted = true;
+                if (mediaData.loop) media.loop = true;
+            } else {
+                media = document.createElement('iframe');
+                media.src = src;
+                media.title = mediaData.title || 'Embedded media';
+                media.loading = 'lazy';
+                media.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture; web-share';
+                media.allowFullscreen = true;
+                media.referrerPolicy = 'strict-origin-when-cross-origin';
+            }
+            figure.appendChild(media);
+            if (mediaData.caption) {
+                const caption = document.createElement('figcaption');
+                caption.textContent = mediaData.caption;
+                figure.appendChild(caption);
+            }
+            feature.appendChild(figure);
+        }
+
+        const copy = document.createElement('div');
+        copy.className = 'part-feature-copy';
+        if (block.title) {
+            const heading = document.createElement('h2');
+            heading.className = 'part-section-heading';
+            appendMarkdownText(heading, block.title);
+            copy.appendChild(heading);
+        }
+        if (Array.isArray(block.runs)) {
+            const paragraph = document.createElement('p');
+            paragraph.className = 'part-text';
+            appendInlineContent(paragraph, block.runs);
+            copy.appendChild(paragraph);
+        } else if (block.text) {
+            const paragraph = document.createElement('p');
+            paragraph.className = 'part-text';
+            appendMarkdownText(paragraph, block.text);
+            copy.appendChild(paragraph);
+        }
+        if (Array.isArray(block.content)) {
+            block.content.forEach(child => appendPartContent(copy, child));
+        }
+        feature.appendChild(copy);
+        container.appendChild(feature);
         return;
     }
 
