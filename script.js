@@ -382,7 +382,7 @@ function appendInlineContent(parent, runs) {
             const link = document.createElement('a');
             link.href = href;
             link.textContent = value || href;
-            if (/^https?:\\/\\//i.test(href)) {
+            if (/^https?:\/\//i.test(href)) {
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';
             }
