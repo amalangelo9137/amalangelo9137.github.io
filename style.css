@@ -1691,3 +1691,71 @@ body.windroid-theme::before {
 .part-divider { width: 100%; border: 0; border-top: 1px solid rgba(255,255,255,.2); margin: 8px 0; }
 .part-list { display: flex; flex-direction: column; gap: 7px; }
 .part-list li { line-height: 1.7; padding-left: 3px; }
+
+
+/* Alternating media-and-copy rows inside project part pages. */
+.part-feature {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    align-items: center;
+    gap: clamp(22px, 4vw, 54px);
+    width: 100%;
+    padding: clamp(18px, 3vw, 30px) 0;
+}
+.part-feature + .part-feature {
+    border-top: 1px solid rgba(255,255,255,.14);
+}
+.part-feature-reverse .part-feature-media {
+    order: 2;
+}
+.part-feature-reverse .part-feature-copy {
+    order: 1;
+}
+.part-feature-media {
+    width: 100%;
+    max-width: none;
+}
+.part-feature-media img,
+.part-feature-media video {
+    width: 100%;
+    max-height: 520px;
+    object-fit: contain;
+}
+.part-feature-media video {
+    background: transparent;
+}
+.part-feature-media iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+.part-feature-copy {
+    min-width: 0;
+}
+.part-feature-copy .part-section-heading {
+    margin: 0 0 14px;
+    font-size: clamp(1.5rem, 3vw, 2.15rem);
+}
+.part-feature-copy .part-text + .part-text {
+    margin-top: 14px;
+}
+.part-content mark {
+    padding: 0 .2em;
+    border-radius: 3px;
+    color: #151515;
+    background: #ffeaa7;
+}
+.part-content del { opacity: .72; }
+.toolbar .logo {
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+@media (max-width: 760px) {
+    .part-feature {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+    .part-feature-reverse .part-feature-media,
+    .part-feature-reverse .part-feature-copy {
+        order: initial;
+    }
+}
