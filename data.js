@@ -297,6 +297,12 @@ window.PORTFOLIO_DATA = {
       subtitle: "The small UEFI application that starts the WinOS boot process.",
       content: [
         {
+          type: "callout",
+          title: "Source & licensing",
+          variant: "info",
+          text: "**OPEN SOURCE · MIT LICENSE** — This component is part of WinOS-Base and is intended to be distributed under the MIT License."
+        },
+        {
           type: "feature",
           media: { type: "image", src: "/twp/wosdev/efi-kernel/images/sample.png", alt: "WinOS EFI and kernel development preview" },
           title: "A deliberately minimal boot stage",
@@ -324,7 +330,6 @@ window.PORTFOLIO_DATA = {
           text: "WinOS-EFI is one of the more established parts of the current foundation and is substantially implemented as the bootloader stage. Work on the wider WinOS platform continues; a functioning boot component does not mean the complete operating system is finished."
         }
       ],
-      repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
     },
     {
       id: "winos-kernel",
@@ -332,6 +337,12 @@ window.PORTFOLIO_DATA = {
       title: "WinOS-Kernel",
       subtitle: "The low-level foundation of WinOS.",
       content: [
+        {
+          type: "callout",
+          title: "Source & licensing",
+          variant: "info",
+          text: "**OPEN SOURCE · MIT LICENSE** — This component is part of WinOS-Base and is intended to be distributed under the MIT License."
+        },
         {
           type: "feature",
           media: { type: "image", src: "/twp/wosdev/efi-kernel/images/sample.png", alt: "WinOS kernel development preview" },
@@ -360,7 +371,6 @@ window.PORTFOLIO_DATA = {
           text: "WinOS-Kernel is an early-stage operating-system project. It is not yet a finished desktop or mobile operating system."
         }
       ],
-      repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
     },
     {
       id: "winos-editor",
@@ -368,6 +378,12 @@ window.PORTFOLIO_DATA = {
       title: "WinOS-Editor",
       subtitle: "The development environment for building the WinOS ecosystem.",
       content: [
+        {
+          type: "callout",
+          title: "Source & licensing",
+          variant: "info",
+          text: "**OPEN SOURCE · MIT LICENSE** — This component is part of WinOS-Base and is intended to be distributed under the MIT License."
+        },
         {
           type: "feature",
           media: { type: "image", src: "/twp/wosdev/editor/images/sample.png", alt: "WinOS Editor interface preview" },
@@ -401,7 +417,6 @@ window.PORTFOLIO_DATA = {
           text: "The next major work is completing the IDE workflow: source navigation, useful compiler diagnostics, and reliable build actions using the detected LLVM toolchain."
         }
       ],
-      repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
     }
   ]
 };
