@@ -6,7 +6,7 @@ window.PORTFOLIO_DATA = {
       title: "The Windroid Project",
       category: "SOFTWARE · HARDWARE",
       status: "Ongoing",
-      description: "A project focused to give users a secure and maximally open source ecosystem, without unnecessary corporate greed.",
+      description: "An independent software and hardware ecosystem built around open development, practical experimentation, and tools that put creators and users first.",
       image: "images/twp.png",
       theme: "twp",
       tags: ["Independent development", "Games", "Software", "Simulation", "Hardware"],
@@ -36,15 +36,13 @@ window.PORTFOLIO_DATA = {
         {
             id: "winos",
             title: "WinOS",
-            description: "Nicknamed 'The OS for Winners', this is an OS focused on user security and customization.",
+            description: "Nicknamed “The OS for Winners”, WinOS is a ground-up operating-system project focused on a free, uncluttered, customizable computing experience. The priority is building a reliable base before expanding into higher-level apps and services.",
             image: "images/winos.png",
             status: "In Development",
             parts: [
-                { title: "WinOS-EFI", description: "EFI Bootloader for WinOS.", partId: "winos-efi" },
-                { title: "WinOS-Kernel", description: "The kernel part which contains framework APIs and framework loading logic.", partId: "winos-kernel" },
-                { title: "WinOS-Editor", description: "The windows WPF app made for WinOS framework development.", partId: "winos-editor" },
-                { title: "WinOS-Studio", description: "The windows WPF app made for compound applications with multiple frameworks.", partId: "winos-studio" },
-                { title: "WinOS", description: "The WinOS System implementation from me, containing Windroid Security and more. CLOSED SOURCE.", partId: "winos" }
+                { title: "WinOS-EFI", description: "The minimal UEFI entry point that prepares boot information and transfers control to the WinOS kernel.", partId: "winos-efi" },
+                { title: "WinOS-Kernel", description: "The low-level C++ and assembly foundation that receives the boot configuration and will host the core system interfaces.", partId: "winos-kernel" },
+                { title: "WinOS-Editor", description: "A C# WPF development environment for creating and building frameworks and components for WinOS.", partId: "winos-editor" }
             ]
         },
         {
@@ -179,6 +177,42 @@ window.PORTFOLIO_DATA = {
       repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
     },
     {
+      id: "winos-efi",
+      theme: "twp",
+      title: "WinOS-EFI",
+      subtitle: "The small UEFI application that starts the WinOS boot process.",
+      content: [
+        {
+          type: "feature",
+          media: { type: "image", src: "/twp/wosdev/efi-kernel/images/sample.png", alt: "WinOS EFI and kernel development preview" },
+          title: "A deliberately minimal boot stage",
+          text: "WinOS-EFI is the UEFI-side entry point for the operating system. Its job is to establish the information the next stage needs and hand control over to WinOS-Kernel. The aim is to keep this layer focused on bootstrapping rather than turning it into the place where the operating system itself is implemented."
+        },
+        {
+          type: "heading",
+          level: 2,
+          text: "Passing a shared boot configuration"
+        },
+        {
+          type: "text",
+          text: "The EFI application prepares a shared BOOT_CONFIG structure defined in Shared.h. The structure is designed to carry the kernel's base address, framebuffer and display information, mouse-state access, font and asset references, and memory-map details. This gives the kernel a consistent starting point instead of making it rediscover every boot-time resource."
+        },
+        {
+          type: "feature",
+          media: { type: "image", src: "/twp/wosdev/efi-kernel/images/sample.png", alt: "WinOS boot-stage project preview" },
+          title: "Keep the boundary clear",
+          text: "The architecture separates the UEFI boot application from the C++ and assembly kernel. EFI handles the handoff; the kernel owns the continuing system implementation. That separation keeps the boot stage small and gives the kernel room to evolve."
+        },
+        {
+          type: "callout",
+          title: "Development status",
+          variant: "info",
+          text: "WinOS-EFI is part of an early-stage OS foundation. The boot interface and shared structures are being developed; this is not a claim that the complete operating system is ready."
+        }
+      ],
+      repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
+    },
+    {
       id: "winos-kernel",
       theme: "twp",
       title: "WinOS-Kernel",
@@ -224,7 +258,7 @@ window.PORTFOLIO_DATA = {
           type: "feature",
           media: { type: "image", src: "/twp/wosdev/editor/images/sample.png", alt: "WinOS Editor interface preview" },
           title: "A dedicated framework editor",
-          text: "WinOS-Editor is a C# WPF application intended to become the development environment for WinOS frameworks and components. It is a tool for creating and managing the software that will run in the WinOS ecosystem — not the operating system's end-user desktop."
+          text: "WinOS-Editor is a C# WPF application for developing the WinOS ecosystem. It is the framework editor and IDE project — not the operating system's end-user desktop or a separate app-building Studio."
         },
         {
           type: "heading",
@@ -235,9 +269,9 @@ window.PORTFOLIO_DATA = {
           type: "list",
           items: [
             "A JSON-based .wdfp project format with project creation, saving, and opening.",
-            "Project browsing and source-file tabs for working across a framework project.",
-            "A code-structure browsing direction for namespaces, classes, functions, documentation, and parameters.",
-            "Compiler detection built around a system-installed LLVM toolchain, avoiding a bundled compiler footprint."
+            "A project tree and source-file tabs for navigating framework projects.",
+            "An IDE direction with framework and project hierarchies intended to expose namespaces, classes, functions, documentation, and parameters.",
+            "LLVM detection using a system-installed toolchain, keeping the compiler out of the editor's bundled footprint."
           ]
         },
         {
@@ -250,7 +284,7 @@ window.PORTFOLIO_DATA = {
           type: "callout",
           title: "Current focus",
           variant: "info",
-          text: "The next major work is the main IDE experience and a complete build pipeline, including useful compiler diagnostics and build actions."
+          text: "The next major work is completing the IDE workflow: source navigation, useful compiler diagnostics, and reliable build actions using the detected LLVM toolchain."
         }
       ],
       repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
