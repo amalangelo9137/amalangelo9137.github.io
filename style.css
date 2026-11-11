@@ -1311,7 +1311,7 @@ html, body {
 
 
 
-/* Shared transparent brand button — used across every site section. */
+/* Static brand logo in the toolbar. */
 .toolbar .logo {
     appearance: none;
     -webkit-appearance: none;
@@ -1335,8 +1335,10 @@ html, body {
     color: inherit;
     font: inherit;
     cursor: pointer;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
 }
-.toolbar .logo-animation {
+.toolbar .logo-image {
     display: block;
     width: 184px;
     height: 104px;
@@ -1344,10 +1346,7 @@ html, body {
     max-height: none;
     object-fit: contain;
     object-position: center;
-    background: transparent !important;
-    opacity: 1;
-    filter: none;
-    mix-blend-mode: normal;
+    background: transparent;
     pointer-events: none;
 }
 .toolbar .logo:focus-visible {
@@ -1365,12 +1364,11 @@ html, body {
         max-width: 144px;
         max-height: 82px;
     }
-    .toolbar .logo-animation {
+    .toolbar .logo-image {
         width: 144px;
         height: 82px;
     }
 }
-
 
 /* Phase 1 UX: clear navigation state and consistent keyboard focus. */
 .nav-links button[aria-current="page"] {
