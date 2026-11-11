@@ -40,6 +40,7 @@ window.PORTFOLIO_DATA = {
             image: "images/winos.png",
             status: "In Development",
             parts: [
+                { title: "WinOS Overview", description: "An overview of the OS architecture, its boot-to-framework design, and the role of each component.", partId: "winos-overview" },
                 { title: "WinOS-EFI", description: "The minimal UEFI entry point that prepares boot information and transfers control to the WinOS kernel.", partId: "winos-efi" },
                 { title: "WinOS-Kernel", description: "The low-level C++ and assembly foundation that receives the boot configuration and will host the core system interfaces.", partId: "winos-kernel" },
                 { title: "WinOS-Editor", description: "A C# WPF development environment for creating and building frameworks and components for WinOS.", partId: "winos-editor" }
@@ -172,6 +173,55 @@ window.PORTFOLIO_DATA = {
           title: "Part of WinOS-Dev",
           variant: "info",
           text: "The project has *fully ended* and has been **archived**."
+        }
+      ],
+      repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
+    },
+    {
+      id: "winos-overview",
+      theme: "twp",
+      title: "WinOS",
+      subtitle: "The OS for Winners.",
+      content: [
+        {
+          type: "quote",
+          text: "A free, uncluttered operating system built from the ground up — with the tools and framework to shape the experience around its users.",
+          attribution: "WinOS project direction"
+        },
+        {
+          type: "feature",
+          media: { type: "image", src: "/twp/wosdev/efi-kernel/images/sample.png", alt: "WinOS development preview" },
+          title: "An operating system, not just a desktop concept",
+          text: "WinOS is an independent operating-system project. The current priority is the base platform: a clear boot path, a kernel with defined system responsibilities, and a framework layer that can support applications later. The goal is to keep the system free and uncluttered while leaving room for customization."
+        },
+        {
+          type: "heading",
+          level: 2,
+          text: "How the pieces fit together"
+        },
+        {
+          type: "list",
+          items: [
+            { runs: [{ type: "strong", text: "WinOS-EFI — " }, { type: "text", text: "the UEFI application that prepares boot information and hands control to the kernel." }] },
+            { runs: [{ type: "strong", text: "WinOS-Kernel — " }, { type: "text", text: "the C++ and assembly core that receives the boot configuration and forms the low-level system foundation." }] },
+            { runs: [{ type: "strong", text: "WinOS framework — " }, { type: "text", text: "the planned higher-level system layer. WinOS.Graphics is part of this framework, not a separate framework." }] },
+            { runs: [{ type: "strong", text: "WinOS-Editor — " }, { type: "text", text: "the C# WPF development environment used to create and manage framework projects." }] }
+          ]
+        },
+        {
+          type: "heading",
+          level: 2,
+          text: "A framework-first user space"
+        },
+        {
+          type: "text",
+          text: "The longer-term architecture uses .wdll packages as compiled code clumps for frameworks and user applications, with .wdexe as the planned application format. This is a design direction for the ecosystem, not a claim that the full runtime or application environment is already complete."
+        },
+        {
+          type: "callout",
+          title: "Current scope",
+          variant: "info",
+          text: "WinOS is still in active early development. The focus is the boot and kernel foundation plus the tools needed to build the framework. A finished desktop, application ecosystem, and end-user Studio are not being presented as completed features."
         }
       ],
       repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
