@@ -87,34 +87,21 @@ window.PORTFOLIO_DATA = {
           text: "Windroid Sim **MICRO** is the *small-scale side of the simulation project*. The idea is to *create a space where you can build and inspect a particle world*, *experiment with physical properties*, and *explore how fundamental interactions shape matter*. **The game was originally intended for educational purposes.**"
         },
         {
-          type: "heading",
-          level: 2,
-          text: "What this build explores"
-        },
-        {
-          type: "list",
-          items: [
-            "Particle properties and interactions as the foundation of a simulated world.",
-            "A Fundamental Force system that provides the basis for interactions.",
-            "An environment intended to make abstract physics concepts more approachable through experimentation."
-          ]
-        },
-        {
-          type: "feature",
-          media: { type: "image", src: "/twp/wdsim/MICRO/images/sample.png", alt: "Windroid Sim MICRO simulation view" },
-          title: "Built around experimentation",
-          text: "The project is being developed as an interactive learning and simulation environment rather than a conventional objective-driven game. The long-term direction includes editable environments and a way to save and revisit experiments."
+          type: "callout",
+          title: "Current Status",
+          variant: "info",
+          text: "The **Fundamental Force system** and **basic PC and touch controls** are basically *complete*, leading to version **1.5.2-STABLE**. *Persistence and more in the future*."
         },
         {
           type: "callout",
-          title: "Current development",
-          variant: "info",
-          text: "The Fundamental Force system and basic PC and touch controls are in place in an early form. Environment persistence and further simulation systems remain part of the development work."
+          title: "Warning",
+          variant: "warning",
+          text: "The MICRO part is **paused** until *enough players join*."
         }
       ],
       downloadLinks: [
-        { label: "Download — GitHub Releases", url: "https://github.com/amalangelo9137/Windroid-Real-Life-Simulator/releases" },
-        { label: "Play on Game Jolt", url: "https://gamejolt.com/games/wdsimMICRO/1075586" }
+        { label: "GitHub Releases >", url: "https://github.com/amalangelo9137/Windroid-Real-Life-Simulator/releases" },
+        { label: "Game Jolt >", url: "https://gamejolt.com/games/wdsimMICRO/1075586" }
       ]
     },
     {
