@@ -4,9 +4,9 @@ window.PORTFOLIO_DATA = {
     {
       id: "the-windroid-project",
       title: "The Windroid Project",
-      category: "GAMES · SOFTWARE · EXPERIMENTS",
+      category: "SOFTWARE · HARDWARE",
       status: "Ongoing",
-      description: "An independent collection of games, simulations, software, and hardware experiments. The Windroid Project is a space to explore ideas, build useful tools, and turn ambitious concepts into working prototypes.",
+      description: "A project focused to give users a secure and maximally open source ecosystem, without unnecessary corporate greed.",
       image: "images/twp.png",
       theme: "twp",
       tags: ["Independent development", "Games", "Software", "Simulation", "Hardware"],
@@ -14,25 +14,38 @@ window.PORTFOLIO_DATA = {
         {
           id: "wdsim",
           title: "Windroid Simulator",
-          description: "A two-scale simulation project exploring how a realistic world could be represented and experienced. MICRO focuses on particles and fundamental interactions; MACRO explores a larger playable world. They are separate builds because the two scales place very different demands on numerical precision.",
+          description: "A game designed to replicate real life as accurately as possible. Split to 2, because of digital precision issues.",
           image: "images/wdsim.png",
           status: "In development",
           parts: [
-            { title: "Windroid Sim. MICRO", description: "A particle-scale sandbox for experimenting with matter, physical properties, and fundamental interactions.", partId: "wdsim-micro" },
-            { title: "Windroid Sim. MACRO", description: "A larger-scale, player-facing simulation built around exploring and sustaining life in a grounded environment.", partId: "wdsim-macro" }
+            { title: "Windroid Real Life Simulator", description: "The part of Windroid Sim. where the player sees the smallest possible energies. Mainly intended for Educational purposes", partId: "wdsimMICRO" },
+            { title: "Windroid Virtual Life Simulator", description: "The part of Windroid Sim. where the player sees what macro beings like humans sees. Mainly structured like a game.", partId: "wdsimMACRO" }
           ]
         },
         {
           id: "winos-dev",
           title: "WinOS-Dev",
-          description: "The development project behind WinOS: The OS for Winners. It currently focuses on the boot path, a custom kernel foundation, shared low-level interfaces, and WinOS-Editor — a WPF development environment for building the wider WinOS ecosystem.",
+          description: "The first fully AI version of WinOS, where I tried to learn how OSes work.",
           image: "images/winos-dev.png",
-          status: "In development",
+          status: "Ended / Out of support",
           parts: [
-            { title: "WinOS-EFI", description: "A minimal UEFI entry point that prepares boot information and transfers control to the WinOS kernel.", partId: "winos-efi" },
-            { title: "WinOS-Kernel", description: "The C++ and assembly kernel foundation, responsible for the early runtime and low-level system interfaces.", partId: "winos-kernel" },
-            { title: "WinOS-Editor", description: "A C# WPF development environment for managing WinOS framework projects, browsing code, and building components with the system LLVM toolchain.", partId: "winos-editor" }
+            { title: "WinOS_Dev-Base", description: "The EFI implementation and kernel part which shows window applications made with WinOS_Dev-Editor", partId: "winos_dev-base" },
+            { title: "WinOS_Dev-Editor", description: "The windows WPF app made for window application dev for WinOS-Dev.", partId: "winos_dev-editor" }
           ]
+        },
+        {
+            id: "winos",
+            title: "WinOS",
+            description: "Nicknamed 'The OS for Winners', this is an OS focused on user security and customization.",
+            image: "images/winos.png",
+            status: "In Development",
+            parts: [
+                { title: "WinOS-EFI", description: "EFI Bootloader for WinOS.", partId: "winos-efi" },
+                { title: "WinOS-Kernel", description: "The kernel part which contains framework APIs and framework loading logic.", partId: "winos-kernel" },
+                { title: "WinOS-Editor", description: "The windows WPF app made for WinOS framework development.", partId: "winos-editor" },
+                { title: "WinOS-Studio", description: "The windows WPF app made for compound applications with multiple frameworks.", partId: "winos-studio" },
+                { title: "WinOS", description: "The WinOS System implementation from me, containing Windroid Security and more. CLOSED SOURCE.", partId: "winos" }
+            ]
         },
         {
           id: "waroms",
@@ -57,16 +70,21 @@ window.PORTFOLIO_DATA = {
   ],
   parts: [
     {
-      id: "wdsim-micro",
+      id: "wdsimMICRO",
       theme: "twp",
-      title: "Windroid Real Life Simulator 3D",
+      title: "Windroid Real Life Simulator",
       subtitle: "Explore a world from the scale of particles.",
       content: [
+{
+  type: "quote",
+  text: "Windroid Sim. MICRO is a simulation where you build your own particle world. Discover the forces you rely on, and explore the structure of matter itself.",
+  attribution: "Windroid Sim. MICRO Intro"
+},
         {
           type: "feature",
-          media: { type: "image", src: "/twp/wdsim/MICRO/images/sample.png", alt: "Windroid Sim MICRO preview", caption: "Windroid Sim — MICRO" },
+          media: { type: "image", src: "twp\wdsim\MICRO\images\sample.png", alt: "Windroid Sim MICRO preview", caption: "Windroid Sim. MICRO" },
           title: "A particle-level sandbox",
-          text: "Windroid Sim **MICRO** is the small-scale side of the simulation project. The idea is to create a space where you can build and inspect a particle world, experiment with physical properties, and explore how fundamental interactions shape matter."
+          text: "Windroid Sim **MICRO** is the *small-scale side of the simulation project*. The idea is to *create a space where you can build and inspect a particle world*, *experiment with physical properties*, and *explore how fundamental interactions shape matter*. **The game was originally intended for educational purposes.**"
         },
         {
           type: "heading",
@@ -92,16 +110,6 @@ window.PORTFOLIO_DATA = {
           title: "Current development",
           variant: "info",
           text: "The Fundamental Force system and basic PC and touch controls are in place in an early form. Environment persistence and further simulation systems remain part of the development work."
-        },
-        {
-          type: "quote",
-          text: "Start with the smallest pieces, then see what kind of world they can build.",
-          attribution: "Windroid Sim — MICRO"
-        },
-        {
-          type: "link",
-          url: "https://www.youtube.com/@thewindroidprojectofficial",
-          label: "Watch development videos on The Windroid Project channel"
         }
       ],
       downloadLinks: [
