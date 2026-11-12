@@ -287,7 +287,7 @@ window.PORTFOLIO_DATA = {
     {
       id: "winos-overview",
       theme: "twp",
-      title: "WinOS",
+      title: "WinOS System",
       subtitle: "The OS for Winners.",
       content: [
         {
@@ -425,7 +425,7 @@ window.PORTFOLIO_DATA = {
           type: "callout",
           title: "Source & licensing",
           variant: "info",
-          text: "**OPEN SOURCE · MIT LICENSE** — This component is part of WinOS-Base and is intended to be distributed under the MIT License."
+          text: "**OPEN SOURCE · MIT LICENSE** — WinOS Framework Studio is an open-source development tool distributed under the MIT License."
         },
         {
           type: "feature",
