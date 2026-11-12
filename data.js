@@ -36,24 +36,43 @@ window.PORTFOLIO_DATA = {
         {
           id: "winos-base",
           title: "WinOS-Base",
-          description: "The open-source foundation and development toolchain for WinOS. It contains the UEFI bootloader, kernel, Editor, and the planned Studio — but not the proprietary operating system or its frameworks.",
+          description: "The open-source low-level foundation for WinOS, containing the UEFI bootloader and kernel. Licensed under MIT.",
           image: "images/winos.png",
           status: "Open source · MIT",
           parts: [
             { title: "WinOS-Base Overview", description: "The open-source foundation, its components, licensing, and current development status.", partId: "winos-base-overview" },
             { title: "WinOS-EFI", description: "The substantially implemented UEFI bootloader and handoff stage for starting the WinOS kernel.", partId: "winos-efi" },
-            { title: "WinOS-Kernel", description: "The C++ and assembly kernel foundation shared with the proprietary WinOS system.", partId: "winos-kernel" },
-            { title: "WinOS-Editor", description: "The C# WPF development environment for building the WinOS ecosystem.", partId: "winos-editor" }
+            { title: "WinOS-Kernel", description: "The C++ and assembly kernel foundation shared with the proprietary WinOS System.", partId: "winos-kernel" }
           ]
         },
         {
-          id: "winos",
-          title: "WinOS",
-          description: "The proprietary operating system built on WinOS-Base. The OS implementation, system frameworks, and bundled base frameworks — including WinOS.Graphics — are kept closed source and distributed through private infrastructure.",
+          id: "winos-editor",
+          title: "WinOS-Editor",
+          description: "WinOS Framework Studio — the development environment for creating and managing frameworks for WinOS.",
+          image: "images/winos.png",
+          status: "Open source · MIT",
+          parts: [
+            { title: "WinOS Framework Studio", description: "The C# WPF framework development environment, project system, IDE, and build workflow.", partId: "winos-editor" }
+          ]
+        },
+        {
+          id: "winos-studio",
+          title: "WinOS-Studio",
+          description: "WinOS Application Studio — the planned environment for creating applications for WinOS.",
+          image: "images/winos.png",
+          status: "Open source · MIT",
+          parts: [
+            { title: "WinOS Application Studio", description: "The planned application development environment for the WinOS ecosystem.", partId: "winos-studio" }
+          ]
+        },
+        {
+          id: "winos-system",
+          title: "WinOS System",
+          description: "The proprietary operating system, including its system implementation and first-party frameworks such as WinOS.Graphics. Maintained and distributed through private infrastructure.",
           image: "images/winos.png",
           status: "Closed source · Proprietary",
           parts: [
-            { title: "WinOS Overview", description: "The proprietary operating system, its framework layer, licensing boundary, and development direction.", partId: "winos-overview" }
+            { title: "WinOS System", description: "The operating system, proprietary framework layer, licensing boundary, and development direction.", partId: "winos-overview" }
           ]
         },
         {
@@ -202,7 +221,7 @@ window.PORTFOLIO_DATA = {
           type: "callout",
           title: "Source & licensing",
           variant: "info",
-          text: "**OPEN SOURCE · MIT LICENSE** — WinOS-Base is intended to be released under the MIT License. The license applies to the WinOS-Base repository and the components included in that base, not to the proprietary WinOS operating system or its frameworks."
+          text: "**OPEN SOURCE · MIT LICENSE** — WinOS-Base is distributed under the MIT License. This covers the bootloader and kernel foundation in this component; it does not cover WinOS Framework Studio, WinOS Application Studio, or the proprietary WinOS System unless their own licensing notices explicitly say otherwise."
         },
         {
           type: "embed",
@@ -219,9 +238,7 @@ window.PORTFOLIO_DATA = {
           type: "list",
           items: [
             { runs: [{ type: "strong", text: "WinOS-EFI — " }, { type: "text", text: "the UEFI bootloader. This is currently one of the most established components and is substantially implemented." }] },
-            { runs: [{ type: "strong", text: "WinOS-Kernel — " }, { type: "text", text: "the low-level C++ and assembly foundation that receives the boot configuration from EFI." }] },
-            { runs: [{ type: "strong", text: "WinOS-Editor — " }, { type: "text", text: "the C# WPF development environment for creating and managing WinOS framework projects." }] },
-            { runs: [{ type: "strong", text: "WinOS-Studio — " }, { type: "text", text: "a planned additional development tool in the WinOS-Base ecosystem; it is not yet presented as a completed application." }] }
+            { runs: [{ type: "strong", text: "WinOS-Kernel — " }, { type: "text", text: "the low-level C++ and assembly foundation that receives the boot configuration from EFI." }] }
           ]
         },
         {
@@ -237,7 +254,33 @@ window.PORTFOLIO_DATA = {
           type: "callout",
           title: "A clear boundary",
           variant: "info",
-          text: "Open-source boot and development foundation; proprietary operating system and framework implementation. The two are designed to work together, but the MIT license for WinOS-Base does not grant rights to the closed-source WinOS components."
+          text: "WinOS-Base is the open-source boot and kernel foundation. WinOS Framework Studio and WinOS Application Studio are separate open-source MIT-licensed tools. WinOS System and its frameworks remain proprietary; the MIT license does not grant rights to those closed-source components."
+        }
+      ]
+    },
+    {
+      id: "winos-studio",
+      theme: "twp",
+      title: "WinOS Application Studio",
+      subtitle: "The planned application development environment for WinOS.",
+      content: [
+        {
+          type: "callout",
+          title: "Source & licensing",
+          variant: "info",
+          text: "**OPEN SOURCE · MIT LICENSE** — WinOS Application Studio is part of the open-source WinOS development toolchain and is intended to be released under the MIT License."
+        },
+        {
+          type: "feature",
+          media: { type: "image", src: "/twp/wosdev/editor/images/sample.png", alt: "WinOS development environment preview" },
+          title: "A dedicated application studio",
+          text: "**WinOS Application Studio** (project name: **WinOS-Studio**) is intended to provide a dedicated environment for creating applications for WinOS. It is separate from WinOS Framework Studio, which focuses on building frameworks."
+        },
+        {
+          type: "callout",
+          title: "Development status",
+          variant: "info",
+          text: "WinOS Application Studio is planned and is not presented as a completed application yet."
         }
       ]
     },
@@ -375,8 +418,8 @@ window.PORTFOLIO_DATA = {
     {
       id: "winos-editor",
       theme: "twp",
-      title: "WinOS-Editor",
-      subtitle: "The development environment for building the WinOS ecosystem.",
+      title: "WinOS Framework Studio",
+      subtitle: "The framework development environment in the WinOS ecosystem.",
       content: [
         {
           type: "callout",
@@ -388,7 +431,7 @@ window.PORTFOLIO_DATA = {
           type: "feature",
           media: { type: "image", src: "/twp/wosdev/editor/images/sample.png", alt: "WinOS Editor interface preview" },
           title: "A dedicated framework editor",
-          text: "WinOS-Editor is a C# WPF application for developing the WinOS ecosystem. It is the framework editor and IDE project — not the operating system's end-user desktop or a separate app-building Studio."
+          text: "**WinOS Framework Studio** (project name: **WinOS-Editor**) is a C# WPF application for creating and managing frameworks for WinOS. It focuses on framework projects, source navigation, and the framework build workflow; it is distinct from the application-focused WinOS Application Studio."
         },
         {
           type: "heading",
@@ -408,7 +451,7 @@ window.PORTFOLIO_DATA = {
           type: "feature",
           media: { type: "image", src: "/twp/wosdev/editor/images/sample.png", alt: "WinOS Editor project workspace preview" },
           title: "An editor for the platform itself",
-          text: "The longer-term goal is to make it possible to create frameworks and applications for WinOS from one focused environment. The editor and build workflow are still being developed; the current project is an early foundation, not a finished IDE."
+          text: "The goal is to provide a dedicated environment for framework development. The editor and build workflow are still being developed; the current project is an early foundation, not a finished IDE."
         },
         {
           type: "callout",
