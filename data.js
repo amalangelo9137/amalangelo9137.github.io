@@ -34,17 +34,27 @@ window.PORTFOLIO_DATA = {
           ]
         },
         {
-            id: "winos",
-            title: "WinOS",
-            description: "Nicknamed “The OS for Winners”, WinOS is a ground-up operating-system project focused on a free, uncluttered, customizable computing experience. The priority is building a reliable base before expanding into higher-level apps and services.",
-            image: "images/winos.png",
-            status: "In Development",
-            parts: [
-                { title: "WinOS Overview", description: "An overview of the OS architecture, its boot-to-framework design, and the role of each component.", partId: "winos-overview" },
-                { title: "WinOS-EFI", description: "The minimal UEFI entry point that prepares boot information and transfers control to the WinOS kernel.", partId: "winos-efi" },
-                { title: "WinOS-Kernel", description: "The low-level C++ and assembly foundation that receives the boot configuration and will host the core system interfaces.", partId: "winos-kernel" },
-                { title: "WinOS-Editor", description: "A C# WPF development environment for creating and building frameworks and components for WinOS.", partId: "winos-editor" }
-            ]
+          id: "winos-base",
+          title: "WinOS-Base",
+          description: "The open-source foundation and development toolchain for WinOS. It contains the UEFI bootloader, kernel, Editor, and the planned Studio — but not the proprietary operating system or its frameworks.",
+          image: "images/winos.png",
+          status: "Open source · MIT",
+          parts: [
+            { title: "WinOS-Base Overview", description: "The open-source foundation, its components, licensing, and current development status.", partId: "winos-base-overview" },
+            { title: "WinOS-EFI", description: "The substantially implemented UEFI bootloader and handoff stage for starting the WinOS kernel.", partId: "winos-efi" },
+            { title: "WinOS-Kernel", description: "The C++ and assembly kernel foundation shared with the proprietary WinOS system.", partId: "winos-kernel" },
+            { title: "WinOS-Editor", description: "The C# WPF development environment for building the WinOS ecosystem.", partId: "winos-editor" }
+          ]
+        },
+        {
+          id: "winos",
+          title: "WinOS",
+          description: "The proprietary operating system built on WinOS-Base. The OS implementation, system frameworks, and bundled base frameworks — including WinOS.Graphics — are kept closed source and distributed through private infrastructure.",
+          image: "images/winos.png",
+          status: "Closed source · Proprietary",
+          parts: [
+            { title: "WinOS Overview", description: "The proprietary operating system, its framework layer, licensing boundary, and development direction.", partId: "winos-overview" }
+          ]
         },
         {
           id: "waroms",
@@ -178,6 +188,60 @@ window.PORTFOLIO_DATA = {
       repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
     },
     {
+      id: "winos-base-overview",
+      theme: "twp",
+      title: "WinOS-Base",
+      subtitle: "The open-source foundation for the WinOS ecosystem.",
+      content: [
+        {
+          type: "quote",
+          text: "A public foundation for booting, extending, and developing WinOS — separate from the proprietary operating system built on top of it.",
+          attribution: "WinOS-Base"
+        },
+        {
+          type: "callout",
+          title: "Source & licensing",
+          variant: "info",
+          text: "**OPEN SOURCE · MIT LICENSE** — WinOS-Base is intended to be released under the MIT License. The license applies to the WinOS-Base repository and the components included in that base, not to the proprietary WinOS operating system or its frameworks."
+        },
+        {
+          type: "embed",
+          src: "https://www.youtube-nocookie.com/embed/9Ep3I33Q0NE",
+          title: "WinOS-Base — current development status",
+          caption: "A look at the current state of WinOS-Base and its development."
+        },
+        {
+          type: "heading",
+          level: 2,
+          text: "What belongs in WinOS-Base?"
+        },
+        {
+          type: "list",
+          items: [
+            { runs: [{ type: "strong", text: "WinOS-EFI — " }, { type: "text", text: "the UEFI bootloader. This is currently one of the most established components and is substantially implemented." }] },
+            { runs: [{ type: "strong", text: "WinOS-Kernel — " }, { type: "text", text: "the low-level C++ and assembly foundation that receives the boot configuration from EFI." }] },
+            { runs: [{ type: "strong", text: "WinOS-Editor — " }, { type: "text", text: "the C# WPF development environment for creating and managing WinOS framework projects." }] },
+            { runs: [{ type: "strong", text: "WinOS-Studio — " }, { type: "text", text: "a planned additional development tool in the WinOS-Base ecosystem; it is not yet presented as a completed application." }] }
+          ]
+        },
+        {
+          type: "heading",
+          level: 2,
+          text: "What stays proprietary?"
+        },
+        {
+          type: "text",
+          text: "WinOS-Base does **not** include the WinOS operating system implementation or its frameworks. The WinOS framework, **WinOS.Graphics**, and other first-party base/system frameworks remain proprietary and closed source. They are maintained and distributed through private infrastructure."
+        },
+        {
+          type: "callout",
+          title: "A clear boundary",
+          variant: "info",
+          text: "Open-source boot and development foundation; proprietary operating system and framework implementation. The two are designed to work together, but the MIT license for WinOS-Base does not grant rights to the closed-source WinOS components."
+        }
+      ]
+    },
+    {
       id: "winos-overview",
       theme: "twp",
       title: "WinOS",
@@ -185,46 +249,46 @@ window.PORTFOLIO_DATA = {
       content: [
         {
           type: "quote",
-          text: "A free, uncluttered operating system built from the ground up — with the tools and framework to shape the experience around its users.",
+          text: "A ground-up operating system built on an open development foundation, with a proprietary system and framework layer.",
           attribution: "WinOS project direction"
+        },
+        {
+          type: "callout",
+          title: "Source & licensing",
+          variant: "warning",
+          text: "**CLOSED SOURCE · PROPRIETARY** — WinOS and its system frameworks are proprietary. All rights reserved. The OS implementation is maintained privately and is not published in a public GitHub repository."
         },
         {
           type: "feature",
           media: { type: "image", src: "/twp/wosdev/efi-kernel/images/sample.png", alt: "WinOS development preview" },
-          title: "An operating system, not just a desktop concept",
-          text: "WinOS is an independent operating-system project. The current priority is the base platform: a clear boot path, a kernel with defined system responsibilities, and a framework layer that can support applications later. The goal is to keep the system free and uncluttered while leaving room for customization."
+          title: "The operating system itself",
+          text: "WinOS is the proprietary operating system built on top of WinOS-Base. The open-source base provides the bootloader, kernel foundation, and development tools; WinOS contains the private OS implementation, system components, and framework layer."
         },
         {
           type: "heading",
           level: 2,
-          text: "How the pieces fit together"
-        },
-        {
-          type: "list",
-          items: [
-            { runs: [{ type: "strong", text: "WinOS-EFI — " }, { type: "text", text: "the UEFI application that prepares boot information and hands control to the kernel." }] },
-            { runs: [{ type: "strong", text: "WinOS-Kernel — " }, { type: "text", text: "the C++ and assembly core that receives the boot configuration and forms the low-level system foundation." }] },
-            { runs: [{ type: "strong", text: "WinOS framework — " }, { type: "text", text: "the planned higher-level system layer. WinOS.Graphics is part of this framework, not a separate framework." }] },
-            { runs: [{ type: "strong", text: "WinOS-Editor — " }, { type: "text", text: "the C# WPF development environment used to create and manage framework projects." }] }
-          ]
-        },
-        {
-          type: "heading",
-          level: 2,
-          text: "A framework-first user space"
+          text: "The framework layer"
         },
         {
           type: "text",
-          text: "The longer-term architecture uses .wdll packages as compiled code clumps for frameworks and user applications, with .wdexe as the planned application format. This is a design direction for the ecosystem, not a claim that the full runtime or application environment is already complete."
+          text: "The WinOS framework and its bundled base frameworks are proprietary too. **WinOS.Graphics** is a component of the WinOS framework — not a separate open-source project. Other first-party frameworks follow the same proprietary licensing model unless explicitly stated otherwise."
+        },
+        {
+          type: "heading",
+          level: 2,
+          text: "Designed around a framework-first user space"
+        },
+        {
+          type: "text",
+          text: "The planned architecture uses **.wdll** packages as compiled code packages for frameworks and user applications, with **.wdexe** as the planned application format. These formats describe the intended ecosystem; they should not be read as a claim that the complete runtime or application environment is already finished."
         },
         {
           type: "callout",
-          title: "Current scope",
+          title: "Development scope",
           variant: "info",
-          text: "WinOS is still in active early development. The focus is the boot and kernel foundation plus the tools needed to build the framework. A finished desktop, application ecosystem, and end-user Studio are not being presented as completed features."
+          text: "WinOS is in active development. The operating system, proprietary framework layer, desktop experience, and application ecosystem are being built on top of WinOS-Base. This page describes the intended architecture, not a finished OS release."
         }
-      ],
-      repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
+      ]
     },
     {
       id: "winos-efi",
@@ -232,6 +296,12 @@ window.PORTFOLIO_DATA = {
       title: "WinOS-EFI",
       subtitle: "The small UEFI application that starts the WinOS boot process.",
       content: [
+        {
+          type: "callout",
+          title: "Source & licensing",
+          variant: "info",
+          text: "**OPEN SOURCE · MIT LICENSE** — This component is part of WinOS-Base and is intended to be distributed under the MIT License."
+        },
         {
           type: "feature",
           media: { type: "image", src: "/twp/wosdev/efi-kernel/images/sample.png", alt: "WinOS EFI and kernel development preview" },
@@ -257,10 +327,9 @@ window.PORTFOLIO_DATA = {
           type: "callout",
           title: "Development status",
           variant: "info",
-          text: "WinOS-EFI is part of an early-stage OS foundation. The boot interface and shared structures are being developed; this is not a claim that the complete operating system is ready."
+          text: "WinOS-EFI is one of the more established parts of the current foundation and is substantially implemented as the bootloader stage. Work on the wider WinOS platform continues; a functioning boot component does not mean the complete operating system is finished."
         }
       ],
-      repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
     },
     {
       id: "winos-kernel",
@@ -268,6 +337,12 @@ window.PORTFOLIO_DATA = {
       title: "WinOS-Kernel",
       subtitle: "The low-level foundation of WinOS.",
       content: [
+        {
+          type: "callout",
+          title: "Source & licensing",
+          variant: "info",
+          text: "**OPEN SOURCE · MIT LICENSE** — This component is part of WinOS-Base and is intended to be distributed under the MIT License."
+        },
         {
           type: "feature",
           media: { type: "image", src: "/twp/wosdev/efi-kernel/images/sample.png", alt: "WinOS kernel development preview" },
@@ -296,7 +371,6 @@ window.PORTFOLIO_DATA = {
           text: "WinOS-Kernel is an early-stage operating-system project. It is not yet a finished desktop or mobile operating system."
         }
       ],
-      repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
     },
     {
       id: "winos-editor",
@@ -304,6 +378,12 @@ window.PORTFOLIO_DATA = {
       title: "WinOS-Editor",
       subtitle: "The development environment for building the WinOS ecosystem.",
       content: [
+        {
+          type: "callout",
+          title: "Source & licensing",
+          variant: "info",
+          text: "**OPEN SOURCE · MIT LICENSE** — This component is part of WinOS-Base and is intended to be distributed under the MIT License."
+        },
         {
           type: "feature",
           media: { type: "image", src: "/twp/wosdev/editor/images/sample.png", alt: "WinOS Editor interface preview" },
@@ -337,7 +417,6 @@ window.PORTFOLIO_DATA = {
           text: "The next major work is completing the IDE workflow: source navigation, useful compiler diagnostics, and reliable build actions using the detected LLVM toolchain."
         }
       ],
-      repoUrl: "https://github.com/amalangelo9137/WinOS-Dev"
     }
   ]
 };
