@@ -268,7 +268,7 @@ window.PORTFOLIO_DATA = {
           type: "callout",
           title: "Source & licensing",
           variant: "info",
-          text: "**OPEN SOURCE · MIT LICENSE** — WinOS Application Studio is part of the open-source WinOS development toolchain and is intended to be released under the MIT License."
+          text: "**OPEN SOURCE · MIT LICENSE** — WinOS Application Studio is part of the open-source WinOS development toolchain and is released under the MIT License."
         },
         {
           type: "feature",
@@ -343,7 +343,7 @@ window.PORTFOLIO_DATA = {
           type: "callout",
           title: "Source & licensing",
           variant: "info",
-          text: "**OPEN SOURCE · MIT LICENSE** — This component is part of WinOS-Base and is intended to be distributed under the MIT License."
+          text: "**OPEN SOURCE · MIT LICENSE** — This component is part of WinOS-Base and is distributed under the MIT License."
         },
         {
           type: "feature",
@@ -384,7 +384,7 @@ window.PORTFOLIO_DATA = {
           type: "callout",
           title: "Source & licensing",
           variant: "info",
-          text: "**OPEN SOURCE · MIT LICENSE** — This component is part of WinOS-Base and is intended to be distributed under the MIT License."
+          text: "**OPEN SOURCE · MIT LICENSE** — This component is part of WinOS-Base and is distributed under the MIT License."
         },
         {
           type: "feature",
