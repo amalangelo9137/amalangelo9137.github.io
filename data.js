@@ -34,45 +34,16 @@ window.PORTFOLIO_DATA = {
           ]
         },
         {
-          id: "winos-base",
-          title: "WinOS-Base",
-          description: "The open-source low-level foundation for WinOS, containing the UEFI bootloader and kernel. Licensed under MIT.",
+          id: "winos",
+          title: "WinOS",
+          description: "A custom operating-system project organized into four parts: the open-source base, framework development tools, application development tools, and the proprietary WinOS System.",
           image: "images/winos.png",
-          status: "Open source · MIT",
+          status: "In development",
           parts: [
-            { title: "WinOS-Base Overview", description: "The open-source foundation, its components, licensing, and current development status.", partId: "winos-base-overview" },
-            { title: "WinOS-EFI", description: "The substantially implemented UEFI bootloader and handoff stage for starting the WinOS kernel.", partId: "winos-efi" },
-            { title: "WinOS-Kernel", description: "The C++ and assembly kernel foundation shared with the proprietary WinOS System.", partId: "winos-kernel" }
-          ]
-        },
-        {
-          id: "winos-editor",
-          title: "WinOS-Editor",
-          description: "WinOS Framework Studio — the development environment for creating and managing frameworks for WinOS.",
-          image: "images/winos.png",
-          status: "Open source · MIT",
-          parts: [
-            { title: "WinOS Framework Studio", description: "The C# WPF framework development environment, project system, IDE, and build workflow.", partId: "winos-editor" }
-          ]
-        },
-        {
-          id: "winos-studio",
-          title: "WinOS-Studio",
-          description: "WinOS Application Studio — the planned environment for creating applications for WinOS.",
-          image: "images/winos.png",
-          status: "Open source · MIT",
-          parts: [
-            { title: "WinOS Application Studio", description: "The planned application development environment for the WinOS ecosystem.", partId: "winos-studio" }
-          ]
-        },
-        {
-          id: "winos-system",
-          title: "WinOS System",
-          description: "The proprietary operating system, including its system implementation and first-party frameworks such as WinOS.Graphics. Maintained and distributed through private infrastructure.",
-          image: "images/winos.png",
-          status: "Closed source · Proprietary",
-          parts: [
-            { title: "WinOS System", description: "The operating system, proprietary framework layer, licensing boundary, and development direction.", partId: "winos-overview" }
+            { title: "WinOS-Base", description: "The open-source UEFI bootloader and kernel foundation. MIT licensed.", partId: "winos-base-overview" },
+            { title: "WinOS-Editor", description: "WinOS Framework Studio — the open-source framework development environment. MIT licensed.", partId: "winos-editor" },
+            { title: "WinOS-Studio", description: "WinOS Application Studio — the planned open-source application development environment. MIT licensed.", partId: "winos-studio" },
+            { title: "WinOS System", description: "The proprietary operating system and first-party framework layer. Closed source.", partId: "winos-overview" }
           ]
         },
         {
@@ -208,6 +179,7 @@ window.PORTFOLIO_DATA = {
     },
     {
       id: "winos-base-overview",
+      repoUrl: "https://github.com/amalangelo9137/WinOS",
       theme: "twp",
       title: "WinOS-Base",
       subtitle: "The open-source foundation for the WinOS ecosystem.",
@@ -260,6 +232,7 @@ window.PORTFOLIO_DATA = {
     },
     {
       id: "winos-studio",
+      repoUrl: "https://github.com/amalangelo9137/WinOS",
       theme: "twp",
       title: "WinOS Application Studio",
       subtitle: "The planned application development environment for WinOS.",
@@ -335,6 +308,7 @@ window.PORTFOLIO_DATA = {
     },
     {
       id: "winos-efi",
+      repoUrl: "https://github.com/amalangelo9137/WinOS",
       theme: "twp",
       title: "WinOS-EFI",
       subtitle: "The small UEFI application that starts the WinOS boot process.",
@@ -376,6 +350,7 @@ window.PORTFOLIO_DATA = {
     },
     {
       id: "winos-kernel",
+      repoUrl: "https://github.com/amalangelo9137/WinOS",
       theme: "twp",
       title: "WinOS-Kernel",
       subtitle: "The low-level foundation of WinOS.",
@@ -417,6 +392,7 @@ window.PORTFOLIO_DATA = {
     },
     {
       id: "winos-editor",
+      repoUrl: "https://github.com/amalangelo9137/WinOS",
       theme: "twp",
       title: "WinOS Framework Studio",
       subtitle: "The framework development environment in the WinOS ecosystem.",
