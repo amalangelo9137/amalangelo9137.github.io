@@ -197,7 +197,7 @@ window.PORTFOLIO_DATA = {
         },
         {
           type: "embed",
-          src: "https://www.youtube-nocookie.com/embed/9Ep3I33Q0NE",
+          src: "https://www.youtube-nocookie.com/embed/9Ep3I33Q0NE?start=0",
           title: "WinOS-Base — current development status",
           caption: "A look at the current state of WinOS-Base and its development."
         },
@@ -402,6 +402,12 @@ window.PORTFOLIO_DATA = {
           title: "Source & licensing",
           variant: "info",
           text: "**OPEN SOURCE · MIT LICENSE** — WinOS Framework Studio is an open-source development tool distributed under the MIT License."
+        },
+        {
+          type: "embed",
+          src: "https://www.youtube-nocookie.com/embed/9Ep3I33Q0NE?start=480",
+          title: "WinOS Framework Studio — development",
+          caption: "The video starts at 08:00 for the WinOS Framework Studio section."
         },
         {
           type: "feature",
