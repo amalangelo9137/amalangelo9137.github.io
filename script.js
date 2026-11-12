@@ -70,6 +70,18 @@ function switchView(viewId, options = {}) {
     const target = document.getElementById(viewId);
     if (!target || !viewKeys[viewId]) return false;
 
+    // Restore the browser tab title whenever leaving a project-part page.
+    const pageTitles = {
+        'home-view': 'amalangelo9137',
+        'projects-view': 'Projects — amalangelo9137',
+        'media-view': 'Media — amalangelo9137',
+        'contact-view': 'Contact — amalangelo9137',
+        'windroid-view': 'The Windroid Project — amalangelo9137'
+    };
+    if (viewId !== 'part-view') {
+        document.title = pageTitles[viewId] || 'amalangelo9137';
+    }
+
     setMenuOpen(false);
     // Keep the shared stylesheet's theme in sync, including part-to-part navigation.
     document.body.classList.toggle('windroid-theme',
