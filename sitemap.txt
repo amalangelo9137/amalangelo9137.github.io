@@ -1,0 +1,14 @@
+https://amalangelo9137.github.io/
+https://amalangelo9137.github.io/?project=wdsim
+https://amalangelo9137.github.io/?project=winos-dev
+https://amalangelo9137.github.io/?project=winos
+https://amalangelo9137.github.io/?project=waroms
+https://amalangelo9137.github.io/?project=wdpianochord
+https://amalangelo9137.github.io/?part=wdsimMICRO
+https://amalangelo9137.github.io/?part=wdsimMACRO
+https://amalangelo9137.github.io/?part=winos_dev-base
+https://amalangelo9137.github.io/?part=winos_dev-editor
+https://amalangelo9137.github.io/?part=winos-base
+https://amalangelo9137.github.io/?part=winos-studio
+https://amalangelo9137.github.io/?part=winos-overview
+https://amalangelo9137.github.io/?part=winos-editor
