@@ -9,14 +9,14 @@ window.PORTFOLIO_DATA = {
       description: "An independent software and hardware ecosystem built around open development, practical experimentation, and tools that put creators and users first.",
       image: "images/twp.png",
       theme: "twp",
-      tags: ["Independent development", "Games", "Software", "Simulation", "Hardware"],
+      tags: ["Games", "Software", "Simulation", "Hardware"],
       subprojects: [
         {
           id: "wdsim",
           title: "Windroid Simulator",
           description: "A game designed to replicate real life as accurately as possible. Split to 2, because of digital precision issues.",
           image: "images/wdsim.png",
-          status: "In development",
+          status: "In development | Temporarily Closed Source",
           parts: [
             { title: "Windroid Real Life Simulator", description: "The part of Windroid Sim. where the player sees the smallest possible energies. Mainly intended for Educational purposes", partId: "wdsimMICRO" },
             { title: "Windroid Virtual Life Simulator", description: "The part of Windroid Sim. where the player sees what macro beings like humans sees. Mainly structured like a game.", partId: "wdsimMACRO" }
@@ -27,7 +27,7 @@ window.PORTFOLIO_DATA = {
           title: "WinOS-Dev",
           description: "The first fully AI version of WinOS, where I tried to learn how OSes work.",
           image: "images/winos-dev.png",
-          status: "Ended / Out of support",
+          status: "Ended | Open Source (GPL-3.0), Archived",
           parts: [
             { title: "WinOS_Dev-Base", description: "The EFI implementation and kernel part which shows window applications made with WinOS_Dev-Editor", partId: "winos_dev-base" },
             { title: "WinOS_Dev-Editor", description: "The windows WPF app made for window application dev for WinOS-Dev.", partId: "winos_dev-editor" }
@@ -38,7 +38,7 @@ window.PORTFOLIO_DATA = {
           title: "WinOS",
           description: "A custom operating-system project organized into four parts: the open-source base, framework development tools, application development tools, and the proprietary WinOS System.",
           image: "images/winos.png",
-          status: "In development",
+          status: "In development | 3 Open Source (MIT), 1 Open Source (Proprietary)",
           parts: [
             { title: "WinOS-Base", description: "The open-source UEFI bootloader and kernel foundation. MIT licensed.", partId: "winos-base-overview" },
             { title: "WinOS-Editor", description: "WinOS Framework Studio — the open-source framework development environment. MIT licensed.", partId: "winos-editor" },
@@ -51,7 +51,7 @@ window.PORTFOLIO_DATA = {
           title: "Windroidify Android Custom ROMs",
           description: "A planned Android Open Source Project (AOSP) customization effort, with an emphasis on lightweight builds, useful customization, and extending support for older devices.",
           image: "images/waroms.png",
-          status: "Not started",
+          status: "Not Started",
           emptyMessage: "NOT STARTED GNG",
           parts: []
         },
