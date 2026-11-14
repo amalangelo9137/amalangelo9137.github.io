@@ -367,7 +367,7 @@ function safePartUrl(value) {
         // the local website folder instead of the drive root.
         if (window.location.protocol === 'file:') {
             const localPath = raw.startsWith('/')
-                ? raw.replace(/^\\/+/, '')
+                ? raw.replace(/^\/+/, '')
                 : raw;
             const url = new URL(localPath, window.location.href);
             return url.protocol === 'file:' ? url.href : null;
