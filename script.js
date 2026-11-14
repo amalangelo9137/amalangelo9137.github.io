@@ -842,7 +842,7 @@ function openPart(partId, options = {}) {
     return true;
 }
 
-function closeOverlay() {
+function closeOverlay(options = {}) {
     const overlay = document.getElementById('project-overlay');
     if (!overlay.classList.contains('active')) return;
 
@@ -864,7 +864,7 @@ function closeOverlay() {
     modalReturnFocus = null;
 
     const url = new URL(window.location.href);
-    if (url.searchParams.has('project')) {
+    if (options.restoreRoute !== false && url.searchParams.has('project')) {
         url.search = '';
         url.searchParams.set('view', 'windroid');
         window.history.replaceState({ viewId: 'windroid-view' }, '', url);
@@ -1042,7 +1042,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (document.getElementById('project-overlay')?.classList.contains('active')) {
-            closeOverlay();
+            closeOverlay({ restoreRoute: false });
         }
         currentPart = null;
         const key = stateParams.get('view');
