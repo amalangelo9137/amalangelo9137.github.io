@@ -363,6 +363,16 @@ function safePartUrl(value) {
     if (typeof value !== 'string' || !value.trim()) return null;
     const raw = value.trim();
     try {
+        // When index.html is opened directly, resolve site-root paths from
+        // the local website folder instead of the drive root.
+        if (window.location.protocol === 'file:') {
+            const localPath = raw.startsWith('/')
+                ? raw.replace(/^\\/+/, '')
+                : raw;
+            const url = new URL(localPath, window.location.href);
+            return url.protocol === 'file:' ? url.href : null;
+        }
+
         const url = new URL(raw, window.location.href);
         if (!['http:', 'https:', 'mailto:', 'tel:'].includes(url.protocol)) return null;
         return raw;
