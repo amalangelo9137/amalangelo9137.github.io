@@ -30,7 +30,7 @@ window.PORTFOLIO_DATA = {
           status: "Ended | Open Source (GPL-3.0), Archived",
           parts: [
             { title: "WinOS_Dev-Base", description: "The EFI implementation and kernel part which shows window applications made with WinOS_Dev-Editor", partId: "winos_dev-base" },
-            { title: "WinOS_Dev-Editor", description: "The windows WPF app made for window application dev for WinOS-Dev.", partId: "winos_dev-editor" }
+            { title: "WinOS_Dev-Editor", description: "The WPF app made for window application dev for WinOS-Dev.", partId: "winos_dev-editor" }
           ]
         },
         {
@@ -38,7 +38,7 @@ window.PORTFOLIO_DATA = {
           title: "WinOS",
           description: "A custom operating-system project organized into four parts: the open-source base, framework development tools, application development tools, and the proprietary WinOS System.",
           image: "images/winos.png",
-          status: "In development | 3 Open Source (MIT), 1 Open Source (Proprietary)",
+          status: "In development | 3 Open Source (MIT), 1 Closed Source (Proprietary)",
           parts: [
             { title: "WinOS-Base", description: "The open-source UEFI bootloader and kernel foundation. MIT licensed.", partId: "winos-base-overview" },
             { title: "WinOS-Editor", description: "WinOS Framework Studio — the open-source framework development environment. MIT licensed.", partId: "winos-editor" },
@@ -50,7 +50,7 @@ window.PORTFOLIO_DATA = {
           id: "waroms",
           title: "Windroidify Android Custom ROMs",
           description: "A planned Android Open Source Project (AOSP) customization effort, with an emphasis on lightweight builds, useful customization, and extending support for older devices.",
-          image: "images/waroms.png",
+          image: "",
           status: "Not Started",
           emptyMessage: "NOT STARTED GNG",
           parts: []
@@ -59,8 +59,8 @@ window.PORTFOLIO_DATA = {
           id: "wdpianochord",
           title: "Windroid Piano",
           description: "An experimental MIDI instrument project exploring custom keyboard hardware and a flexible synthesizer workflow. The current direction includes adapting existing keybeds and prototyping input electronics before expanding the feature set.",
-          image: "images/mobile.png",
-          status: "Prototype / exploration",
+          image: "",
+          status: "Not Started",
           emptyMessage: "NOT STARTED GNG",
           parts: []
         }
