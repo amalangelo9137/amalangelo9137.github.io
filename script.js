@@ -20,6 +20,71 @@ const viewKeys = {
     'part-view': 'part'
 };
 
+function getCanonicalPageUrl() {
+    const url = new URL(window.location.href);
+    const partId = url.searchParams.get('part');
+    const projectId = url.searchParams.get('project');
+    url.search = '';
+    url.hash = '';
+    if (partId) url.searchParams.set('part', partId);
+    else if (projectId) url.searchParams.set('project', projectId);
+    return url.href;
+}
+
+function setPageMetadata({ title, description, name, image }) {
+    const cleanDescription = String(description || 'Explore games, software, operating-system projects, simulations and music by Amal9137.')
+        .replace(/\\s+/g, ' ').trim().slice(0, 300);
+    const pageTitle = title || 'Amal9137 | Game Developer & Creator';
+    const canonicalUrl = getCanonicalPageUrl();
+
+    document.title = pageTitle;
+    const descriptionTag = document.querySelector('meta[name="description"]');
+    if (descriptionTag) descriptionTag.content = cleanDescription;
+
+    const setMeta = (selector, value) => {
+        const element = document.querySelector(selector);
+        if (element && value) element.setAttribute('content', value);
+    };
+    setMeta('meta[property="og:title"]', pageTitle);
+    setMeta('meta[property="og:description"]', cleanDescription);
+    setMeta('meta[property="og:url"]', canonicalUrl);
+    setMeta('meta[property="og:image"]', image || 'https://amalangelo9137.github.io/images/logo.png');
+
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.href = canonicalUrl;
+
+    const structuredData = document.getElementById('page-structured-data');
+    if (structuredData) {
+        structuredData.textContent = JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": name || pageTitle,
+            "headline": pageTitle,
+            "description": cleanDescription,
+            "url": canonicalUrl,
+            "isPartOf": {
+                "@type": "WebSite",
+                "name": "Amal9137",
+                "url": "https://amalangelo9137.github.io/"
+            },
+            "mainEntity": {
+                "@type": "CreativeWork",
+                "name": name || pageTitle,
+                "description": cleanDescription,
+                "creator": { "@type": "Person", "name": "Amal9137" }
+            }
+        });
+    }
+}
+
+function describePart(part) {
+    if (part.seoDescription) return part.seoDescription;
+    const firstContent = (Array.isArray(part.content) ? part.content : [])
+        .find(block => block && (block.type === 'quote' || block.type === 'feature') && (block.text || block.title));
+    const summary = firstContent?.text || firstContent?.title || '';
+    return [part.subtitle, summary].filter(Boolean).join(' ').replace(/\\*\\*/g, '').replace(/\\*/g, '');
+}
+
 function updateNavigationState(viewId) {
     const activeView = (viewId === 'windroid-view' || viewId === 'part-view')
         ? 'projects-view'
@@ -71,15 +136,31 @@ function switchView(viewId, options = {}) {
     if (!target || !viewKeys[viewId]) return false;
 
     // Restore the browser tab title whenever leaving a project-part page.
-    const pageTitles = {
-        'home-view': 'amalangelo9137',
-        'projects-view': 'Projects — amalangelo9137',
-        'media-view': 'Media — amalangelo9137',
-        'contact-view': 'Contact — amalangelo9137',
-        'windroid-view': 'The Windroid Project — amalangelo9137'
+    const pageMetadata = {
+        'home-view': {
+            title: 'Amal9137 | Game Developer & Creator',
+            description: "Explore Amal9137's games, software, operating-system projects, simulations, music and creative experiments."
+        },
+        'projects-view': {
+            title: 'Projects | Amal9137',
+            description: "Explore projects by Amal9137, including Windroid Sim, WinOS, games, software experiments and creative tools."
+        },
+        'media-view': {
+            title: 'Music & Videos | Amal9137',
+            description: "Watch project videos, visualizers and listen to original music by Amal9137."
+        },
+        'contact-view': {
+            title: 'Contact | Amal9137',
+            description: "Contact Amal9137 about software, game development, projects and collaborations."
+        },
+        'windroid-view': {
+            title: 'The Windroid Project | Amal9137',
+            description: "Explore The Windroid Project: an independent software and hardware ecosystem featuring Windroid Sim, WinOS and experimental tools."
+        }
     };
     if (viewId !== 'part-view') {
-        document.title = pageTitles[viewId] || 'amalangelo9137';
+        const metadata = pageMetadata[viewId] || pageMetadata['home-view'];
+        setPageMetadata({ ...metadata, name: metadata.title });
     }
 
     setMenuOpen(false);
@@ -213,20 +294,14 @@ function renderWindroidSubprojects() {
 
     grid.replaceChildren();
     (rootProject?.subprojects || []).forEach(subproject => {
-        const card = document.createElement('article');
+        const card = document.createElement('a');
         card.className = 'card';
-        card.tabIndex = 0;
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-haspopup', 'dialog');
+        card.href = '?project=' + encodeURIComponent(subproject.id);
         card.setAttribute('aria-label', 'Explore ' + subproject.title);
 
-        const open = () => openNode(subproject, 'parts', 'Parts');
-        card.addEventListener('click', open);
-        card.addEventListener('keydown', event => {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                open();
-            }
+        card.addEventListener('click', event => {
+            event.preventDefault();
+            openSubproject(subproject);
         });
 
         const thumb = createProjectImage(
@@ -250,6 +325,39 @@ function renderWindroidSubprojects() {
         card.append(thumb, body);
         grid.appendChild(card);
     });
+}
+
+
+function findSubproject(projectId) {
+    for (const project of portfolioProjects) {
+        const match = (project.subprojects || []).find(item => item.id === projectId);
+        if (match) return match;
+    }
+    return null;
+}
+
+function openSubproject(subproject, options = {}) {
+    if (!subproject) return false;
+
+    if (options.updateHistory !== false) {
+        const url = new URL(window.location.href);
+        url.search = '';
+        url.searchParams.set('project', subproject.id);
+        window.history.pushState({ projectId: subproject.id }, '', url);
+    }
+
+    const root = portfolioProjects.find(project =>
+        project.theme === 'twp' || project.id === 'the-windroid-project'
+    );
+    switchView('windroid-view', { updateHistory: false, focus: false });
+    setPageMetadata({
+        title: (subproject.title || 'Project') + ' | The Windroid Project | Amal9137',
+        description: subproject.seoDescription || subproject.description || 'Explore this project by Amal9137.',
+        name: subproject.title || 'Project',
+        image: subproject.image ? new URL(subproject.image, window.location.href).href : undefined
+    });
+    openNode(subproject, 'parts', 'Parts');
+    return true;
 }
 
 function openProject(project) {
@@ -685,7 +793,11 @@ function renderPart(part) {
     const actions = document.getElementById('part-actions');
     if (!title || !subtitle || !content || !actions) return;
 
-    document.title = (part.title || 'Project part') + ' — amalangelo9137';
+    setPageMetadata({
+        title: (part.title || 'Project part') + ' | Amal9137',
+        description: describePart(part),
+        name: part.title || 'Project part'
+    });
     title.textContent = part.title || 'Project part';
     subtitle.textContent = part.subtitle || '';
     content.replaceChildren();
@@ -717,16 +829,16 @@ function openPart(partId, options = {}) {
     const part = portfolioParts.find(item => item.id === partId);
     if (!part) return false;
 
-    currentPart = part;
-    renderPart(part);
-    switchView('part-view', { updateHistory: false, focus: options.focus !== false });
-
     if (options.updateHistory !== false) {
         const url = new URL(window.location.href);
-        url.searchParams.delete('view');
+        url.search = '';
         url.searchParams.set('part', part.id);
         window.history.pushState({ partId: part.id }, '', url);
     }
+
+    currentPart = part;
+    renderPart(part);
+    switchView('part-view', { updateHistory: false, focus: options.focus !== false });
     return true;
 }
 
@@ -750,6 +862,18 @@ function closeOverlay() {
     document.body.classList.remove('modal-open');
     if (modalReturnFocus?.isConnected) modalReturnFocus.focus();
     modalReturnFocus = null;
+
+    const url = new URL(window.location.href);
+    if (url.searchParams.has('project')) {
+        url.search = '';
+        url.searchParams.set('view', 'windroid');
+        window.history.replaceState({ viewId: 'windroid-view' }, '', url);
+        setPageMetadata({
+            title: 'The Windroid Project | Amal9137',
+            description: 'Explore The Windroid Project: an independent software and hardware ecosystem featuring Windroid Sim, WinOS and experimental tools.',
+            name: 'The Windroid Project'
+        });
+    }
 }
 
 function closeOverlayOnOutsideClick(event) {
@@ -883,22 +1007,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const params = new URLSearchParams(window.location.search);
     const requestedPart = params.get('part');
+    const requestedProject = params.get('project');
     const requestedView = Object.entries(viewKeys).find(([id, key]) =>
         id !== 'part-view' && key === params.get('view')
     )?.[0];
 
     if (requestedPart && openPart(requestedPart, { updateHistory: false, focus: false })) {
-        // A direct part URL opens the shared part viewer.
+        // Direct project-part URL.
+    } else if (requestedProject && findSubproject(requestedProject)) {
+        openSubproject(findSubproject(requestedProject), { updateHistory: false });
     } else if (requestedView && requestedView !== currentViewId) {
         switchView(requestedView, { updateHistory: false, focus: false });
     } else {
         updateNavigationState(currentViewId);
+        setPageMetadata({
+            title: 'Amal9137 | Game Developer & Creator',
+            description: "Explore Amal9137's games, software, operating-system projects, simulations, music and creative experiments.",
+            name: 'Amal9137'
+        });
     }
 
     window.addEventListener('popstate', () => {
         const stateParams = new URLSearchParams(window.location.search);
         const partId = stateParams.get('part');
+        const projectId = stateParams.get('project');
+
         if (partId && openPart(partId, { updateHistory: false })) return;
+        if (projectId && findSubproject(projectId)) {
+            if (document.getElementById('project-overlay')?.classList.contains('active')) {
+                closeOverlay();
+            }
+            openSubproject(findSubproject(projectId), { updateHistory: false });
+            return;
+        }
+
+        if (document.getElementById('project-overlay')?.classList.contains('active')) {
+            closeOverlay();
+        }
         currentPart = null;
         const key = stateParams.get('view');
         const viewId = Object.entries(viewKeys).find(([id, value]) =>
