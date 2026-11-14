@@ -122,7 +122,7 @@ window.PORTFOLIO_DATA = {
           },
           {
               type: "embed",
-              src: "https://www.youtube-nocookie.com/embed/_pbD9caaxyk?si=ljXwrIZdzP39jIE7n-picture",
+              src: "https://www.youtube-nocookie.com/embed/_pbD9caaxyk",
               title: "Dev demo",
               caption: "Watch the project in action."
           },
@@ -293,7 +293,7 @@ window.PORTFOLIO_DATA = {
           type: "list",
           items: [
             "A JSON-based .wdfp project format with editor project creation, saving, and opening.",
-            "Hierarchies to expose the current project trees, claases etc. full project wise and file wise.",
+            "Hierarchies to expose the current project trees, classes etc. full project wise and file wise.",
             "LLVM required, but externally installed to make the app lightweight."
           ]
         },

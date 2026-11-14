@@ -758,13 +758,6 @@ function closeOverlayOnOutsideClick(event) {
     }
 }
 
-function showHomeFallback() {
-    const image = document.getElementById('synfig-animation');
-    const fallback = document.getElementById('fallback-h1');
-    if (image) image.style.display = 'none';
-    if (fallback) fallback.style.display = 'block';
-}
-
 function toggleMenu() {
     const nav = document.getElementById('nav-links');
     const isOpen = nav?.classList.contains('nav-active') ?? false;
@@ -773,7 +766,6 @@ function toggleMenu() {
         document.querySelector('#nav-links button')?.focus();
     }
 }
-
 
 function getOverlayFocusableElements(overlay) {
     return [...overlay.querySelectorAll(
@@ -867,7 +859,6 @@ function keepFocusInsideOverlay(event) {
 
 window.addEventListener('keydown', handleDocumentKeydown, true);
 document.addEventListener('focusin', keepFocusInsideOverlay);
-
 
 document.addEventListener('click', event => {
     const control = event.target.closest('[data-view]');
