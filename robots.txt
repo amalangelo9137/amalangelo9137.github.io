@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amalangelo9137.github.io/sitemap.xml
